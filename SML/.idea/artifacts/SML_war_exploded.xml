@@ -7,6 +7,9 @@
         <element id="directory" name="classes">
           <element id="module-output" name="SML" />
           <element id="jpa-descriptors" facet="SML/jpa/JPA" />
+          <element id="library" level="project" name="jQuery" />
+          <element id="library" level="application" name="jquery-3.6.0" />
+          <element id="library" level="application" name="jquery.form" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Spring-5.2.3.RELEASE" />

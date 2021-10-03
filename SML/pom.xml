@@ -229,6 +229,23 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <!-- applicationContext.xml 파일에서 mybatis-spring:scan 에 있는 Mapper.xml 파일 경로를 읽게하기 위함 (java패키지 속을 읽음) -->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+
     </build>
 
 
