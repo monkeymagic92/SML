@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+
+    <!-- oracle 기준  -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+
+    <!--  db관련 정보 properties에 넣기위함 용   /   경로 :  alt + ins - File -->
+    <context:property-placeholder location="classpath:/config/config-properties" />
+
+    <!-- 얘는 인터페이스의 Mapper.xml를 찾는 애 (mapper.xml = namespace에 해당 oooMppaer 인터페이스 를 입력하면 자동으로 찾아줌 -->
+    <mybatis-spring:scan base-package="com.sml.*"/>  <!-- con.info패키지 아래 경로 mapper namesapce를 찾겠다 (Mppaer interface와 Mpaper sql namespace를 일체 시켜주면 됨  -->
+
+    <!-- 'configLocation' - mybatis-config.xml - mybatis alias 지정하는 파일
+         'mapperLocations' - mapper - DB쿼리 작성  -->
+    <bean id="sqlSessionFactory" class="com.sml.core.RefreshableSqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:/mybatis/mybatis-config.xml"/>
+        <!-- mapperLocations에서 classpath* 붙여줘도되고 안붙여줘도 되고 !!! -->
+        <property name="mapperLocations" value="classpath:/mapper/*.xml"/>
+        <property name="interval" value="1000" />
+    </bean>
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"></constructor-arg>
+    </bean>
+
+</beans>
