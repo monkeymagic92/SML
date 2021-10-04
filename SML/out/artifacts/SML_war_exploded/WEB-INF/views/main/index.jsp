@@ -28,7 +28,7 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
 <script>
 
-    commonTest(); // 경로 : ajaxCommon.jsp -> ajaxCommonFile.js 에서 넘어온 것
+    // commonTest(); // 경로 : ajaxCommon.jsp -> ajaxCommonFile.js 에서 넘어온 것
 
 </script>
 </body>
