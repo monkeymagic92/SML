@@ -25,6 +25,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:/mybatis/mybatis-config.xml"/>
         <!-- mapperLocations에서 classpath* 붙여줘도되고 안붙여줘도 되고 !!! -->
+        <!-- 수정되려면 mapperLocation 타입을 Resource[]가 아닌 Source[]로 변경하기  -->
         <property name="mapperLocations" value="classpath:/mapper/**/*.xml"/>
         <property name="interval" value="1000" />
     </bean>

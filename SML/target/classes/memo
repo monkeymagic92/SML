@@ -19,13 +19,15 @@
 2021-10-03
     {
         작업내용 :
-            -
+            - dispatcherServlet, applicationContext 경로 위치 변경하기  (web.xml 참고)
 
         작업할 내용 :
             -
 
         앞으로 할일 :
-            - dispatcherServlet, applicationContext 경로 위치 변경하기
+            - refreshableSqlSessionFactoryBean.java (새로고침시 xml파일 리로드)
+            상속자 SqlSessionFactoryBean.java 에서 private Resource[] mapperLocations; 를 private Source[] mapperLocation으로 변경해보기
+            이유 : 현재 mapper.xml 파일을 resources가 아닌 java 패키지 내에 위치할경우 정상적인 리로드가 안됨
     }
 
 2021-10-

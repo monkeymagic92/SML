@@ -18,6 +18,6 @@ public class MainController {
         model.addAttribute("name", "이재용");
         model.addAttribute("list", service.selectMain());
 
-        return "main/index";
+        return "main/mainIndex";
     }
 }

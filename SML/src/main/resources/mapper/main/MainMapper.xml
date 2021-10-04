@@ -5,6 +5,7 @@
 
     <select id="selectMain"  resultType="MainVO">
         SELECT I_NUM, TITLE FROM COIN
+        WHERE I_NUM = 3
     </select>
 
 </mapper>
