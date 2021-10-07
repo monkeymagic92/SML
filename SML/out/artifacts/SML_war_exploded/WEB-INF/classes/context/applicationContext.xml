@@ -19,11 +19,11 @@
     <!-- 얘는 인터페이스의 @Mapper를 찾는 애 -->
     <mybatis-spring:scan base-package="com.sml.*"/> <!--  하단 탭에Namespace import 안해서 빨간줄 뜨는것  -->
 
-    <!-- 'configLocation' - mybatis-config.xml - mybatis alias 지정하는 파일
+    <!-- 'configLocation' - mybatis-alias.xml - mybatis alias 지정하는 파일
          'mapperLocations' - mapper - DB쿼리 작성  -->
     <bean id="sqlSessionFactory" class="com.sml.core.RefreshableSqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="configLocation" value="classpath:/mybatis/mybatis-config.xml"/>
+        <property name="configLocation" value="classpath:/mybatis/mybatis-alias.xml"/>
         <!-- mapperLocations에서 classpath* 붙여줘도되고 안붙여줘도 되고 !!! -->
         <!-- 수정되려면 mapperLocation 타입을 Resource[]가 아닌 Source[]로 변경하기  -->
         <property name="mapperLocations" value="classpath:/mapper/**/*.xml"/>

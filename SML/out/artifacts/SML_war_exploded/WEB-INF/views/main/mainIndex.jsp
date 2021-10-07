@@ -12,7 +12,7 @@
 
     <title>Title</title>
     <%-- ajax공통함수cdn jsp파일 --%>
-    <%@ include file="../common/ajaxCommon.jsp" %>
+    <%@ include file="../../common/ajaxCommon.jsp" %>
 
 </head>
 <body>
@@ -23,12 +23,21 @@
     </c:forEach>
     <h1>${name}</h1>
 
+    <form id="frm" name="frm">
+        <input type="text" id="i_num" name="i_num">
+        <input type="text" id="title" name="title">
+    </form>
+
+    <button type="button" id="btn" name="btn" onclick="onBtn()">클릭</button>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
 <script>
 
-    commonTest(); // 경로 : ajaxCommon.jsp -> ajaxCommonFile.js 에서 넘어온 것
+    function onBtn() {
+        fnSearch("/main/ajax", "#frm");
+    }
 
 </script>
 </body>

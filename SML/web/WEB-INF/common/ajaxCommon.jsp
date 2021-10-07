@@ -12,5 +12,4 @@
     <!-- ajax관련 공통함수 -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/res/js/ajaxCommonFile.js"></script>
 
-
 </html>
