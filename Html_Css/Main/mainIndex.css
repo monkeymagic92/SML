@@ -1,11 +1,19 @@
-.test {
+body {
     background-color: black;
-    width: 200px;
-    height: 200px;
-    transition: 3.1s;
+    margin: 0; 
+    overflow:hidden
 }
 
-.test:hover {
-    height: 600px;
-    transition: 5s;
+#canvas {
+    width: 35%;
 }
+
+#a {
+    position: absolute;
+    top: 410px;
+    left: 840px;
+    background-color: white;
+    width: 200px;
+    height: 100px;
+}
+

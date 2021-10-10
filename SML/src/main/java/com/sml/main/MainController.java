@@ -2,6 +2,7 @@ package com.sml.main;
 
 import com.sml.common.ComController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +17,15 @@ public class MainController extends ComController {
     @Autowired
     private MainService service;
 
+    @Value("${db.username}")
+    private String userName;
+
     @RequestMapping(value = "main/index", method = RequestMethod.GET)
     public String index(Model model) {
 
+        System.out.println("--jytest--");
+        System.out.println(userName);
+        System.out.println("--jytest--");
 
         model.addAttribute("name", "이재용");
         model.addAttribute("list", service.selectMain());
