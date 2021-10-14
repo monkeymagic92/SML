@@ -3,7 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd"
+>
 
     <!-- oracle 기준  -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -33,5 +35,16 @@
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg ref="sqlSessionFactory"></constructor-arg>
     </bean>
+
+    <!-- AOP AspectJ Start -->
+    <bean id="AopAdviceService" class="com.sml.aop.AopAdvice"/>
+    <aop:config>
+        <!-- AopAdviceService -->
+        <aop:aspect ref="AopAdviceService">
+            <aop:pointcut id="infoCallTrace" expression="execution(* com..*Controller.*(..))"/>
+            <aop:before pointcut-ref="infoCallTrace" method="beforeMethodCall"/>
+        </aop:aspect>
+    </aop:config>
+    <!-- AOP AspectJ End -->
 
 </beans>

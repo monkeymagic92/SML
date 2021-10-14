@@ -22,6 +22,7 @@
         <div>${item.title}</div>
     </c:forEach>
     <h1>${name}</h1>
+    <h2>${aop}</h2>
 
     <form id="frm" name="frm">
         <input type="text" id="i_num" name="i_num">
