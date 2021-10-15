@@ -1,10 +1,10 @@
 #oracle
-db.username=hr
-db.password=jy
+db.orcl.username=hr
+db.orcl.password=jy
 
 #mysql
-db.nm=orcl
-db.pw=root
+db.maria.username=root
+db.maria.password=orcl
 
 #kakao-properties
 

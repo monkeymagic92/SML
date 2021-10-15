@@ -17,7 +17,8 @@ public class MainController extends ComController {
     @Autowired
     private MainService service;
 
-    @Value("${db.username}")
+    // resources - config - config-properties 파일안에 있는 프로퍼티값을 자바에서 사용하기위함
+    @Value("${db.maria.username}")
     private String userName;
 
     @RequestMapping(value = "main/index", method = RequestMethod.GET)

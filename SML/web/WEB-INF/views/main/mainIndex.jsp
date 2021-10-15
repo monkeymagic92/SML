@@ -37,7 +37,7 @@
 <script>
 
     function onBtn() {
-        fnSearch("/main/ajax", "#frm");
+        fnSearch("/main/ajax", "#frm"); // ajaxComonFile.js  ->  ../../common/ajaxCommon.jsp 에서 넘어온 함수
     }
 
 </script>
