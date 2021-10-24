@@ -25,10 +25,10 @@ public class Test {
 
         try {
             int CONNECT_TIMEOUT_VALUE = 5000; //미세먼지 URL 연결 실패 시 시간설정(5초)
-            int READ_TIMEOUT_VALUE = 5000; //미세먼지 데이터 조회 시간설정(5초).....
+            int READ_TIMEOUT_VALUE = 5000;    //미세먼지 데이터 조회 시간설정(5초).....
 
-            StringBuilder urlBuilder = new StringBuilder("https://devim.dgist.ac.kr:8443/im/api/ChangePassword"); //URL
-            urlBuilder.append("?" + URLEncoder.encode("LoginID", "UTF-8") + "=" + URLEncoder.encode(LoginID, "UTF-8"));
+            StringBuilder urlBuilder = new StringBuilder("https://api.upbit.com/v1/market/all?"); //URL
+//            urlBuilder.append("?" + URLEncoder.encode("LoginID", "UTF-8") + "=" + URLEncoder.encode(LoginID, "UTF-8"));
 
             URL url = new URL(urlBuilder.toString());
 
@@ -36,7 +36,7 @@ public class Test {
 
             conn.setConnectTimeout(CONNECT_TIMEOUT_VALUE);	//서버 접속시 연결 시간
             conn.setReadTimeout(READ_TIMEOUT_VALUE);		//연결 후 데이터 가져오는 시간
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("GET");
             conn.setRequestProperty("Content-type", "application/json;utf-8");
 
             int code = conn.getResponseCode();
