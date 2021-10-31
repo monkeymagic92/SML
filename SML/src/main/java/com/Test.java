@@ -1,6 +1,7 @@
 package com;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -9,7 +10,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLEncoder;
 
 public class Test {
 
@@ -67,8 +67,6 @@ public class Test {
 
             if(sb.length() > 0) {
                 result += line;
-                JsonParser parser = new JsonParser();
-                JsonElement element = parser.parse(result);
             }
 
         } catch (Exception e) {
