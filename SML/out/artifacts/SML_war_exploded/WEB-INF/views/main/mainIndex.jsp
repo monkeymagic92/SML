@@ -29,12 +29,6 @@
     <h2>${aop}</h2>
 
 
-    <h1>fds</h1>
-
-
-
-
-
     <form id="frm" name="frm">
         <input type="text" id="i_num" name="i_num">
         <input type="text" id="title" name="title">

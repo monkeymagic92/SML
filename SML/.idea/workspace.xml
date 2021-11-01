@@ -51,16 +51,16 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\SML\src\main\resources\static\css" />
-      <recent name="D:\SML\src\main\resources\static\css\bootstrap-3.3.2\dist\css" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\SML\src\main\resources\static\css" />
       <recent name="D:\SML\src\main\resources\context" />
       <recent name="D:\SML\web\WEB-INF" />
       <recent name="D:\SML\web\WEB-INF\views\common" />
       <recent name="D:\SML\src\main\resources\mapper\main" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\SML\src\main\resources\static\css" />
+      <recent name="D:\SML\src\main\resources\static\css\bootstrap-3.3.2\dist\css" />
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.37">
@@ -322,7 +322,7 @@
       <workItem from="1635572153944" duration="2455000" />
       <workItem from="1635644871384" duration="5978000" />
       <workItem from="1635687639935" duration="1417000" />
-      <workItem from="1635761981091" duration="3189000" />
+      <workItem from="1635761981091" duration="3728000" />
     </task>
     <servers />
   </component>
@@ -342,11 +342,11 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="792" y="404" key="#com.intellij.codeInsight.i18n.I18nizeQuickFixDialog/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1634302111464" />
-    <state x="414" y="181" width="1092" height="719" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1635163791642">
+    <state x="414" y="181" width="1092" height="719" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1635766920950">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="414" y="174" width="1092" height="719" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1633268058769" />
-    <state x="414" y="181" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1635163791642" />
+    <state x="414" y="181" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1635766920950" />
     <state x="413" y="107" width="971" height="784" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog" timestamp="1633834228467">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -494,12 +494,12 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="490" y="194" key="Maven.ArtifactSearchDialog/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1634958045451" />
-    <state x="440" y="98" key="SettingsEditor" timestamp="1635765293101">
+    <state x="440" y="98" key="SettingsEditor" timestamp="1635766802737">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="440" y="94" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1633616678375" />
     <state x="-1480" y="98" key="SettingsEditor/0.0.1920.1080/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1635650576353" />
-    <state x="440" y="98" key="SettingsEditor/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1635765293101" />
+    <state x="440" y="98" key="SettingsEditor/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1635766802737" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1634221581358">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -520,12 +520,12 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="601" y="265" width="700" height="530" key="recent.locations.popup/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1634733805385" />
-    <state x="623" y="234" width="672" height="705" key="search.everywhere.popup" timestamp="1635764807873">
+    <state x="623" y="234" width="672" height="705" key="search.everywhere.popup" timestamp="1635766863994">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1633613531337" />
     <state x="-1297" y="234" width="672" height="705" key="search.everywhere.popup/0.0.1920.1080/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1635687658025" />
-    <state x="623" y="234" width="672" height="705" key="search.everywhere.popup/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1635764807873" />
+    <state x="623" y="234" width="672" height="705" key="search.everywhere.popup/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1635766863994" />
     <state x="640" y="206" key="spring file set editor" timestamp="1634730686283">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
