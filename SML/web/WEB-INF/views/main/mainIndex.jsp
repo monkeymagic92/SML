@@ -16,6 +16,10 @@
 
 </head>
 <body>
+<%
+    String a = "";
+
+%>
 
     <c:forEach items="${list}" var="item">
         <div>${item.i_num}</div>
@@ -23,6 +27,13 @@
     </c:forEach>
     <h1>${name}</h1>
     <h2>${aop}</h2>
+
+
+    <h1>fds</h1>
+
+
+
+
 
     <form id="frm" name="frm">
         <input type="text" id="i_num" name="i_num">

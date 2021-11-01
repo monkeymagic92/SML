@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+    <!-- 참고 : https://engkimbs.tistory.com/861 -->
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%style{%d{yyyy-MM-dd HH:mm:ss.SSS}}{white} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow} %C: %msg%n%throwable"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <!-- log4jdbc log setting start (참고 : https://log4jdbc.brunorozendo.com/) -->
+        <logger name="java.sql.Connection" level="OFF" />
+        <logger name="jdbc.sqlonly" level="OFF"/>
+        <logger name="jdbc.sqltiming" level="debug"/>
+        <logger name="jdbc.audit" level="OFF"/>
+        <logger name="jdbc.resultset" level="OFF"/>
+        <logger name="jdbc.resultsettable" level="OFF"/>
+        <logger name="jdbc.connection" level="OFF"/>
+        <!-- log4jdbc log setting end -->
+
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -10,7 +10,7 @@ function fnSearch() {
     var url = args[0];
     var frm = args[1];
 
-    $(frm).ajaxSubmit({
+    $(frm).ajax({
         type: 'post'
         , url: url
     })

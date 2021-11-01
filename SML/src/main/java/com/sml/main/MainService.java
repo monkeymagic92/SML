@@ -14,4 +14,6 @@ public class MainService {
     public List<MainVO> selectMain() {
         return mapper.selectMain();
     }
+
+    // Controller <-> SErvice
 }

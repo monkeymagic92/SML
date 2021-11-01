@@ -20,22 +20,24 @@
     -->
 
     <!-- mysql / mariaDB 연동 -->
-    <!--
+
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/SML?characterEncoding=UTF-8&amp;serverTimezone=UTC"/>
+        <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+        <property name="url" value="jdbc:log4jdbc:mysql://localhost:3306/SML?characterEncoding=UTF-8&amp;serverTimezone=UTC"/>
         <property name="username" value="${db.maria.username}"/>
         <property name="password" value="${db.maria.password}"/>
     </bean>
-    -->
 
-    <!-- mysql / mariaDB 서버연동 -->
+
+    <!-- mysql / mariaDB 서버연동(배포) -->
+    <!--
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://${db.server.url}/HiBaby?characterEncoding=UTF-8&amp;serverTimezone=UTC"/>
         <property name="username" value="${db.server.username}"/>
         <property name="password" value="${db.server.password}"/>
     </bean>
+    -->
     <!-- ########################### DB연동 정보 End ########################### -->
 
 
@@ -54,7 +56,7 @@
         <property name="configLocation" value="classpath:/mybatis/mybatis-alias.xml"/>
         <!-- mapperLocations에서 classpath* 붙여줘도되고 안붙여줘도 되고 -->
         <!-- 수정되려면 mapperLocation 타입을 Resource[]가 아닌 Source[]로 변경하기  21.10.29 (일단 보류, 회사코드도 Resource[] 로되어있음 -->
-        <property name="mapperLocations" value="classpath:/mapper/main/MainMapper.xml"/>
+        <property name="mapperLocations" value="classpath:/mapper/**/*Mapper.xml"/>
         <property name="interval" value="1000" />
     </bean>
 
