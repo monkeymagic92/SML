@@ -49,7 +49,7 @@
     }
 
     function moveTestBoot() {
-        location.href="/main/test";
+        location.href="/main/test?id=123";
     }
 
 </script>
