@@ -35,6 +35,9 @@
     </form>
 
     <button type="button" id="btn" name="btn" onclick="onBtn()">클릭</button>
+    <button type="button" id="testBoot" name="testBoot" onclick="moveTestBoot()">부스스트랩 이동</button>
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -43,6 +46,10 @@
 
     function onBtn() {
         fnSearch("/main/ajax", "#frm"); // ajaxComonFile.js  ->  ../../common/ajaxCommon.jsp 에서 넘어온 함수
+    }
+
+    function moveTestBoot() {
+        location.href="/main/test";
     }
 
 </script>
