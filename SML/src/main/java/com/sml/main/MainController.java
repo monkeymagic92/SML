@@ -24,7 +24,7 @@ public class MainController extends ComController {
     @RequestMapping(value = "main/index", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request) {
 
-        System.out.println("github 연동 테스트2-3");
+        System.out.println("github 연동 테스트@@@@@@@@@@@");
 
         // 인터셉터에서 값 가져오기
         String interceptorTest = (String) request.getAttribute("interceptorTest");
