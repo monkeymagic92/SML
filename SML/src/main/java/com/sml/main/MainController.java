@@ -1,6 +1,7 @@
 package com.sml.main;
 
 import com.sml.common.ComController;
+import com.sml.common.TimeMaximum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 public class MainController extends ComController {
@@ -24,8 +28,6 @@ public class MainController extends ComController {
     @RequestMapping(value = "main/index", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request) {
 
-        System.out.println("github 연동 테스트@@@@@@@@@@@");
-
         // 인터셉터에서 값 가져오기
         String interceptorTest = (String) request.getAttribute("interceptorTest");
         System.out.println(interceptorTest);
@@ -35,6 +37,23 @@ public class MainController extends ComController {
 
         model.addAttribute("name", "이재용");
         model.addAttribute("list", service.selectMain());
+
+
+        /*------ 시,일,월 얼마나 경과했는지 알려주는 로직 ------*/
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = sdf.parse("2021-11-08 12:33:33"); // 예시1
+            //date = sdf.parse("2021-11-05 12:34:56");  예시2
+            //date = sdf.parse("2020-05-08 12:11:24");  예시3
+            System.out.println("fds");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String strR_dt = TimeMaximum.calculateTime(date);
+        System.out.println("경과시간 : " + strR_dt);
+
+
 
         return "main/mainIndex";
     }

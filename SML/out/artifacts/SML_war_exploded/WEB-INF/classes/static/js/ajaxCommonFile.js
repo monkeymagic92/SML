@@ -4,6 +4,10 @@ function commonTest() {
     alert('common Test');
 }
 
+function test() {
+
+}
+
 function fnSearch() {
     var args = arguments;
 
