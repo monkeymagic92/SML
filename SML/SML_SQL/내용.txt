@@ -1,0 +1,10 @@
+
+
+		이그노어 처리하기 @@@@@@@@
+
+CREAT TABLE
+CRUD,
+FUNCTION,
+TRIGGER,
+PROCEDURE,
+등등 쿼리 전체 작성하기

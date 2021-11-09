@@ -11,7 +11,7 @@
 .mtj.tmp/
 
 # Properties
-*.properties
+*-properties
 
 # Package Files #
 *.jar
