@@ -38,8 +38,6 @@
     <button type="button" id="testBoot" name="testBoot" onclick="moveTestBoot()">부스스트랩 이동</button>
 
 
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
 <script>

@@ -45,7 +45,7 @@ public class MainController extends ComController {
             date = sdf.parse("2021-11-08 12:33:33"); // 예시1
             //date = sdf.parse("2021-11-05 12:34:56");  예시2
             //date = sdf.parse("2020-05-08 12:11:24");  예시3
-            System.out.println("fds");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
