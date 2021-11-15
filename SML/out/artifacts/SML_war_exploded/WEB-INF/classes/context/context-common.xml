@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:beans="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- 어노테이션 기반으로 동작하도록 설정 추가 (@....를 찾겠다 빈등록)-->
+    <mvc:annotation-driven/>
+
+    <!-- jsp에서 /res/ 로 입력시 src/main/resources/static 경로를 자동으로 참조하겠다 -->
+    <mvc:resources mapping="/res/**" location="classpath:/static/" />
+
+    <!-- 아래 패키지로 경로를 확인하겠다(?) 찾겠다 -->
+    <context:component-scan base-package="com.sml" />
+
+    <!-- 자바에서 properties값 사용하기 위함 (참고 : MainController)
+        JAVA에서 사용법 :    @Value("#{systemProp['db.maria.username']}")
+                            private String userName;   // 프로퍼티변수 값이 담김
+        ${spring.profiles.active} 값은 톰캣에 VMoption에 설정한 값을 가지고옴  (VM설정은 추후 WIN_SCP / 인텔리제이에서 알아서 구분함)
+    -->
+    <util:properties id="systemProp" location="classpath:/config/${spring.profiles.active}/system.properties"/>
+
+
+    <!-- View Resolver 설정 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- AOP AspectJ Start -->
+    <bean id="AopAdviceService" class="com.sml.utils.aop.AopAdvice"/>
+    <aop:config>
+        <!-- AopAdviceService -->
+        <aop:aspect ref="AopAdviceService">
+            <aop:pointcut id="infoCallTrace" expression="execution(* com..*Controller.*(..))"/>
+            <aop:before pointcut-ref="infoCallTrace" method="beforeMethodCall"/>
+        </aop:aspect>
+    </aop:config>
+    <!-- AOP AspectJ End -->
+
+
+    <!-- 인터셉터 Start -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**/*" /> <!-- 모든 URL 요청시 모두수행 -->
+
+            <!-- <mvc:mapping path="/record/*" /> record 하위 요청시 모두수행 -->
+
+            <mvc:exclude-mapping path="/Join.do"/> <!-- 이 URL 제외시킴 -->
+            <bean class="com.sml.utils.common.CommonInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+    <!-- 인터셉터 End -->
+
+</beans>
