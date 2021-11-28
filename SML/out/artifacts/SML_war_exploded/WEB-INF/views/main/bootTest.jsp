@@ -11,12 +11,16 @@
 <html>
 <head>
     <title>titleName..</title>
-    <%@ include file="../../common/ajaxCommon.jsp" %>
-    <%-- css --%>
-    <link href="/res/css/bootThema.css" rel="stylesheet">
-    <link href="/res/css/dashboard.css" rel="stylesheet">
+    <%@ include file="../../common/commonUtils.jsp" %>
+
+    <style>
+        #aa:hover {
+            background-color: black;
+        }
+    </style>
 
 </head>
+
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
@@ -93,9 +97,9 @@
 
             <h2 class="sub-header">Section title</h2>
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped" style="cursor: pointer;">
                     <thead>
-                    <tr>
+                    <tr id="aa">
                         <th>#</th>
                         <th>Header</th>
                         <th>Header</th>
@@ -230,7 +234,7 @@
 <script>
 
     $(document).ready(function () {
-        // ...
+        //..
     })
 
 </script>

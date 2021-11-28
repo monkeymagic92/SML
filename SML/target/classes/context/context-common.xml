@@ -18,7 +18,7 @@
     <!-- 자바에서 properties값 사용하기 위함 (참고 : MainController)
         JAVA에서 사용법 :    @Value("#{systemProp['db.maria.username']}")
                             private String userName;   // 프로퍼티변수 값이 담김
-        ${spring.profiles.active} 값은 톰캣에 VMoption에 설정한 값을 가지고옴  (VM설정은 추후 WIN_SCP / 인텔리제이에서 알아서 구분함)
+        ${spring.profiles.active} 값은 로컬톰캣 VMoption에 설정한 값을 가지고옴  (VM설정은 추후 WIN_SCP / 인텔리제이에서 알아서 구분함) (WIN_SCP는 Tistory sventh.sh? 파일에 설정해놓음)
     -->
     <util:properties id="systemProp" location="classpath:/config/${spring.profiles.active}/system.properties"/>
 

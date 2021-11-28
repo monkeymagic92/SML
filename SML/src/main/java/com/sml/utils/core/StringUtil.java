@@ -1,6 +1,6 @@
 package com.sml.utils.core;
 
-import com.sml.utils.common.ComController;
+import com.sml.utils.common.CommonController;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
-public class StringUtil extends ComController {
+public class StringUtil extends CommonController {
 
     private static String BEFORE_CHAR_SET = "";
     private static String AFTER_CHAR_SET = "";
