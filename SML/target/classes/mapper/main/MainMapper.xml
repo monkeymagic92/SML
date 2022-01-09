@@ -5,7 +5,21 @@
 
     <select id="selectMain" resultType="MainVO">
         SELECT I_NUM, TITLE FROM COIN
-        WHERE I_NUM = 3
+        WHERE I_NUM = 2
     </select>
+
+    <insert id="insertMain" parameterType="LinkedHashMap">
+        INSERT INTO COIN
+        (I_NUM, TITLE)
+        VALUES
+        (#{I_NUM}, #{TITLE})
+    </insert>
+
+    <insert id="insertMain2" parameterType="LinkedHashMap">
+        INSERT INTO COIN
+        (I_NUM, TITLE)
+        VALUES
+        (1, #{TITLE})
+    </insert>
 
 </mapper>

@@ -1,6 +1,7 @@
 package com.sml.main;
 
 import com.sml.utils.common.CommonController;
+import com.sml.utils.util.Bind;
 import com.sml.utils.util.TimeMaximum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,14 +12,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class MainController extends CommonController {
 
     @Autowired
-    private MainService service;
+    private MainServiceImpl service;
 
     // resources - config - config-properties 파일안에 있는 프로퍼티값을 자바에서 사용하기위함 (설정: context-commmon.xml - <util:properties ..>)
     @Value("#{systemProp['db.maria.username']}")
@@ -37,21 +41,8 @@ public class MainController extends CommonController {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     @RequestMapping(value = "main/index", method = RequestMethod.GET)
-    public String index(Model model, HttpServletRequest request) {
+    public String index(Model model, HttpServletRequest request) throws Exception {
 
         // 인터셉터에서 값 가져오기
         String interceptorTest = (String) request.getAttribute("interceptorTest");
@@ -61,7 +52,7 @@ public class MainController extends CommonController {
         System.out.println("propertie value : " + userName);
 
         model.addAttribute("name", "이재용");
-        model.addAttribute("list", service.selectMain());
+        model.addAttribute("list", service.selectMain(request));
 
 
         /*------ 시,일,월 얼마나 경과했는지 알려주는 로직 ------*/
@@ -82,16 +73,22 @@ public class MainController extends CommonController {
         return "main/index";
     }
 
-    @RequestMapping(value = "main/ajax", method = RequestMethod.POST)
-    @ResponseBody
-    public MainVO ajaxTestPost(Model model, MainVO vo, HttpServletRequest request) {
 
-        System.out.println("--test--");
-        System.out.println(vo.getI_num());
-        System.out.println(vo.getTitle());
-        
-        return vo;
+    @RequestMapping(value = "main/ajax2", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> ajax2(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        String chk = "";
+        Bind bind = new Bind(request);
+        map = bind.getDto();
+
+        service.insertMain(map);
+
+        return map;
     }
+
+
 
     // 부트스트랩 테스트용
     @RequestMapping(value = "main/test", method = RequestMethod.GET)

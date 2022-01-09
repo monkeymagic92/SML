@@ -145,6 +145,13 @@
             </exclusions>
         </dependency>
 
+        <!-- 트랜잭션 어노테이션 관련 디펜던시 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${org.springframework-version}</version>
+        </dependency>
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
