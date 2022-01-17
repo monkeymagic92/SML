@@ -9,4 +9,5 @@ public class CommonController {
 
     // Log
     protected Logger logger = Logger.getLogger(this.getClass());
+
 }

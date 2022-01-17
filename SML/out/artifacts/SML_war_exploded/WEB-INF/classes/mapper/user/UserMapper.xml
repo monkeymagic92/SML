@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sml.user.UserMapper">
+
+    <select id="selUser" parameterType="LinkedHashMap" resultType="UserVO">
+        SELECT
+            I_USER
+            , USER_ID
+            , USER_PW
+        FROM T_USER
+        WHERE 1=1
+        <if test='I_USER != ""'>
+            AND I_USER = #{I_USER}
+        </if>
+    </select>
+
+    <insert id="insertTr1">
+        INSERT INTO T_1
+        (I_T1, I_TITLE)
+        VALUES
+        ('7', 'T_1 이');
+    </insert>
+
+    <insert id="insertTr2">
+        INSERT INTO T_2
+        (I_T2, I_TITLE)
+        VALUES
+        ('3', 'T_2 이');
+    </insert>
+
+    <insert id="t_test">
+        INSERT INTO T_TEST
+        (TITLE)
+        VALUES
+        ('FF')
+    </insert>
+</mapper>

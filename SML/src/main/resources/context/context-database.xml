@@ -4,7 +4,14 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+
+    <!--
+        스케쥴 지정 ( database.xml에 설정  common.xml에 설정 하니 스케줄러 두번 실행되는 현상 발생 )
+    -->
+    <task:annotation-driven/>
 
     <!-- ########################### DB연동 정보 Start ########################### -->
     <!-- oracle 연동  -->
@@ -49,5 +56,31 @@
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg ref="sqlSessionFactory"></constructor-arg>
     </bean>
+
+
+    <!-- Transaction AOP Start -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 자바단에서 @Transactional(rollbackFor=Exception.class) 을 사용할수있게 트랜잭션 어노테이션 생성 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+
+    <!-- xml 트랜잭션 생성  (아직 미완성 추후 더 살펴보기) -->
+<!--    <tx:advice id="txAdvice" transaction-manager="transactionManager">-->
+<!--        <tx:attributes>-->
+<!--            <tx:method name="list*" read-only="true"/>-->
+<!--            <tx:method name="select*" read-only="true"/>-->
+<!--            <tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception"/>    &lt;!&ndash; rollback-for="Exception" 으로도 해보기 &ndash;&gt;-->
+<!--            <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>-->
+<!--            <tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>-->
+<!--            <tx:method name="save*" propagation="REQUIRED" rollback-for="Exception"/>-->
+<!--        </tx:attributes>-->
+<!--    </tx:advice>-->
+
+<!--    <aop:config>-->
+<!--        <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* com..*Service.*(..))" />-->
+<!--    </aop:config>-->
 
 </beans>
