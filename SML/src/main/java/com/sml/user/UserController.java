@@ -1,6 +1,7 @@
 package com.sml.user;
 
 import com.sml.utils.common.CommonController;
+import com.sml.utils.core.StringUtil;
 import com.sml.utils.util.Bind;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +29,6 @@ public class UserController extends CommonController {
 
 	@RequestMapping(value = "user/main", method = RequestMethod.GET)
 	public String login(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-
-
 		return "user/main";
 	}
 
@@ -39,6 +37,12 @@ public class UserController extends CommonController {
 	public List<?> ajax(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Bind bind = new Bind(request);
 		Map<String, Object> map = bind.getDto();
+
+		System.out.println("--jytest--");
+		System.out.println(StringUtil.nullValue(map.get("CRT_DT")));
+		System.out.println(StringUtil.nullValue(map.get("UPD_DT")));
+		System.out.println("--jytest--");
+
 
 		List<?> list = service.selUser(map);
 

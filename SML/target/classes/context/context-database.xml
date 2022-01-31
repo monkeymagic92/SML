@@ -8,11 +8,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
 
-    <!--
-        스케쥴 지정 ( database.xml에 설정  common.xml에 설정 하니 스케줄러 두번 실행되는 현상 발생 )
-    -->
-    <task:annotation-driven/>
-
     <!-- ########################### DB연동 정보 Start ########################### -->
     <!-- oracle 연동  -->
     <!--
@@ -56,6 +51,12 @@
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg ref="sqlSessionFactory"></constructor-arg>
     </bean>
+
+
+    <!--
+       스케쥴 지정 ( database.xml에 설정  common.xml에 설정 하니 스케줄러 두번 실행되는 현상 발생 )
+     -->
+    <task:annotation-driven/>
 
 
     <!-- Transaction AOP Start -->

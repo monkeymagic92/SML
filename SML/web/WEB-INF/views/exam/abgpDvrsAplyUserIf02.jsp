@@ -52,7 +52,7 @@
 
         $(document).ready(function(){
             /* 기본 정보 정의 시작 */
-            gridObj1 = $("#grid1"); //그리드 DIV 아이디 정의ServiceCall
+            gridObj1 = $("#grid1"); //그의리드 DIV 아이디 정ServiceCall
             gridObj2 = $("#grid2"); //그리드 DIV 아이디 정의
             searchUrl1 = '<c:url value="/abg/abgpDvrsAplyUserIf02/list.do" />';
             searchUrl2 = '<c:url value="/abg/abgpDvrsAplyUserIf02/listSub1.do" />';

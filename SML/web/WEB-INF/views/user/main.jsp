@@ -16,7 +16,8 @@
 
 </head>
 <body>
-
+<h2>${baseMap.CRT_DT}</h2>
+<h2>${baseMap.UPD_DT}</h2>
 
 <input type="text" name="I_USER2" id="I_USER2" value="" />
 <input type="text" name="USER_ID" id="USER_ID" value="" />

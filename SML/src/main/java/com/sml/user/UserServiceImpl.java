@@ -1,5 +1,6 @@
 package com.sml.user;
 
+import com.sml.utils.common.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ import java.util.Map;
 
 @Service
 @Transactional(rollbackFor=Exception.class)
-public class UserServiceImpl {
+public class UserServiceImpl extends CommonService {
 
 	@Autowired
 	private UserMapper mapper;
@@ -32,5 +33,14 @@ public class UserServiceImpl {
 	}
 
 
+
+
+//	@Scheduled(fixedRate=10000)
+//	public void sec() {
+//
+//		System.out.println("--------------------------------------jytest");
+//		mapper.t_test();
+//		System.out.println("--------------------------------------jytest");
+//	}
 
 }
