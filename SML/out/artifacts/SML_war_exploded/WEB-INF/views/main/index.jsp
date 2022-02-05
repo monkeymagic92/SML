@@ -33,6 +33,8 @@
     <h2>----------</h2>
     <h2>${testtest}</h2>
     <h2>----------</h2>
+    <h2>${baseMap.CRT_DT}</h2>
+    <h2>----------</h2>
 
 
     <form id="frm" name="frm">

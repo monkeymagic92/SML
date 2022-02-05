@@ -1,4 +1,4 @@
-package com;
+package com.sml.sample;
 
 
 import com.google.gson.JsonArray;
@@ -25,6 +25,8 @@ public class Test {
         String interfaceID = "123";
         String interfaceDT = "456";
 
+        String cn = "GAS";
+
         HttpsURLConnection conn = null;
         BufferedReader rd = null;
 
@@ -32,7 +34,7 @@ public class Test {
             int CONNECT_TIMEOUT_VALUE = 5000; // URL 연결 실패 시 시간설정(5초)
             int READ_TIMEOUT_VALUE = 5000;    // 데이터 조회 시간설정(5초)
 
-            StringBuilder urlBuilder = new StringBuilder("https://api.upbit.com/v1/ticker?markets=KRW-BTC"); //URL
+            StringBuilder urlBuilder = new StringBuilder("https://api.upbit.com/v1/candles/minutes/240?market=KRW-"+cn+"&count=1"); //URL
 //            urlBuilder.append("?" + URLEncoder.encode("LoginID", "UTF-8") + "=" + URLEncoder.encode(LoginID, "UTF-8"));
 
             URL url = new URL(urlBuilder.toString());

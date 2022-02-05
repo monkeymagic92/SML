@@ -1,6 +1,7 @@
 package com.sml.quote;
 
 import com.sml.utils.common.CommonController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class QuoteController extends CommonController {
 
-
+	@Autowired
+	private QuoteService service;
 
 }

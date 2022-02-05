@@ -1,6 +1,6 @@
 <%--
-    날짜 : 2022-01-10 / 월요일 / 오후 8:44
-    JSP : main
+    날짜 : 2022-02-05 / 토요일 / 오후 6:57
+    JSP : test
     유저 : LJY
 --%>
 
@@ -14,25 +14,25 @@
 	<%-- js / css공통함수cdn jsp파일 --%>
 	<%@ include file="../../common/commonUtils.jsp" %>
 
+	<%-- properties 파일안에 값을 jsp에서 사용하기 --%>
+	<spring:eval expression="@systemProp['test.test']" var="testtest"/>
+
 </head>
 <body>
-<h2>${baseMap.CRT_DT}</h2>
-<h2>${baseMap.UPD_DT}</h2>
 
-<input type="text" name="I_USER2" id="I_USER2" value="" />
-<input type="text" name="USER_ID" id="USER_ID" value="" />
-<input type="text" name="USER_PW" id="USER_PW" value="" />
+<c:forEach items="${list}" var="item">
+	<div>${item.i_num}</div>
+	<div>${item.title}</div>
+</c:forEach>
 
-<form id="frm" name="frm">
-	<input type="text" id="I_USER" name="I_USER" value="">
-</form>
-<button type="button" name="ajax" id="ajax">TestBtn</button>
-<br><br>
-<button type="button" name="tr" id="tr">트랜잭션 테스트</button>
+
 
 <script type="text/javascript">
 
 	$(document).ready(function () {
+
+
+
 
 		$("#ajax").click(function() {
 
@@ -40,18 +40,28 @@
 				type: 'post'
 				, url: '/user/ajax'
 				, dataType: 'json'
-				,success: function(data) {
+				, beforeSend: function() {
+					$("body").append('<div id="windowByMask"><img src="${img}/loading1.gif" /></div>');
+
+					wrapWindowByMask();
+				}
+				, success: function(data) {
 
 					// for(var i=0; i<data.length; i++) {
 					// 	$("#I_USER2").val(data[i].i_user);
 					// 	$("#USER_ID").val(data[i].user_id);
 					// 	$("#USER_PW").val(data[i].user_pw);
 					// }
+
 					data.forEach(function(item){
 						$("#I_USER2").val(item.i_user);
 						$("#USER_ID").val(item.user_id);
 						$("#USER_PW").val(item.user_pw);
-					})
+					});
+
+					setTimeout(function() {
+						wrapWindowByUnMask();
+					}, 1000);
 				}
 			});
 		});
@@ -59,6 +69,7 @@
 		$("#tr").click(function(){
 			location.href='/user/insertTr';
 		});
+
 	});
 
 </script>

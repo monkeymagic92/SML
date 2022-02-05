@@ -40,18 +40,28 @@
 				type: 'post'
 				, url: '/user/ajax'
 				, dataType: 'json'
-				,success: function(data) {
+				, beforeSend: function() {
+					$("body").append('<div id="windowByMask"><img src="${img}/loading1.gif" /></div>');
+
+					wrapWindowByMask();
+				}
+				, success: function(data) {
 
 					// for(var i=0; i<data.length; i++) {
 					// 	$("#I_USER2").val(data[i].i_user);
 					// 	$("#USER_ID").val(data[i].user_id);
 					// 	$("#USER_PW").val(data[i].user_pw);
 					// }
+
 					data.forEach(function(item){
 						$("#I_USER2").val(item.i_user);
 						$("#USER_ID").val(item.user_id);
 						$("#USER_PW").val(item.user_pw);
-					})
+					});
+
+					setTimeout(function() {
+						wrapWindowByUnMask();
+					}, 1000);
 				}
 			});
 		});

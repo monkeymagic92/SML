@@ -1,19 +1,12 @@
 package com.sml.utils.util;
 
 import com.nhncorp.lucy.security.xss.XssPreventer;
-import com.sml.utils.core.StringUtil;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import java.util.*;
 
 public class Bind {
 
@@ -189,14 +182,12 @@ public class Bind {
      */
     @SuppressWarnings("unchecked")
     private void setDtoBaseColumn(Map<String, Object> map, HttpServletRequest request) throws Exception {
-        if (StringUtil.nullValue(map.get("STATUS")).equals("U")) {
             if (request.getAttribute("baseInfoColumnU") != null) {
                 map.putAll((Map<String, Object>) request.getAttribute("baseInfoColumnU"));
             }
-        } else {
+
             if (request.getAttribute("baseInfoColumn") != null) {
                 map.putAll((Map<String, Object>) request.getAttribute("baseInfoColumn"));
             }
-        }
     }
 }
