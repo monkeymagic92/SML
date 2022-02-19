@@ -39,11 +39,18 @@
 
     <!-- AOP AspectJ Start -->
     <bean id="AopAdviceService" class="com.sml.utils.aop.AopAdvice"/>
+    <bean id="exceptionAdviceService" class="com.sml.utils.exception.ExceptionAdvice" />
     <aop:config>
         <!-- AopAdviceService -->
         <aop:aspect ref="AopAdviceService">
             <aop:pointcut id="infoCallTrace" expression="execution(* com..*Controller.*(..))"/>
             <aop:before pointcut-ref="infoCallTrace" method="beforeMethodCall"/>
+        </aop:aspect>
+
+        <!-- exceptionAdviceService -->
+        <aop:aspect ref="exceptionAdviceService">
+            <aop:pointcut id="exceptionCallTrace" expression="execution(* com..*Controller.*(..)) "/>
+            <aop:around pointcut-ref="exceptionCallTrace" method="aroundMethodCall"/>
         </aop:aspect>
     </aop:config>
     <!-- AOP AspectJ End -->

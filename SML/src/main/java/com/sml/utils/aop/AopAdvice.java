@@ -17,7 +17,10 @@ public class AopAdvice extends CommonController {
 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 
+        // CRT_DT, UPD_DT
         setBaseInfoColumn(request);
+
+        // img, js, css
         setResourcesFileName(request);
 
         request.setAttribute("aop", "AOP에서 시작되었다 (AopAdvice - beforeMethodCall)");

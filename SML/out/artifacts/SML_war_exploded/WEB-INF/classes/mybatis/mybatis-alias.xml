@@ -6,11 +6,9 @@
         <!-- Map -->
         <typeAlias type="java.util.LinkedHashMap" alias="LinkedHashMap" />
 
-        <!-- index -->
-        <typeAlias type="com.sml.main.MainVO" alias="MainVO" />
 
         <!-- user -->
-        <typeAlias type="com.sml.user.UserVO" alias="UserVO" />
+<!--        <typeAlias type="com.sml.user.UserVO" alias="UserVO" />-->
 
     </typeAliases>
 </configuration>

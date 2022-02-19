@@ -1,6 +1,6 @@
 <%--
-    날짜 : 2022-01-12 / 수요일 / 오후 7:39
-    JSP : insertTr
+    날짜 : 2022-02-13 / 일요일 / 오후 6:59
+    JSP : index
     유저 : LJY
 --%>
 
@@ -19,7 +19,6 @@
 
 
 <!-- HTML 내용 기입 -->
-여기입니다!
 
 
 <script type="text/javascript">

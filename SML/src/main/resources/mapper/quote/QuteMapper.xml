@@ -4,4 +4,11 @@
 
 <mapper namespace="com.sml.quote.QuoteMapper">
 
+    <select id="selectQuote" resultType="LinkedHashMap">
+        SELECT
+            I_NUM
+            , TITLE
+        FROM COIN
+    </select>
+
 </mapper>

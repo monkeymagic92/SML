@@ -24,6 +24,8 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
 
+        request.setAttribute("interceptorTest2", "인터셉터에서 request한것 (preHandle)222222222222");
+
         super.postHandle(request, response, handler, modelAndView);
     }
 

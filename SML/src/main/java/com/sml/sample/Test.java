@@ -4,17 +4,35 @@ package com.sml.sample;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sml.utils.encriyp.NaraARIAUtil;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
 public class Test {
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws Exception {
+
+        /************************ 암호화 테스트 start *******************/
+        System.out.println("--jytest--");
+
+        NaraARIAUtil aria = new NaraARIAUtil();
+
+        String pw = "안녕하세요";
+        String privatePw = "SML@logo";
+
+        String encriypPw = aria.ariaEncrypt(pw, privatePw);
+        String decriypPw = aria.ariaDecrypt(encriypPw, privatePw);
+
+        System.out.println("암호화 : " + encriypPw);
+        System.out.println("해제   : " + decriypPw);
+
+        System.out.println("--jytest--");
+        /********************** 암호화 테스트 end ***********************/
+
 
         String a = "CMN01.053-632-6338";
         String b = a.substring(a.indexOf(".") + 1);

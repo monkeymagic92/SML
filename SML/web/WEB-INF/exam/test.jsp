@@ -12,7 +12,7 @@
 	<title>Title</title>
 
 	<%-- js / css공통함수cdn jsp파일 --%>
-	<%@ include file="../../common/commonUtils.jsp" %>
+	<%@ include file="../common/commonUtils.jsp" %>
 
 	<%-- properties 파일안에 값을 jsp에서 사용하기 --%>
 	<spring:eval expression="@systemProp['test.test']" var="testtest"/>
