@@ -1,6 +1,5 @@
 package com.sml.quote;
 
-import com.sml.utils.core.BusinessException;
 import com.sml.utils.util.Bind;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +35,7 @@ public class QuoteService {
 		Bind bind = new Bind(request);
 
 		Map<String, Object> map = bind.getDto();
-		throw new BusinessException("service");
+		//throw new BusinessException("service");
 
 		//CommonUtil.jsonResponse(response, map);
 	}

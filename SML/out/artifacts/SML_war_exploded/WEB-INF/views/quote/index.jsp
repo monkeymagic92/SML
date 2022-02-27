@@ -12,7 +12,6 @@
 	<title>Title</title>
 
 	<%-- js / css공통함수cdn jsp파일 --%>
-	<%@ include file="../../common/commonUtils.jsp" %>
 
 </head>
 <body>

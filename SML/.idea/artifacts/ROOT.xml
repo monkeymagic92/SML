@@ -7,6 +7,8 @@
         <element id="directory" name="classes">
           <element id="library" level="application" name="jquery-3.6.0" />
           <element id="library" level="application" name="jquery.form" />
+          <element id="library" level="application" name="Chart" />
+          <element id="library" level="application" name="bootstrap.bundle" />
         </element>
       </element>
     </root>

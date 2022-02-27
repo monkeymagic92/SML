@@ -1,8 +1,8 @@
 package com.sml.quote;
 
 import com.sml.utils.common.CommonController;
-import com.sml.utils.core.BusinessException;
 import com.sml.utils.util.Bind;
+import com.sml.utils.util.ViewRef;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,20 +28,25 @@ public class QuoteController extends CommonController {
 	public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
 
 		model.addAttribute("list", service.selectQuote());
+		model.addAttribute("view", "/quote/index");
 
-		return "/quote/index";
+		return ViewRef.LAYOUT_TEMP;
 	}
 
 	@RequestMapping(value = "/quote/ajax")
 	public void ajaxIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		System.out.println("--jytest--");
+		System.out.println(systemProp.getProperty("db.maria.url"));
+		System.out.println("--jytest--");
+
+
 		Bind bind = new Bind(request);
 		Map<String, Object> map = bind.getDto();
 
-		throw new BusinessException("Controller");
+		model.addAttribute("message", "Controller 에러 modl");
+		//throw new BusinessException("Controller");
 
 		//service.ajaxIndex(model, request, response);
 	}
-
-
 }
