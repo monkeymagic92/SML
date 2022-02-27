@@ -113,6 +113,7 @@
 	</div>
 	<div id="layoutSidenav_content" style="background-color: rgb(22, 26, 30); border-radius: 15px;">
 		<main>
+			<!-- 섹서 -->
 			<div class="container-fluid px-4">
 				<h1 class="mt-4" style="color: white;">Static Navigation</h1>
 				<ol class="breadcrumb mb-4">
