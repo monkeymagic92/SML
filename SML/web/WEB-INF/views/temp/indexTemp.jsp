@@ -111,15 +111,15 @@
 			</div>
 		</nav>
 	</div>
-	<div id="layoutSidenav_content" style="background-color: #333; border-radius: 15px;">
+	<div id="layoutSidenav_content" style="background-color: rgb(22, 26, 30); border-radius: 15px;">
 		<main>
 			<div class="container-fluid px-4">
-				<h1 class="mt-4">Static Navigation</h1>
+				<h1 class="mt-4" style="color: white;">Static Navigation</h1>
 				<ol class="breadcrumb mb-4">
 					<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
 					<li class="breadcrumb-item active">Static Navigation</li>
 				</ol>
-				<div class="card mb-4">
+				<div class="card mb-4" style="background-color: rgb(22, 26, 30); color: white; border: 1px solid #333;">
 				<div class="card-body">
 					<!-- include area -->
 					<p class="mb-0">

@@ -474,7 +474,7 @@
       <workItem from="1645788556402" duration="445000" />
       <workItem from="1645841426966" duration="1307000" />
       <workItem from="1645885797946" duration="750000" />
-      <workItem from="1645923458671" duration="6344000" />
+      <workItem from="1645923458671" duration="8572000" />
     </task>
     <task id="LOCAL-00001" summary="깃허브 연동 테스트">
       <created>1636271024261</created>
@@ -684,9 +684,9 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="616" y="250" width="672" height="677" key="run.anything.popup/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1642398614361" />
-    <state x="623" y="234" width="672" height="705" key="search.everywhere.popup" timestamp="1645930894565">
+    <state x="623" y="234" width="672" height="705" key="search.everywhere.popup" timestamp="1645932432867">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="623" y="234" width="672" height="705" key="search.everywhere.popup/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1645930894565" />
+    <state x="623" y="234" width="672" height="705" key="search.everywhere.popup/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1645932432867" />
   </component>
 </project>
