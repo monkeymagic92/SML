@@ -16,9 +16,10 @@
 </head>
 <body>
 
-	<h1>ㅎㅇ</h1>
 	<h1>${interceptorTest}</h1>
 	<h1>${interceptorTest2}</h1>
+	<h1>${userList.USER_ID}</h1>
+	<h1>${userList.USER_PW}</h1>
 
 	<c:forEach items="${list}" var="item">
 		<div>${item.I_NUM}</div>

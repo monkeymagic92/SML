@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sml.user.UserMapper">
+
+    <!-- 로그인유저 전체 데이터 -->
+    <select id="selectUserInfo" parameterType="LinkedHashMap" resultType="LinkedHashMap">
+        SELECT SEQ
+            , USER_ID
+            , USER_PW
+            , USER_EMAIL
+        FROM T_USER
+        WHERE USER_ID = #{LOGIN_ID}
+    </select>
+
+    <!-- 아이디 중복검사 -->
+    <select id="selectChkId" parameterType="LinkedHashMap" resultType="Integer">
+        SELECT COUNT(*) FROM T_USER
+        WHERE USER_ID = #{USER_ID}
+    </select>
+
+    <!-- 이메일 중복검사 -->
+    <select id="selectChkEmail" parameterType="LinkedHashMap" resultType="Integer">
+        SELECT COUNT(*) FROM T_USER
+        WHERE USER_EMAIL = #{USER_Email}
+    </select>
+
+    <!-- 회원가입 -->
+    <insert id="insertUserId" parameterType="UserVO">
+        INSERT INTO T_USER
+        (USER_ID, USER_PW, USER_EMAIL)
+        VALUES
+        (#{USER_ID}, #{USER_PW}, #{USER_EMAIL})
+    </insert>
+
+</mapper>

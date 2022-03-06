@@ -54,7 +54,7 @@
 
 
     <!--
-       스케쥴 지정 ( database.xml에 설정  common.xml에 설정 하니 스케줄러 두번 실행되는 현상 발생 )
+       스케쥴 지정 ( database.xml에 설정 / common.xml에 설정 하니 스케줄러 두번 실행되는 현상 발생 )
      -->
     <task:annotation-driven/>
 

@@ -9,6 +9,8 @@
           <element id="library" level="application" name="jquery.form" />
           <element id="library" level="application" name="Chart" />
           <element id="library" level="application" name="bootstrap.bundle" />
+          <element id="library" level="application" name="all" />
+          <element id="library" level="application" name="jquery-ui" />
         </element>
       </element>
     </root>

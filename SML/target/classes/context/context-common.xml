@@ -62,8 +62,9 @@
             <mvc:mapping path="/**/*" /> <!-- 모든 URL 요청시 모두수행 -->
 
             <!-- <mvc:mapping path="/record/*" /> record 하위 요청시 모두수행 -->
+            <mvc:exclude-mapping path="/user/signIn"/> <!-- 이 URL 제외시킴 -->
+            <mvc:exclude-mapping path="/user/loginReg"/> <!-- 이 URL 제외시킴 -->
 
-            <mvc:exclude-mapping path="/Join.do"/> <!-- 이 URL 제외시킴 -->
             <bean class="com.sml.utils.common.CommonInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
