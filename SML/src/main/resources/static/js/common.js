@@ -1,21 +1,4 @@
 
-// 테스트 용
-function commonTest() {
-    alert('common Test');
-}
-
-function fnSearch() {
-    var args = arguments;
-
-    var url = args[0];
-    var frm = args[1];
-
-    $(frm).ajaxSubmit({
-        type: 'post'
-        , url: url
-    })
-}
-
 // 마스크 생성
 function wrapWindowByMask() {
     var args = arguments; //Parameters
@@ -107,4 +90,3 @@ function fnAjaxSubmit() {
         }
     });
 }
-

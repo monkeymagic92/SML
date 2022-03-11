@@ -6,8 +6,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.Map;
 
 public class CommonInterceptor extends HandlerInterceptorAdapter {
 
@@ -17,12 +15,12 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 
-        HttpSession session = request.getSession();
-        Map<String, Object> map = (Map<String, Object>) session.getAttribute("userList");
-        if(map == null) {
-            response.sendRedirect("/user/loginReg");
-            return false;
-        }
+//        HttpSession session = request.getSession();
+//        Map<String, Object> map = (Map<String, Object>) session.getAttribute("userList");
+//        if(map == null) {
+//            response.sendRedirect("/user/loginReg");
+//            return false;
+//        }
 
         return true;
     }

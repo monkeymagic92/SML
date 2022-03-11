@@ -7,6 +7,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<title>loginReg</title>
@@ -28,43 +29,46 @@
 <body style="overflow:hidden">
 <script type="text/javascript">
 
+	/** ----------------------------- 전역변수 선언 Start ----------------------------- **/
+
+	var id = getIdCookie('SESSION_ID');
+
+	/** ----------------------------- 전역변수 선언 End ----------------------------- **/
+
 	$(document).ready(function() {
 		$("#signUp").click(function() {
 			$("#container").addClass('right-panel-active');
 		});
-
 		$("#signIn").click(function() {
 			$("#container").removeClass('right-panel-active');
 		});
-
 		$("#LOGIN_ID").focus();
-
 		// 로그인 실패시 alert메세지
 		if(${message != null}) {
 			alert('${message}');
 			$("#LOGIN_ID").focus();
 		}
+
+		if(id != null || id != undefined || id != '') {
+			$("#LOGIN_ID").val(getIdCookie('SESSION_ID'));
+			$("#LOGIN_PW").val(getPwCookie('SESSION_PW'));
+		}
 	});
 
 	// 회원가입
 	function fnSignUp() {
-
 		let flag = fnSignUpChk();
-
 		if(flag) {
 			$("#signUpFrm").ajaxSubmit({
 				dataType: 'json'
 				, url: "/user/signUp"
 				, success: function(data) {
-
 					if(data.message == 'failId') {
 						alert('ID가 중복되었습니다.');
 						return;
-
 					} else if(data.message == 'failEmail') {
 						alert('Email이 중복되었습니다.');
 						return;
-
 					} else {
 						alert('회원가입되었습니다');
 						$("#USER_ID").val('');
@@ -78,26 +82,21 @@
 			});
 		}
 	}
-
 	function fnSignUpChk() {
 		var user_id = $("#USER_ID").val();
 		var user_pw = $("#USER_PW").val();
 		var user_pw2 = $("#USER_PW2").val();
 		var user_email = $("#USER_EMAIL").val();
-
 		let flag = true;
-
 		if(user_id.length == 0 || user_pw.length == 0 || user_pw2.length == 0 || user_email.length == 0) {
 			$("#errorConf").text("입력되지않은 항목이 있습니다");
 			flag = false;
 		}
-
 		if(user_id.length < 4) {
 			$("#USER_ID").focus();
 			$("#errorConf").text("아이디는 최소 4자 이상 입니다.");
 			flag = false;
 		}
-
 		if(user_id.length > 0) {
 			const regExpId = /^[0-9a-z]+$/;
 			if(!regExpId.test(user_id)) {
@@ -106,20 +105,17 @@
 				flag = false;
 			}
 		}
-
 		if(user_pw != user_pw2) {
 			$("#USER_PW").focus();
 			$("#errorConf").text("두 비밀번호를 다시 확인해 주세요.");
 			flag = false;
 		}
-
 		const pass = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/
 		if( !pass.test(user_pw) ) {
 			$("#USER_PW").focus();
 			$("#errorConf").text("비밀번호는 특수문자 숫자를 포함한 8자 이상입니다.");
 			flag = false;
 		}
-
 		if (user_email.length > 0) {
 			const emailReg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
 			if(!emailReg.test(user_email)) {
@@ -130,18 +126,79 @@
 		}
 		return flag;
 	}
-
 	// 로그인 submit 체크 (onsubmit = '')
 	function login() {
 		let loginId = $("#LOGIN_ID").val();
 		let loginPw = $("#LOGIN_PW").val();
-
 		if (loginId.length == 0 || loginPw.length == 0) {
 			alert('ID 또는 Password를 입력해 주세요.');
 			return false;
 		}
+
+		// 쿠키가 없다면 confirm을 띄우고 쿠키를 저장한다
+		if(id == null || id == undefined || id == '') {
+
+			if(confirm('ID / PW를 저장하시겠습니까?')) {
+				setLoginCookie();
+			}
+		}
 	}
 
+	// 로그인ID / PW 쿠키 생성
+	function setLoginCookie() {
+
+		var login_id = $("#LOGIN_ID").val();
+		var login_pw = $("#LOGIN_PW").val();
+
+		var date = new Date();
+		date.setDate(date.getDate() + 7);
+
+		var willCookieID = "";
+		var willCookiePW = "";
+
+		willCookieID += "SESSION_ID=" + login_id + ";";
+		willCookieID += "expires=" + date.toUTCString(); // 쿠키에 넣는다. document.cookie = willCookie;
+
+		willCookiePW += "SESSION_PW=" + login_pw + ";";
+		willCookiePW += "expires=" + date.toUTCString(); // 쿠키에 넣는다. document.cookie = willCookie;
+
+		// 쿠키에 넣는다.
+		document.cookie = willCookieID;
+		document.cookie = willCookiePW;
+
+
+	}
+
+	// 로그인정보 쿠키 가져오기
+	function getIdCookie(key) {
+		var result = null;
+		var cookie = document.cookie.split(';');
+		cookie.some(function (item) {
+			// 공백을 제거
+			item = item.replace(' ', '');
+			var dic = item.split('=');
+			if (key === dic[0]) {
+				result = dic[1];
+				return true;    // break;
+			}
+		});
+		return result;
+	}
+
+	function getPwCookie(key) {
+		var result = null;
+		var cookie = document.cookie.split(';');
+		cookie.some(function (item) {
+			// 공백을 제거
+			item = item.replace(' ', '');
+			var dic = item.split('=');
+			if (key === dic[0]) {
+				result = dic[1];
+				return true;    // break;
+			}
+		});
+		return result;
+	}
 </script>
 <div class="container" id="container">
 

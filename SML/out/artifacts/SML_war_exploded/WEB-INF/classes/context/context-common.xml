@@ -13,11 +13,11 @@
        http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd
        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
-    <!-- 어노테이션 기반으로 동작하도록 설정 추가 (@....를 찾겠다 빈등록)-->
-    <mvc:annotation-driven/>
-
     <!-- jsp에서 /res/ 로 입력시 src/main/resources/static 경로를 자동으로 참조하겠다 -->
     <mvc:resources mapping="/res/**" location="classpath:/static/" />
+
+    <!-- 어노테이션 기반으로 동작하도록 설정 추가 (@....를 찾겠다 빈등록)-->
+    <mvc:annotation-driven/>
 
     <!-- 아래 패키지로 경로를 확인하겠다(?) 찾겠다 -->
     <context:component-scan base-package="com.sml" />
@@ -55,19 +55,20 @@
     </aop:config>
     <!-- AOP AspectJ End -->
 
-
     <!-- 인터셉터 Start -->
+    <bean id="commonInterceptor" class="com.sml.utils.common.CommonInterceptor" />
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/**/*" /> <!-- 모든 URL 요청시 모두수행 -->
+            <mvc:mapping path="/**/*"/>
 
-            <!-- <mvc:mapping path="/record/*" /> record 하위 요청시 모두수행 -->
-            <mvc:exclude-mapping path="/user/signIn"/> <!-- 이 URL 제외시킴 -->
-            <mvc:exclude-mapping path="/user/loginReg"/> <!-- 이 URL 제외시킴 -->
+            <mvc:exclude-mapping path="/user/loginReg"/>
+            <mvc:exclude-mapping path="/user/signIn"/>
+            <ref bean="commonInterceptor" />
 
-            <bean class="com.sml.utils.common.CommonInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
     <!-- 인터셉터 End -->
+
+
 
 </beans>

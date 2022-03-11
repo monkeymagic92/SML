@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{Chart, all, bootstrap.bundle, jquery-3.6.0, jquery-ui, jquery.form}" />
     <file url="PROJECT" libraries="{jQuery, javascript, jquery-3.6.0, jquery.form}" />
   </component>
 </project>
