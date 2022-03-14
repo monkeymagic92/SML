@@ -1,0 +1,83 @@
+#quoteIndexTitle {
+    font-size:2.5em;
+    font-weight: 300;
+    line-height:1em;
+    text-align: center;
+    color: white;
+}
+
+#quoteIndexTitle2 {
+    font-size:1em;
+    font-weight: 300;
+    text-align: center;
+    display: block;
+    line-height:1em;
+    padding-bottom: 2em;
+    color: #FB667A;
+}
+
+#quoteIndexTitle a {
+    font-weight: 700;
+    font-size: 1.5em;
+    color: #FB667A;
+    text-decoration: none;
+}
+
+.quoteIndexContainer th h1 {
+    font-weight: bold;
+    font-size: 1em;
+    text-align: left;
+    color: #185875;
+}
+
+.quoteIndexContainer td {
+    font-weight: normal;
+    font-size: 1em;
+    -webkit-box-shadow: 0 2px 2px -2px #0E1119;
+    -moz-box-shadow: 0 2px 2px -2px #0E1119;
+    box-shadow: 0 2px 2px -2px #0E1119;
+    color: #c7ddef;
+}
+
+.quoteIndexContainer {
+    text-align: left;
+    overflow: hidden;
+    width: 80%;
+    margin: 0 auto;
+    display: table;
+    padding: 0 0 8em 0;
+}
+
+.quoteIndexContainer td, .quoteIndexContainer th {
+    padding-bottom: 2%;
+    padding-top: 2%;
+    padding-left:2%;
+}
+
+/* Background-color of the odd rows */
+.quoteIndexContainer tr:nth-child(odd) {
+    background-color: #323C50;
+}
+
+/* Background-color of the even rows */
+.quoteIndexContainer tr:nth-child(even) {
+    background-color: #2C3446;
+}
+
+.quoteIndexContainer th {
+    background-color: #1F2739;
+}
+
+.quoteIndexContainer td:first-child { color: #FB667A; }
+
+.quoteIndexContainer tr:hover {
+    background-color: #464A52;
+    -webkit-box-shadow: 0 6px 6px -6px #0E1119;
+    -moz-box-shadow: 0 6px 6px -6px #0E1119;
+    box-shadow: 0 6px 6px -6px #0E1119;
+}
+
+tr td:first-child {
+    cursor: pointer;
+}
+

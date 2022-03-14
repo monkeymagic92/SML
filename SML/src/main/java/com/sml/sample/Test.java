@@ -2,9 +2,9 @@ package com.sml.sample;
 
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sml.utils.encriyp.NaraARIAUtil;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -16,33 +16,6 @@ public class Test {
 
     public static void main(String args[]) throws Exception {
 
-        /************************ 암호화 테스트 start *******************/
-        System.out.println("--jytest--");
-
-        NaraARIAUtil aria = new NaraARIAUtil();
-
-        String pw = "안녕하세요";
-        String privatePw = "SML@logo";
-
-        String encriypPw = aria.ariaEncrypt(pw, privatePw);
-        String decriypPw = aria.ariaDecrypt(encriypPw, privatePw);
-
-        System.out.println("암호화 : " + encriypPw);
-        System.out.println("해제   : " + decriypPw);
-
-        System.out.println("--jytest--");
-        /********************** 암호화 테스트 end ***********************/
-
-
-        String a = "CMN01.053-632-6338";
-        String b = a.substring(a.indexOf(".") + 1);
-        System.out.println(b);
-
-
-        String LoginID = "itc"; // 테스트용 ( SessionUtil.get(""); 아이디값 가져올수있으면 다음엔 그렇게 하기
-        String interfaceID = "123";
-        String interfaceDT = "456";
-
         String cn = "GAS";
 
         HttpsURLConnection conn = null;
@@ -52,7 +25,7 @@ public class Test {
             int CONNECT_TIMEOUT_VALUE = 5000; // URL 연결 실패 시 시간설정(5초)
             int READ_TIMEOUT_VALUE = 5000;    // 데이터 조회 시간설정(5초)
 
-            StringBuilder urlBuilder = new StringBuilder("https://api.upbit.com/v1/candles/minutes/240?market=KRW-"+cn+"&count=1"); //URL
+            StringBuilder urlBuilder = new StringBuilder("https://api.upbit.com/v1/market/all?isDetails=false"); //URL
 //            urlBuilder.append("?" + URLEncoder.encode("LoginID", "UTF-8") + "=" + URLEncoder.encode(LoginID, "UTF-8"));
 
             URL url = new URL(urlBuilder.toString());
@@ -94,8 +67,24 @@ public class Test {
             // ---------------- Json Array 파싱법 (배열key 값이 없는 일반 배열로 감싸져있는 json배열 파싱방법)
             JsonParser parser = new JsonParser();
             JsonArray jsonArray = (JsonArray) parser.parse(result);
-            JsonObject object = (JsonObject) jsonArray.get(0);
+            JsonObject object2 = (JsonObject) jsonArray.get(1);
 
+            String chk = "";
+
+
+            System.out.println("--jytest--");
+            for(int i=0; i<jsonArray.size(); i++) {
+                JsonObject object = (JsonObject) jsonArray.get(i);
+                JsonElement a = object.get("market");
+
+                chk = a.toString();
+                if(chk.substring(1,5).equals("KRW-")) {
+                    System.out.println(object.get("market"));
+                    System.out.println(object.get("korean_name"));
+                    System.out.println(object.get("english_name"));
+                }
+            }
+            System.out.println("--jytest--");
 
             /*
             *   현재 result값은 [ {... } ] 형태로 배열로 넘어옴 첫번째 배열값에 키값이 없으면 위처럼 jsonArray.get(0); 으로 하면됨
@@ -103,12 +92,12 @@ public class Test {
 
             // json 첫번째배열 전체값 가져오기
             System.out.println("\n■■■■■■■■■■■■■■■■■■■■■■■ json array ■■■■■■■■■■■■■■■■■■■■■■■");
-            System.out.println(jsonArray);
+            //System.out.println(jsonArray);
             System.out.println("------json array----\n");
 
             // json 첫번재배열에 market Key값 가져오기
             System.out.println("\n■■■■■■■■■■■■■■■■■■■■■■■ json object ■■■■■■■■■■■■■■■■■■■■■■■");
-            System.out.println("\"market\" : " + object.get("market").getAsString()); // getAsString() 을 할경우 value값 양쪽에 "" (더블쿼트) 제거
+            System.out.println("\"market\" : " + object2.get("market").getAsString()); // getAsString() 을 할경우 value값 양쪽에 "" (더블쿼트) 제거
             System.out.println("■■■■■■■■■■■■■■■■■■■■■■■ json object ■■■■■■■■■■■■■■■■■■■■■■■\n");
 
 

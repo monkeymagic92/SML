@@ -38,6 +38,8 @@ public class UserController extends CommonController {
 	@RequestMapping(value = "/user/loginReg")
 	public String loginReg(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		System.out.println(systemProp.getProperty("test.test"));
+
 		String result = CommonFunction.loginChk(request);
 
 		if(result.equals("success")) {	// 로그인이 안되어있다면 로그인페이지로

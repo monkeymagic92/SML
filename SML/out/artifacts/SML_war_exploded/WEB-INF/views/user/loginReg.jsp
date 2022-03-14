@@ -82,6 +82,8 @@
 			});
 		}
 	}
+
+	// 회원가입 정규식 검사
 	function fnSignUpChk() {
 		var user_id = $("#USER_ID").val();
 		var user_pw = $("#USER_PW").val();
@@ -126,6 +128,7 @@
 		}
 		return flag;
 	}
+
 	// 로그인 submit 체크 (onsubmit = '')
 	function login() {
 		let loginId = $("#LOGIN_ID").val();
@@ -165,11 +168,9 @@
 		// 쿠키에 넣는다.
 		document.cookie = willCookieID;
 		document.cookie = willCookiePW;
-
-
 	}
 
-	// 로그인정보 쿠키 가져오기
+	// 로그인ID 쿠키 가져오기
 	function getIdCookie(key) {
 		var result = null;
 		var cookie = document.cookie.split(';');
@@ -185,6 +186,7 @@
 		return result;
 	}
 
+	// 로그인PW 쿠기 가져오기
 	function getPwCookie(key) {
 		var result = null;
 		var cookie = document.cookie.split(';');

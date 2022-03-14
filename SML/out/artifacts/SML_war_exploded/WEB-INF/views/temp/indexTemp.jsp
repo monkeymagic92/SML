@@ -135,7 +135,7 @@
 
 
 			<div style="height: 100vh"></div>
-			<div class="card mb-4"><div class="card-body">When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.</div></div>
+<%--		<div class="card mb-4"><div class="card-body">When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.</div></div>--%>
 		</main>
 		<footer class="py-4 bg-light mt-auto">
 			<div class="container-fluid px-4">

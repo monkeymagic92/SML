@@ -29,6 +29,8 @@ public class QuoteController extends CommonController {
 
 		model.addAttribute("list", service.selectQuote());
 		model.addAttribute("view", "/quote/index");
+		String coinNm = "HUM";
+		model.addAttribute("NM", coinNm);
 
 		return ViewRef.LAYOUT_TEMP;
 	}
