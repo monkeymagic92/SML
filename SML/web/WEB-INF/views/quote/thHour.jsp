@@ -18,7 +18,7 @@
 <body>
 
 <h1 id="quoteIndexTitle">
-	<span>통계그래프</span>
+	<span>3th Hour Table</span>
 </h1>
 <h2 id="quoteIndexTitle2">Created with love by
 	<a href="https://upbit.com/exchange?code=CRIX.UPBIT.KRW-BTC" target="_blank">Upbit</a>
@@ -90,7 +90,6 @@
 <script type="text/javascript">
 
 	$(document).ready(function () {
-		$("#aa").attr("href", "https://upbit.com/exchange?code=CRIX.UPBIT.KRW-${NM}").css('color', 'red');
 	});
 </script>
 </body>

@@ -38,15 +38,13 @@ public class UserController extends CommonController {
 	@RequestMapping(value = "/user/loginReg")
 	public String loginReg(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		System.out.println(systemProp.getProperty("test.test"));
-
 		String result = CommonFunction.loginChk(request);
 
-		if(result.equals("success")) {	// 로그인이 안되어있다면 로그인페이지로
+		if(result.equals("fail")) {		// 로그인이 안되어있다면 로그인페이지로
 			return "/user/loginReg";
 
 		} else {						// 로그인이 되어있다면 index 페이지로
-			return "redirect:/quote/index";
+			return "redirect:/temp/index";
 		}
 	}
 
@@ -78,9 +76,11 @@ public class UserController extends CommonController {
 		Map<String, Object> map = service.selectUserInfo(model, request, response);
 
 		if(map.get("message").equals("success")) {	// 로그인 성공
-			return "redirect:/quote/index";
+			logger.info("로그인성공");
+			return "redirect:/temp/index";
 
 		} else {									// 로그인 실패
+			logger.info("로그인실패");
 			ra.addFlashAttribute("message", map.get("message"));
 			return "redirect:/user/loginReg";
 		}

@@ -24,13 +24,12 @@ public class QuoteController extends CommonController {
 	@Autowired
 	private QuoteService service;
 
-	@RequestMapping(value = "/quote/index", method = RequestMethod.GET)
-	public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/quote/thHour", method = RequestMethod.GET)
+	public String selectThHour(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		model.addAttribute("list", service.selectQuote());
-		model.addAttribute("view", "/quote/index");
-		String coinNm = "HUM";
-		model.addAttribute("NM", coinNm);
+		model.addAttribute("title", "3th Hour Table");
+		model.addAttribute("view", "/quote/thHour");
 
 		return ViewRef.LAYOUT_TEMP;
 	}

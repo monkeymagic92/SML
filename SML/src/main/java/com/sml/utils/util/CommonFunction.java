@@ -13,13 +13,13 @@ public class CommonFunction {
 
 	public static String loginChk(HttpServletRequest request) {
 
-		String result = "success";
+		String result = "fail";
 
 		HttpSession session = request.getSession();
 		Map<String, Object> userChk = (Map<String, Object>) session.getAttribute("userList");
 
 		if(userChk != null) {
-			result = "fail";
+			result = "success";
 		}
 		return result;
 	}

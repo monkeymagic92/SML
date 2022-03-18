@@ -12,7 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-public class Test {
+    public class Test {
 
     public static void main(String args[]) throws Exception {
 

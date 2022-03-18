@@ -18,7 +18,7 @@
 <body style="background-color: #212529;">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="height: 80px;">
 	<!-- Navbar Brand-->
-	<a class="navbar-brand ps-3" href="index.html" style="font-size: 2em;">SML</a>
+	<a class="navbar-brand ps-3" href="/temp/index" style="font-size: 2em;">SML</a>
 	<!-- Sidebar Toggle-->
 	<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 	<!-- Navbar Search-->
@@ -33,7 +33,7 @@
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 			<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-				<li><a class="dropdown-item" href="#!">Settings</a></li>
+				<li><a id="btn-open-popup" class="dropdown-item" href="#!">AVG Carculater</a></li>
 				<li><a class="dropdown-item" href="#!">Activity Log</a></li>
 				<li><hr class="dropdown-divider" /></li>
 				<li><a class="dropdown-item" href="/user/logout">Logout</a></li>
@@ -47,19 +47,19 @@
 			<div class="sb-sidenav-menu">
 				<div class="nav">
 					<div class="sb-sidenav-menu-heading">Core</div>
-					<a class="nav-link" href="index.html">
+					<a class="nav-link" href="/temp/index">
 						<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
 						Dashboard
 					</a>
 					<div class="sb-sidenav-menu-heading">Interface</div>
 					<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
 						<div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-						Layouts
-						<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+						Quote
+					<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
 					</a>
 					<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 						<nav class="sb-sidenav-menu-nested nav">
-							<a class="nav-link" href="layout-static.html">Static Navigation</a>
+							<a class="nav-link" href="/quote/thHour">3Hour Quote</a>
 							<a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
 						</nav>
 					</div>
@@ -97,11 +97,11 @@
 					<div class="sb-sidenav-menu-heading">Addons</div>
 					<a class="nav-link" href="charts.html">
 						<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-						Charts
+						Write
 					</a>
 					<a class="nav-link" href="tables.html">
 						<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-						Tables
+						Memo
 					</a>
 				</div>
 			</div>
@@ -113,12 +113,12 @@
 	</div>
 	<div id="layoutSidenav_content" style="background-color: rgb(22, 26, 30); border-radius: 15px;">
 		<main>
-			<!-- 섹서 -->
+			<!-- 섹터 -->
 			<div class="container-fluid px-4">
-				<h1 class="mt-4" style="color: white;">Static Navigation</h1>
+				<h1 class="mt-4" style="color: white;">${title}</h1>
 				<ol class="breadcrumb mb-4">
 					<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-					<li class="breadcrumb-item active">Static Navigation</li>
+					<li class="breadcrumb-item active">${title}</li>
 				</ol>
 				<div class="card mb-4" style="background-color: rgb(22, 26, 30); color: white; border: 1px solid #333;">
 				<div class="card-body">
@@ -133,8 +133,22 @@
 				</div>
 			</div>
 
+			<!-- Top버튼 -->
+			<span id="topBtn" class="TOP">
+				<span class="material-icons" style="font-size: 70px; color: white;">file_upload</span>
+			</span>
 
+			<!-- 물타기계산기 모달 -->
+			<div class="modal">
+				<div class="modal_body">
+					<span style="font-weight: bold; color: #333; font-size: 1.2em;">Carculater</span>
+					<div>
+						<jsp:include page="/WEB-INF/views/modal/Carculater.jsp"></jsp:include>
+					</div>
+				</div>
+			</div>
 			<div style="height: 100vh"></div>
+
 <%--		<div class="card mb-4"><div class="card-body">When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.</div></div>--%>
 		</main>
 		<footer class="py-4 bg-light mt-auto">
@@ -154,9 +168,52 @@
 </body>
 <script type="text/javascript">
 
-	$(document).ready(function () {
+	$(document).ready(function() {
 
 	});
+
+	/**			Top 버튼 Start 		**/
+	let Top = document.querySelector('#TopBtn');
+
+	window.addEventListener('scroll', function(){
+		if(this.scrollY > 100){
+			Top.classList.add('on')
+		}else{
+			Top.classList.remove('on')
+		}
+	});
+	Top.addEventListener('click', function(el){
+		el.preventDefault()
+		window.scrollTo({
+			top: 0
+		})
+	});
+	/**			Top 버튼 End 		**/
+
+
+	/**         모달띄우기 Start      **/
+	const body = document.querySelector('body');
+	const modal = document.querySelector('.modal');
+	const btnOpenPopup = document.querySelector('#btn-open-popup');
+
+	btnOpenPopup.addEventListener('click', () => {
+		modal.classList.toggle('show');
+
+		if (modal.classList.contains('show')) {
+			body.style.overflow = 'hidden';
+		}
+	});
+
+	modal.addEventListener('click', (event) => {
+		if (event.target === modal) {
+			modal.classList.toggle('show');
+
+			if (!modal.classList.contains('show')) {
+				body.style.overflow = 'auto';
+			}
+		}
+	});
+	/**         모달띄우기 End      **/
 
 </script>
 </body>
