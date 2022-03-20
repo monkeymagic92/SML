@@ -17,17 +17,9 @@
 </head>
 <body>
 
-<h1 id="quoteIndexTitle">
-	<span>3th Hour Table</span>
-</h1>
-<h2 id="quoteIndexTitle2">Created with love by
-	<a href="https://upbit.com/exchange?code=CRIX.UPBIT.KRW-BTC" target="_blank">Upbit</a>
-</h2>
-
-
 <%-- test용 --%>
 <form id="frm" name="frm" action="/quote/insertCoinList" method="post">
-
+	<input type="hidden" id="nullvalue" name="nullvalue" value="1" />
 	<button type="submit" id="insertTest" name="insertTest">클릭</button>
 </form>
 <c:forEach var="list" items="${list}">
@@ -36,10 +28,20 @@
 </c:forEach>
 <%-- test용 --%>
 
+<h1 id="quoteIndexTitle">
+	<span>3th Hour Table</span>
+</h1>
+<h2 id="quoteIndexTitle2">Created with love by
+	<a href="https://upbit.com/exchange?code=CRIX.UPBIT.KRW-BTC" target="_blank">Upbit</a>
+	<br>
+	<div><span style="text-align:left">갱신일자 : 2022/1/1/</span></div>
+</h2>
+
 
 
 <table class="quoteIndexContainer">
 	<thead>
+
 	<tr>
 		<th><h1>Sites</h1></th>
 		<th><h1>Views</h1></th>

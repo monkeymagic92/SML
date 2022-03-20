@@ -9,7 +9,7 @@
         SELECT
             MARKET
             , HIGH_PRICE
-        FROM T_COIN_TH_QUOTE
+        FROM T_COIN_TH_QUOTE_KRW
         WHERE MARKET = 'KRW-BTC'
     </select>
 

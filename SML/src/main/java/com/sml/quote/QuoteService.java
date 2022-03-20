@@ -33,14 +33,13 @@ public class QuoteService {
 		return list;
 	}
 
-
-
 	/*
+		파라미터(KRW / BTC에 따라 해당 값을 가져온다
 		스케줄러 ( 10초에 한번씩 자동실행, (1000ms)
 	 */
 //	@Scheduled(fixedRate=10000)
 	public void insertCoinList() throws Exception {
-		upbitAPI.insertCoinList();
+		upbitAPI.insertCoinList("KRW");
 	}
 
 

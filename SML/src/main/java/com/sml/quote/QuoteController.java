@@ -38,6 +38,7 @@ public class QuoteController extends CommonController {
 	@RequestMapping(value = "/quote/insertCoinList", method = RequestMethod.POST)
 	public void insertCoinList(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		service.insertCoinList();
+
 	}
 
 

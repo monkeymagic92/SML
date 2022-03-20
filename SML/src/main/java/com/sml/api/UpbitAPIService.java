@@ -39,10 +39,10 @@ public class UpbitAPIService {
 	 * 코인 전체리스트와 코인 시세정보를 가져온다
 	 * @throws Exception
 	 */
-	public void insertCoinList() throws Exception {
+	public void insertCoinList(String market) throws Exception {
 
 		// 1. coin리스트를 List<Map>에 담는다
-		List<Map<String, Object>> coinList = getUpbitCoinList("KRW");
+		List<Map<String, Object>> coinList = getUpbitCoinList(market);
 
 		// 1차적으로 merge in to 해서 코인정보를 다 insert한후
 		for(int i=0; i<coinList.size(); i++) {
