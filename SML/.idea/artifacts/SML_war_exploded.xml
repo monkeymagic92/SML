@@ -8,6 +8,8 @@
           <element id="module-output" name="SML" />
           <element id="jpa-descriptors" facet="SML/jpa/JPA" />
           <element id="library" level="project" name="jQuery" />
+          <element id="library" level="application" name="jquery-3.6.0" />
+          <element id="library" level="application" name="jquery.form" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Spring-5.2.3.RELEASE" />
@@ -70,6 +72,9 @@
           <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.4" />
           <element id="library" level="project" name="Maven: com.navercorp.lucy:lucy-xss-servlet:2.0.0" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.2.3.RELEASE" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.11.3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.11.3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.11.3" />
         </element>
       </element>
     </root>

@@ -27,12 +27,29 @@ public class QuoteController extends CommonController {
 	@RequestMapping(value = "/quote/thHour", method = RequestMethod.GET)
 	public String selectThHour(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+
 		model.addAttribute("list", service.selectQuote());
 		model.addAttribute("title", "3th Hour Table");
 		model.addAttribute("view", "/quote/thHour");
 
 		return ViewRef.LAYOUT_TEMP;
 	}
+
+	@RequestMapping(value = "/quote/insertCoinList", method = RequestMethod.POST)
+	public void insertCoinList(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		service.insertCoinList();
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 	@RequestMapping(value = "/quote/ajax")
 	public void ajaxIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {

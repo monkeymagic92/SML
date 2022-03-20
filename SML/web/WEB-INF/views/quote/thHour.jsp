@@ -24,6 +24,20 @@
 	<a href="https://upbit.com/exchange?code=CRIX.UPBIT.KRW-BTC" target="_blank">Upbit</a>
 </h2>
 
+
+<%-- test용 --%>
+<form id="frm" name="frm" action="/quote/insertCoinList" method="post">
+
+	<button type="submit" id="insertTest" name="insertTest">클릭</button>
+</form>
+<c:forEach var="list" items="${list}">
+	<h1>${list.MARKET}</h1>
+	<h1>${list.HIGH_PRICE}</h1>
+</c:forEach>
+<%-- test용 --%>
+
+
+
 <table class="quoteIndexContainer">
 	<thead>
 	<tr>

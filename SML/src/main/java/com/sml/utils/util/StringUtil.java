@@ -1,6 +1,7 @@
-package com.sml.utils.core;
+package com.sml.utils.util;
 
 import com.sml.utils.common.CommonController;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -10,14 +11,9 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.log4j.Logger;
 
 public class StringUtil extends CommonController {
 
@@ -1375,6 +1371,22 @@ public class StringUtil extends CommonController {
         str = str.replace("\r\n", "");
         // EMI CODE
         str = str.replace("{$", "{ $");
+
+        return str;
+    }
+
+    /**
+     * 문자열의 가장 마지막 값을 지운다
+     * 사용처 : KRW-BTC,KRW-ETH,KRW-XEM    (마지막엔 ',' 쉼표제거)
+     * @param str
+     * @return
+     */
+    public static String lastStringDelete(String str) {
+
+        str = Optional.ofNullable(str)
+                .filter(s -> s.length() != 0)
+                .map(s -> s.substring(0, s.length() - 1))
+                .orElse(str);
 
         return str;
     }

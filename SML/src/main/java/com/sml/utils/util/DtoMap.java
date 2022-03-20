@@ -1,7 +1,5 @@
 package com.sml.utils.util;
 
-import com.sml.utils.core.StringUtil;
-
 import java.util.LinkedHashMap;
 
 public class DtoMap<K, V> extends LinkedHashMap<K, V> {

@@ -1,0 +1,49 @@
+.carculater {
+    margin-top: 30px;
+}
+
+.btnBox {
+    margin-top: 20px;
+}
+
+.resultBox {
+    margin-top: 30px;
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1em;
+    line-height: 30px;
+}
+
+#frm span {
+    color: #333;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+#btnChk {
+    width: 60px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #333;
+    font-weight: bold;
+    font-size: 0.9em;
+    background-color: #333;
+    color: whitesmoke;
+    padding: 2px;
+    cursor: pointer;
+}
+
+#btnClear {
+    margin-top: 20px;
+    width: 130px;
+    height: 30px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #333;
+    font-weight: bold;
+    font-size: 0.9em;
+    background-color: #333;
+    color: whitesmoke;
+    padding: 2px;
+    cursor: pointer;
+}

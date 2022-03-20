@@ -1,4 +1,4 @@
-package com.sml.sample;
+package com.sml.test;
 
 import com.sml.utils.util.TimeMaximum;
 import org.springframework.beans.factory.annotation.Value;

@@ -9,34 +9,48 @@
 <html>
 <head>
 	<title>Title</title>
+	<link href="/res/css/carculater/carculater.css" rel="stylesheet">
 	<style>
 
 	</style>
 </head>
 <body>
-
-	<div>
+	<div class="carculater">
 		<form id="frm" name="frm" action="#">
-			<span>기존평단</span>
+			<span id="oriTitle">기존평단</span>
 			<br>
 			<input type="text" id="oriQuote" name="oriQuote" placeholder="기존매수시세" onkeyup="inputNumberFormat(this)"/>
 			<br>
 			<input type="text" id="oriCash" name="oriCash" placeholder="기존매수금액" onkeyup="inputNumberFormat(this)"/>
-			<br>
-			<span>물타기</span>
+			<br><br>
+			<span id="newTitle">물타기</span>
 			<br>
 			<input type="text" id="newQuote" name="newQuote" placeholder="신규매수시세" onkeyup="inputNumberFormat(this)"/>
 			<br>
 			<input type="text" id="newCash" name="newCash" placeholder="신규매수금액" onkeyup="inputNumberFormat(this)" onkeydown="enter()"/>
 			<br>
-			<button type="button"b id="btnChk" name="btnChk">계산</button>
+			<!-- button 디자인 codepen에서 가져오기 -->
+			<div class="btnBox">
+				<button type="button" id="btnChk" name="btnChk">계산</button>
+				<br>
+				<button type="button" id="btnClear" name="btnClear" onclick="fnClear();">지우기(Shift + a)</button>
+			</div>
 
-			<div>평단 : <span id="result"></span></div>
-			<div>총금액 : <span id="result2"></span></div>
+			<div class="resultBox">
+				<div>평단 : <span id="result"></span></div>
+			</div>
 		</form>
 	</div>
 
 <script>
+
+	// shift + A키를 누를경우 전체지우기
+	$(document).bind('keypress', function(event) {
+		if( event.which === 65 && event.shiftKey ) {
+			fnClear();
+		}
+	});
+
 	$(document).ready(function() {
 
 		$("#btnChk").click(function() {
@@ -65,13 +79,10 @@
 			//           ((기존매수시세 + 수량) + (신규매수시세 + 수량)) / (기존수량 + 신규수량)
 			let result = ((oriQuote2 * oriNum) + (newQuote2 * newNum)) / (oriNum + newNum);
 
-			// 소수점 제거후 3자리콤마 적용시킬 변수 생성
-			let resultLocale = Math.round(result);					// 평단
-			let resultCashLocale = Math.round(oriCash2 + newCash2); // 총금액
+			let resultLocale = Math.round(result);
 
 			// 결과
 			$("#result").text(resultLocale.toLocaleString('ko-KR'));
-			$("#result2").text(resultCashLocale.toLocaleString('ko-KR'));
 		});
 	});
 
@@ -96,6 +107,16 @@
 		return str.replace(/[^\d]+/g, '');
 	}
 	/********* input태그 천단위 콤마 end **********/
+
+	// 전체지우기
+	function fnClear() {
+		$("#oriQuote").val('');
+		$("#oriCash").val('');
+		$("#newQuote").val('');
+		$("#newCash").val('');
+		$("#result").text('');
+		$("#oriQuote").focus();
+	}
 </script>
 </body>
 </html>

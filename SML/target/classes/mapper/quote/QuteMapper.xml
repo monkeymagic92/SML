@@ -4,11 +4,13 @@
 
 <mapper namespace="com.sml.quote.QuoteMapper">
 
+    <!-- 테스트용 -->
     <select id="selectQuote" resultType="LinkedHashMap">
         SELECT
-            I_NUM
-            , TITLE
-        FROM COIN
+            MARKET
+            , HIGH_PRICE
+        FROM T_COIN_TH_QUOTE
+        WHERE MARKET = 'KRW-BTC'
     </select>
 
 </mapper>

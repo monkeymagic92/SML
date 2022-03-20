@@ -1,5 +1,6 @@
 package com.sml.quote;
 
+import com.sml.api.UpbitAPIService;
 import com.sml.utils.util.Bind;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,12 +24,57 @@ public class QuoteService {
 	@Autowired
 	private QuoteMapper mapper;
 
-	public List<?> selectQuote() {
+	@Autowired
+	private UpbitAPIService upbitAPI;
 
+
+	public List<?> selectQuote() throws Exception {
 		List<?> list = mapper.selectQuote();
-
 		return list;
 	}
+
+
+
+	/*
+		스케줄러 ( 10초에 한번씩 자동실행, (1000ms)
+	 */
+//	@Scheduled(fixedRate=10000)
+	public void insertCoinList() throws Exception {
+		upbitAPI.insertCoinList();
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	public void ajaxIndex(Model model, HttpServletRequest request, HttpServletResponse response, Writer out) throws Exception {
 
@@ -39,6 +85,4 @@ public class QuoteService {
 
 		//CommonUtil.jsonResponse(response, map);
 	}
-
-
 }

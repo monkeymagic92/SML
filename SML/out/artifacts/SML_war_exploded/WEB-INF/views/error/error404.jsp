@@ -24,7 +24,7 @@
 	<div class="container">
 		<h1>Error 404</h1>
 		<h3>입력한 url을 다시 확인해 주세요</h3>
-		<a href="/temp/index">메인화면으로..</a>
+		<a href="/temp/index">메인화면으로 가기</a>
 	</div>
 
 <script type="text/javascript">
