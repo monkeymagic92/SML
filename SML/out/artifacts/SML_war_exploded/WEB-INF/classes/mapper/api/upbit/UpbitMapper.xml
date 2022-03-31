@@ -5,7 +5,7 @@
 <mapper namespace="com.sml.api.UpbitAPIMapper">
 
     <!-- 코인리스트 inert (INSERT IGNORE를 하여 중복 insert방지) -->
-    <insert id="insertCoinList" parameterType="LinkedHashMap">
+    <insert id="insertCoinListKRW" parameterType="LinkedHashMap">
         INSERT IGNORE INTO T_COIN_TH_QUOTE_KRW
         (MARKET, KOR_NM, ENG_NM)
         VALUES
@@ -13,8 +13,50 @@
     </insert>
 
     <!-- 코인가격 update ( 스케줄러로 인해 특정시간대만 update ) -->
-    <update id="updateCoinQuote" parameterType="LinkedHashMap">
+    <update id="updateCoinQuoteKRW" parameterType="LinkedHashMap">
         UPDATE T_COIN_TH_QUOTE_KRW
+        SET MARKET = #{MARKET}
+        , TRADE_DATE = #{TRADE_DATE}
+        , TRADE_TIME = #{TRADE_TIME}
+        , TRADE_DATE_KST = #{TRADE_DATE_KST}
+        , TRADE_TIME_KST = #{TRADE_TIME_KST}
+        , TRADE_TIMESTAMP = #{TRADE_TIMESTAMP}
+        , OPENING_PRICE = #{OPENING_PRICE}
+        , HIGH_PRICE = #{HIGH_PRICE}
+        , LOW_PRICE = #{LOW_PRICE}
+        , TRADE_PRICE = #{TRADE_PRICE}
+        , PREV_CLOSING_PRICE = #{PREV_CLOSING_PRICE}
+        <!-- , CHANGE = #{CHANGE} -->
+        , CHANGE_PRICE = #{CHANGE_PRICE}
+        , CHANGE_RATE = #{CHANGE_RATE}
+        , SIGNED_CHANGE_PRICE = #{SIGNED_CHANGE_PRICE}
+        , SIGNED_CHANGE_RATE = #{SIGNED_CHANGE_RATE}
+        , TRADE_VOLUME = #{TRADE_VOLUME}
+        , ACC_TRADE_PRICE = #{ACC_TRADE_PRICE}
+        , ACC_TRADE_PRICE_24H = #{ACC_TRADE_PRICE_24H}
+        , ACC_TRADE_VOLUME = #{ACC_TRADE_VOLUME}
+        , ACC_TRADE_VOLUME_24H = #{ACC_TRADE_VOLUME_24H}
+        , HIGHEST_52_WEEK_PRICE = #{HIGHEST_52_WEEK_PRICE}
+        , HIGHEST_52_WEEK_DATE = #{HIGHEST_52_WEEK_DATE}
+        , LOWEST_52_WEEK_PRICE = #{LOWEST_52_WEEK_PRICE}
+        , LOWEST_52_WEEK_DATE = #{LOWEST_52_WEEK_DATE}
+        <!-- , TIMESTAMP = #{TIMESTAMP} -->
+        , UPD_DT = (SELECT NOW())
+        WHERE MARKET = #{MARKET}
+    </update>
+
+
+    <!-- 코인리스트 inert (INSERT IGNORE를 하여 중복 insert방지) -->
+    <insert id="insertCoinListBTC" parameterType="LinkedHashMap">
+        INSERT IGNORE INTO T_COIN_TH_QUOTE_BTC
+        (MARKET, KOR_NM, ENG_NM)
+        VALUES
+        (#{MARKET}, #{KOR_NM}, #{ENG_NM});
+    </insert>
+
+    <!-- 코인가격 update ( 스케줄러로 인해 특정시간대만 update ) -->
+    <update id="updateCoinQuoteBTC" parameterType="LinkedHashMap">
+        UPDATE T_COIN_TH_QUOTE_BTC
         SET MARKET = #{MARKET}
         , TRADE_DATE = #{TRADE_DATE}
         , TRADE_TIME = #{TRADE_TIME}

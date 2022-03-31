@@ -8,15 +8,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
 <head>
 	<title>Title</title>
 	<style>
 		.container {
 			margin: 0 auto;
+			margin-top: 100px;
 			width: 800px;
 			text-align: center;
 			color: #333;
 		}
+
+		a {
+			font-size: 1.1em;
+		}
+
 	</style>
 
 </head>

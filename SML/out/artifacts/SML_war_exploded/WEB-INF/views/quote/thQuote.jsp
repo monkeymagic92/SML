@@ -17,15 +17,12 @@
 </head>
 <body>
 
-<%-- test용 --%>
-<form id="frm" name="frm" action="/quote/insertCoinList" method="post">
-	<input type="hidden" id="nullvalue" name="nullvalue" value="1" />
-	<button type="submit" id="insertTest" name="insertTest">클릭</button>
-</form>
+
 <c:forEach var="list" items="${list}">
 	<h1>${list.MARKET}</h1>
 	<h1>${list.HIGH_PRICE}</h1>
 </c:forEach>
+
 <%-- test용 --%>
 
 <h1 id="quoteIndexTitle">
@@ -34,14 +31,14 @@
 <h2 id="quoteIndexTitle2">Created with love by
 	<a href="https://upbit.com/exchange?code=CRIX.UPBIT.KRW-BTC" target="_blank">Upbit</a>
 	<br>
-	<div><span style="text-align:left">갱신일자 : 2022/1/1/</span></div>
 </h2>
-
-
+<button type="button" id="a" name="a">click Test Ajax</button>
+<form id="frm" name="frm" method="post">
+	<input type="hidden" id="ina" name="ina" value="123" />
+</form>
 
 <table class="quoteIndexContainer">
 	<thead>
-
 	<tr>
 		<th><h1>Sites</h1></th>
 		<th><h1>Views</h1></th>
@@ -106,7 +103,15 @@
 <script type="text/javascript">
 
 	$(document).ready(function () {
+		$("#a").click(function() {
+			fnAjaxSubmit('<c:url value="/quote/test" />', "#frm", call);
+		});
+
 	});
+
+	function call(data) {
+		console.log(data.AAA);
+	}
 </script>
 </body>
 </html>

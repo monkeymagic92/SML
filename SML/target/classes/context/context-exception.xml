@@ -12,9 +12,10 @@
         <property name="exceptionAttribute" value="error" />
         <property name="exceptionMappings">
             <map>
-                <entry key="com.sml.core.BusinessException" value="errors/businessException" />
+                <entry key="com.sml.utils.core.BusinessException" value="errors/businessException" />
             </map>
         </property>
+        <property name="defaultErrorView" value="errors/defaultException" />
     </bean>
     <!-- Exception Resolver Error Page Config End -->
 </beans>

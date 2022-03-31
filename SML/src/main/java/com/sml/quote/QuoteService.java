@@ -1,7 +1,10 @@
 package com.sml.quote;
 
 import com.sml.api.UpbitAPIService;
+import com.sml.utils.common.CommonService;
+import com.sml.utils.core.BusinessException;
 import com.sml.utils.util.Bind;
+import com.sml.utils.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -19,7 +22,7 @@ import java.util.Map;
  */
 
 @Service
-public class QuoteService {
+public class QuoteService extends CommonService {
 
 	@Autowired
 	private QuoteMapper mapper;
@@ -33,13 +36,34 @@ public class QuoteService {
 		return list;
 	}
 
+	// (3시간) 갱신일자(UPD_DT) 값 가져오기
+	public String selectThKRWUpdDt() {
+
+		return mapper.selectThKRWUpdDt();
+	}
+
 	/*
 		파라미터(KRW / BTC에 따라 해당 값을 가져온다
 		스케줄러 ( 10초에 한번씩 자동실행, (1000ms)
 	 */
-//	@Scheduled(fixedRate=10000)
+	//@Scheduled(fixedRate=20000)
 	public void insertCoinList() throws Exception {
 		upbitAPI.insertCoinList("KRW");
+		upbitAPI.insertCoinList("BTC");
+	}
+
+	public void test(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		Bind bind = new Bind(request);
+		Map<String, Object> map = bind.getDto();
+		map.put("AAA", "AAA");
+
+		String a = "aaa";
+		if(a.equals("aaa")) {
+			throw new BusinessException("에러발생");
+		}
+
+		CommonUtil.jsonResponse(response, map);
 	}
 
 

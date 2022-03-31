@@ -2,6 +2,7 @@ package com.sml.utils.common;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.MessageSourceAccessor;
 
 import java.util.Properties;
 
@@ -20,5 +21,8 @@ public abstract class CommonService {
 
 	@Autowired
 	protected Properties systemProp;
+
+	@Autowired
+	protected MessageSourceAccessor message;
 
 }

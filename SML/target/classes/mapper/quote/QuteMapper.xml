@@ -9,6 +9,14 @@
         SELECT
             MARKET
             , HIGH_PRICE
+            , UPD_DT
+        FROM T_COIN_TH_QUOTE_KRW
+        WHERE MARKET = 'KRW-BTC'
+    </select>
+
+    <select id="selectThKRWUpdDt" resultType="String">
+        SELECT
+            DATE_FORMAT(UPD_DT, '%Y-%m-%d  /  %H:%i:%s')
         FROM T_COIN_TH_QUOTE_KRW
         WHERE MARKET = 'KRW-BTC'
     </select>

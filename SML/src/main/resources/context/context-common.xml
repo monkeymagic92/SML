@@ -36,6 +36,26 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!-- Message Properties Setting Start -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <!-- <bean id="messageSource" class="ducf.core.message.DatabaseMessageSource"> -->
+        <property name="basenames">
+            <list>
+                <value>classpath:/message/message-common</value>
+            </list>
+        </property>
+        <property name="cacheSeconds">
+            <value>60</value>
+        </property>
+    </bean>
+
+    <bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
+        <constructor-arg>
+            <ref bean="messageSource"/>
+        </constructor-arg>
+    </bean>
+    <!-- Message Properties Setting End -->
+
 
     <!-- AOP AspectJ Start -->
     <bean id="AopAdviceService" class="com.sml.utils.aop.AopAdvice"/>

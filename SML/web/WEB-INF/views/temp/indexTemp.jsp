@@ -8,6 +8,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
 <head>
 	<title>Title</title>
 
@@ -117,8 +119,7 @@
 			<div class="container-fluid px-4">
 				<h1 class="mt-4" style="color: white;">${title}</h1>
 				<ol class="breadcrumb mb-4">
-					<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-					<li class="breadcrumb-item active">${title}</li>
+					<li class="breadcrumb-item active" style="color: #b9c0d3;">${subCntn}</li>
 				</ol>
 				<div class="card mb-4" style="background-color: rgb(22, 26, 30); color: white; border: 1px solid #333;">
 				<div class="card-body">

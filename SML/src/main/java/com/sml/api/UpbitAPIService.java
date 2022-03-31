@@ -51,9 +51,12 @@ public class UpbitAPIService {
 			map.put("KOR_NM", coinList.get(i).get("KOR_NM"));
 			map.put("ENG_NM", coinList.get(i).get("ENG_NM"));
 
-			mapper.insertCoinList(map);
+			if(market.equals("KRW")) {
+				mapper.insertCoinListKRW(map);
+			} else {
+				mapper.insertCoinListBTC(map);
+			}
 		}
-
 
 		// 리스트맵에서 market키값을 가져온다
 		String str = parsingJsonToString(coinList, "MARKET");
@@ -100,7 +103,11 @@ public class UpbitAPIService {
 			map.put("LOWEST_52_WEEK_DATE", jsonObj.get("lowest_52_week_date"));
 			map.put("TIMESTAMP", jsonObj.get("timestamp"));
 
-			mapper.updateCoinQuote(map);
+			if(market.equals("KRW")) {
+				mapper.updateCoinQuoteKRW(map);
+			} else {
+				mapper.updateCoinQuoteBTC(map);
+			}
 		}
 	}
 

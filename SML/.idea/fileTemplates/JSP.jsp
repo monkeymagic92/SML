@@ -10,6 +10,8 @@
 <html>
 <head>
 	<title>Title</title>
+	<!-- 패키지 / 파일명 적기 -->
+	<link href="/res/css/package/name.css" rel="stylesheet">
 
 </head>
 <body>

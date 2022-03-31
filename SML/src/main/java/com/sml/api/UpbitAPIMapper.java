@@ -9,7 +9,15 @@ import java.util.Map;
 @Repository
 public interface UpbitAPIMapper {
 
-	public void insertCoinList(Map<String, Object> map);
+	// KRW 코인리스트
+	public void insertCoinListKRW(Map<String, Object> map);
 
-	public void updateCoinQuote(Map<String, Object> map);
+	// KRW 코인 가격 update
+	public void updateCoinQuoteKRW(Map<String, Object> map);
+
+	// BTC 코인리스트
+	public void insertCoinListBTC(Map<String, Object> map);
+
+	// BTC 코인 가격 update
+	public void updateCoinQuoteBTC(Map<String, Object> map);
 }

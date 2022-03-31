@@ -27,18 +27,28 @@ public class QuoteController extends CommonController {
 	@RequestMapping(value = "/quote/thHour", method = RequestMethod.GET)
 	public String selectThHour(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-
+		// thHour.jsp에 들어갈 model
 		model.addAttribute("list", service.selectQuote());
+
+		// indexTemp.jsp에 들어갈 model
 		model.addAttribute("title", "3th Hour Table");
-		model.addAttribute("view", "/quote/thHour");
+		model.addAttribute("subCntn", "갱신일자 : " + service.selectThKRWUpdDt());
+
+		model.addAttribute("view", "/quote/thQuote");
 
 		return ViewRef.LAYOUT_TEMP;
 	}
 
+	// 나중에 스케줄러 돌리면 해당 부분은 삭제해도됨
+	// 테스트용으로 클릭버튼 눌렀을때 DB에 코인업데이트내용 저장되게 하는 controller
 	@RequestMapping(value = "/quote/insertCoinList", method = RequestMethod.POST)
 	public void insertCoinList(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		service.insertCoinList();
+	}
 
+	@RequestMapping(value = "/quote/test", method = RequestMethod.POST)
+	public void test(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		service.test(request, response);
 	}
 
 
