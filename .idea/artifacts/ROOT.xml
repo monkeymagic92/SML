@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ROOT">
+    <output-path>$PROJECT_DIR$/out/artifacts/ROOT</output-path>
+    <root id="archive" name="ROOT.war">
+      <element id="artifact" artifact-name="SML:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="library" level="application" name="jquery-3.6.0" />
+          <element id="library" level="application" name="jquery.form" />
+          <element id="library" level="application" name="Chart" />
+          <element id="library" level="application" name="bootstrap.bundle" />
+          <element id="library" level="application" name="all" />
+          <element id="library" level="application" name="jquery-ui" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

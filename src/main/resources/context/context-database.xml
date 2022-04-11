@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+    <!-- ########################### DB연동 정보 Start ########################### -->
+    <!-- oracle 연동  -->
+    <!--
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+        <property name="username" value="${db.orcl.username}"/>
+        <property name="password" value="${db.orcl.password}"/>
+    </bean>
+    -->
+
+    <!-- mysql / mariaDB 연동 (systemProp 프로퍼티로 인해 운영/로컬 자동분리) (tisotry에 내용정리함) -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+        <property name="url" value="jdbc:log4jdbc:mysql://#{systemProp['db.maria.url']}/SML?characterEncoding=UTF-8&amp;serverTimezone=UTC"/>
+        <property name="username" value="#{systemProp['db.maria.username']}"/>
+        <property name="password" value="#{systemProp['db.maria.password']}"/>
+    </bean>
+    <!-- ########################### DB연동 정보 End ########################### -->
+
+
+    <!--  db관련 정보 properties에 넣기위함 용 (xml에서 사용하기위함)   /   File생성방법 :  alt + ins - File -->
+    <!-- <context:property-placeholder location="classpath:/config/config-properties" /> -->
+
+
+    <!-- mybatis-spring:scan : 인터페이스의 @Mapper를 찾는다 -->
+    <mybatis-spring:scan base-package="com.sml.*"/> <!--  하단 탭에Namespace import 안해서 빨간줄 뜨는것  -->
+
+
+    <!-- 'configLocation' - mybatis-alias.xml - mybatis alias 지정하는 파일
+         'mapperLocations' - mapper - DB쿼리 작성  -->
+    <bean id="sqlSessionFactory" class="com.sml.utils.core.RefreshableSqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:/mybatis/mybatis-alias.xml"/>
+        <!-- mapperLocations에서 classpath* 붙여줘도되고 안붙여줘도 되고 (Mapper.xml 파일을 읽는다)-->
+        <property name="mapperLocations" value="classpath*:/mapper/**/*Mapper.xml"/>
+        <property name="interval" value="1000" />
+    </bean>
+
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"></constructor-arg>
+    </bean>
+
+
+    <!--
+       스케쥴 지정 ( database.xml에 설정 / common.xml에 설정 하니 스케줄러 두번 실행되는 현상 발생 )
+     -->
+    <task:annotation-driven/>
+
+
+    <!-- Transaction AOP Start -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 자바단에서 @Transactional(rollbackFor=Exception.class) 을 사용할수있게 트랜잭션 어노테이션 생성 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+
+    <!-- xml 트랜잭션 생성  (아직 미완성 추후 더 살펴보기) -->
+<!--    <tx:advice id="txAdvice" transaction-manager="transactionManager">-->
+<!--        <tx:attributes>-->
+<!--            <tx:method name="list*" read-only="true"/>-->
+<!--            <tx:method name="select*" read-only="true"/>-->
+<!--            <tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception"/>    &lt;!&ndash; rollback-for="Exception" 으로도 해보기 &ndash;&gt;-->
+<!--            <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>-->
+<!--            <tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>-->
+<!--            <tx:method name="save*" propagation="REQUIRED" rollback-for="Exception"/>-->
+<!--        </tx:attributes>-->
+<!--    </tx:advice>-->
+
+<!--    <aop:config>-->
+<!--        <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* com..*Service.*(..))" />-->
+<!--    </aop:config>-->
+
+</beans>

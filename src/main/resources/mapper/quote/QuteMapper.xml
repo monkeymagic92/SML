@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sml.quote.QuoteMapper">
+
+    <!-- 테스트용 -->
+    <select id="selectQuoteKRWList" resultType="LinkedHashMap">
+        SELECT
+            MARKET
+            , KOR_NM
+            , ENG_NM
+        FROM T_COIN_QUOTE_KRW
+    </select>
+
+    <select id="selectThKRWUpdDt" resultType="String">
+        SELECT
+            DATE_FORMAT(UPD_DT, '%Y-%m-%d  /  %H:%i:%s')
+        FROM T_COIN_QUOTE_KRW
+        WHERE MARKET = 'KRW-BTC'
+    </select>
+
+    <!-- 08:55분 경주마달리기 전 현재 코인리스트 ( 밑에 INSERT 컬럼 더 추가하기 ) -->
+    <insert id="insertBeforeRaceList" parameterType="LinkedHashMap">
+        INSERT IGNORE INTO T_COIN_RACE_KRW
+        (MARKET, KOR_NM, ENG_NM, TRADE_TIME)
+        SELECT MARKET, KOR_NM, ENG_NM, TRADE_TIME FROM T_COIN_QUOTE_KRW
+    </insert>
+
+</mapper>
