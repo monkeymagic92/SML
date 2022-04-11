@@ -105,8 +105,10 @@ public class UpbitAPIService {
 
 			if(market.equals("KRW")) {
 				mapper.updateCoinQuoteKRW(map);
+				mapper.insertCoinQuoteKRW_HIS(map); // KRW_HIS 테이블
 			} else {
 				mapper.updateCoinQuoteBTC(map);
+				mapper.insertCoinQuoteBTC_HIS(map); // KRW_BTC 테이블
 			}
 		}
 	}
@@ -195,7 +197,7 @@ public class UpbitAPIService {
 						listKRWMap.add(krwMap);
 					}
 
-					// 파라미터가 BTC일경우 BTC마켓에 코인리스트만 들고온다
+				// 파라미터가 BTC일경우 BTC마켓에 코인리스트만 들고온다
 				} else if(coinCode.equals("BTC")) {
 
 					if(market.substring(0, 3).equals("BTC")) {
@@ -268,6 +270,4 @@ public class UpbitAPIService {
 		}
 		return str;
 	}
-
-
 }

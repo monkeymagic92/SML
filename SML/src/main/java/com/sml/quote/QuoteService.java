@@ -2,16 +2,11 @@ package com.sml.quote;
 
 import com.sml.api.UpbitAPIService;
 import com.sml.utils.common.CommonService;
-import com.sml.utils.core.BusinessException;
-import com.sml.utils.util.Bind;
-import com.sml.utils.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,81 +26,38 @@ public class QuoteService extends CommonService {
 	private UpbitAPIService upbitAPI;
 
 
-	public List<?> selectQuote() throws Exception {
-		List<?> list = mapper.selectQuote();
+	public List<?> selectCoinThQuote() throws Exception {
+		List<?> list = mapper.selectQuoteKRWList();
 		return list;
 	}
 
-	// (3시간) 갱신일자(UPD_DT) 값 가져오기
+	/**
+	 * (3시간) 갱신일자(UPD_DT) 값 가져오기
+	 * @return
+	 */
 	public String selectThKRWUpdDt() {
-
 		return mapper.selectThKRWUpdDt();
 	}
 
-	/*
-		파라미터(KRW / BTC에 따라 해당 값을 가져온다
-		스케줄러 ( 10초에 한번씩 자동실행, (1000ms)
+
+	/**
+	 	나중에 스케쥴러 매 3시간update하는 로직 넣기
 	 */
 	//@Scheduled(fixedRate=20000)
 	public void insertCoinList() throws Exception {
+		Map<String, Object> map = new HashMap<>();
+
+		upbitAPI.insertCoinList("KRW");		// 어떤 3시간 6시간 경주마든 어떤테이블이든 기본으로 값 가져오는 Temp 테이블이라 보면됨
+		mapper.insertBeforeRaceList(map);	// Temp테이블에 있는데이터를 경주마테이블에 넣는다
+	}
+
+	/**
+		Scheduled : 매일 오전 08:55분
+		경주마 뛰기전 코인 리스트의 값을 저장한다
+	 */
+	@Scheduled(cron = "0 55 08 * * *")
+	public void updateRaceBeforeCoinList() throws Exception {
 		upbitAPI.insertCoinList("KRW");
-		upbitAPI.insertCoinList("BTC");
-	}
 
-	public void test(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		Bind bind = new Bind(request);
-		Map<String, Object> map = bind.getDto();
-		map.put("AAA", "AAA");
-
-		String a = "aaa";
-		if(a.equals("aaa")) {
-			throw new BusinessException("에러발생");
-		}
-
-		CommonUtil.jsonResponse(response, map);
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	public void ajaxIndex(Model model, HttpServletRequest request, HttpServletResponse response, Writer out) throws Exception {
-
-		Bind bind = new Bind(request);
-
-		Map<String, Object> map = bind.getDto();
-		//throw new BusinessException("service");
-
-		//CommonUtil.jsonResponse(response, map);
 	}
 }

@@ -5,20 +5,25 @@
 <mapper namespace="com.sml.quote.QuoteMapper">
 
     <!-- 테스트용 -->
-    <select id="selectQuote" resultType="LinkedHashMap">
+    <select id="selectQuoteKRWList" resultType="LinkedHashMap">
         SELECT
             MARKET
-            , HIGH_PRICE
-            , UPD_DT
-        FROM T_COIN_TH_QUOTE_KRW
-        WHERE MARKET = 'KRW-BTC'
+            , KOR_NM
+            , ENG_NM
+        FROM T_COIN_QUOTE_KRW
     </select>
 
     <select id="selectThKRWUpdDt" resultType="String">
         SELECT
             DATE_FORMAT(UPD_DT, '%Y-%m-%d  /  %H:%i:%s')
-        FROM T_COIN_TH_QUOTE_KRW
+        FROM T_COIN_QUOTE_KRW
         WHERE MARKET = 'KRW-BTC'
     </select>
+
+    <insert id="insertBeforeRaceList" parameterType="LinkedHashMap">
+        INSERT INTO t_coin_race_krw
+        (MARKET, KOR_NM, ENG_NM, TRADE_TIME)
+        SELECT MARKET, KOR_NM, ENG_NM, TRADE_TIME FROM T_COIN_QUOTE_KRW
+    </insert>
 
 </mapper>

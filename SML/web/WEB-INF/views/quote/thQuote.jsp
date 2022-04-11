@@ -16,13 +16,6 @@
 
 </head>
 <body>
-
-
-<c:forEach var="list" items="${list}">
-	<h1>${list.MARKET}</h1>
-	<h1>${list.HIGH_PRICE}</h1>
-</c:forEach>
-
 <%-- test용 --%>
 
 <h1 id="quoteIndexTitle">
@@ -40,63 +33,25 @@
 <table class="quoteIndexContainer">
 	<thead>
 	<tr>
-		<th><h1>Sites</h1></th>
-		<th><h1>Views</h1></th>
-		<th><h1>Clicks</h1></th>
+		<th><h1>마켓</h1></th>
+		<th><h1>한글이름</h1></th>
+		<th><h1>영어이름</h1></th>
 		<th><h1>Average</h1></th>
 		<th><h1>Average</h1></th>
 		<th><h1>Average</h1></th>
 	</tr>
 	</thead>
 	<tbody>
-	<tr>
-		<td>Google</td>
-		<td>9518</td>
-		<td>6369</td>
-		<td>01:32:50</td>
-		<td>01:32:50</td>
-		<td>01:32:50</td>
-	</tr>
-	<tr>
-		<td>Twitter</td>
-		<td>7326</td>
-		<td>10437</td>
-		<td>00:51:22</td>
-		<td>01:32:50</td>
-		<td>01:32:50</td>
-	</tr>
-	<tr>
-		<td>Amazon</td>
-		<td>4162</td>
-		<td>5327</td>
-		<td>00:24:34</td>
-		<td>01:32:50</td>
-		<td>01:32:50</td>
-	</tr>
-	<tr>
-		<td>LinkedIn</td>
-		<td>3654</td>
-		<td>2961</td>
-		<td>00:12:10</td>
-		<td>01:32:50</td>
-		<td>01:32:50</td>
-	</tr>
-	<tr>
-		<td>LinkedIn</td>
-		<td>01:32:50</td>
-		<td>3654</td>
-		<td>2961</td>
-		<td>00:12:10</td>
-		<td>01:32:50</td>
-	</tr>
-	<tr>
-		<td>LinkedIn</td>
-		<td>3654</td>
-		<td>01:32:50</td>
-		<td>2961</td>
-		<td>00:12:10</td>
-		<td>01:32:50</td>
-	</tr>
+	<c:forEach var="list" items="${list}">
+		<tr>
+			<td>${list.MARKET}</td>
+			<td>${list.KOR_NM}</td>
+			<td>${list.ENG_NM}</td>
+			<td>100</td>
+			<td>1000</td>
+			<td>10000</td>
+		</tr>
+	</c:forEach>
 	</tbody>
 </table>
 
@@ -104,7 +59,7 @@
 
 	$(document).ready(function () {
 		$("#a").click(function() {
-			fnAjaxSubmit('<c:url value="/quote/test" />', "#frm", call);
+			fnAjaxSubmit('<c:url value="/quote/insertCoinList" />', "#frm", call);
 		});
 
 	});

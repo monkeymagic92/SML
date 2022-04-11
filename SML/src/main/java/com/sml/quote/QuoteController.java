@@ -1,6 +1,7 @@
 package com.sml.quote;
 
 import com.sml.utils.common.CommonController;
+import com.sml.utils.core.BusinessException;
 import com.sml.utils.util.Bind;
 import com.sml.utils.util.ViewRef;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class QuoteController extends CommonController {
 	public String selectThHour(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		// thHour.jsp에 들어갈 model
-		model.addAttribute("list", service.selectQuote());
+		model.addAttribute("list", service.selectCoinThQuote());
 
 		// indexTemp.jsp에 들어갈 model
 		model.addAttribute("title", "3th Hour Table");
@@ -43,39 +44,8 @@ public class QuoteController extends CommonController {
 	// 테스트용으로 클릭버튼 눌렀을때 DB에 코인업데이트내용 저장되게 하는 controller
 	@RequestMapping(value = "/quote/insertCoinList", method = RequestMethod.POST)
 	public void insertCoinList(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
 		service.insertCoinList();
 	}
 
-	@RequestMapping(value = "/quote/test", method = RequestMethod.POST)
-	public void test(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		service.test(request, response);
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-	@RequestMapping(value = "/quote/ajax")
-	public void ajaxIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		System.out.println("--jytest--");
-		System.out.println(systemProp.getProperty("db.maria.url"));
-		System.out.println("--jytest--");
-
-
-		Bind bind = new Bind(request);
-		Map<String, Object> map = bind.getDto();
-
-		model.addAttribute("message", "Controller 에러 modl");
-		//throw new BusinessException("Controller");
-
-		//service.ajaxIndex(model, request, response);
-	}
 }
