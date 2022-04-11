@@ -21,7 +21,7 @@
     </select>
 
     <insert id="insertBeforeRaceList" parameterType="LinkedHashMap">
-        INSERT INTO t_coin_race_krw
+        INSERT INTO T_COIN_RACE_KRW
         (MARKET, KOR_NM, ENG_NM, TRADE_TIME)
         SELECT MARKET, KOR_NM, ENG_NM, TRADE_TIME FROM T_COIN_QUOTE_KRW
     </insert>
