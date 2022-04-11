@@ -20,10 +20,11 @@
         WHERE MARKET = 'KRW-BTC'
     </select>
 
+    <!-- 08:55분 경주마달리기 전 현재 코인리스트 ( 밑에 INSERT 컬럼 더 추가하기 ) -->
     <insert id="insertBeforeRaceList" parameterType="LinkedHashMap">
         INSERT INTO T_COIN_RACE_KRW
-        (MARKET, KOR_NM, ENG_NM, TRADE_TIME)
-        SELECT MARKET, KOR_NM, ENG_NM, TRADE_TIME FROM T_COIN_QUOTE_KRW
+        (MARKET, KOR_NM, ENG_NM, TRADE_TIME, UPD_DT)
+        SELECT MARKET, KOR_NM, ENG_NM, TRADE_TIME, UPD_DT FROM T_COIN_QUOTE_KRW
     </insert>
 
 </mapper>

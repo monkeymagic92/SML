@@ -32,7 +32,7 @@ public class QuoteService extends CommonService {
 	}
 
 	/**
-	 * (3시간) 갱신일자(UPD_DT) 값 가져오기
+	 * (3시간) 갱신일자(UPD_DT) 값 가져오기.
 	 * @return
 	 */
 	public String selectThKRWUpdDt() {
@@ -57,7 +57,10 @@ public class QuoteService extends CommonService {
 	 */
 	@Scheduled(cron = "0 55 08 * * *")
 	public void updateRaceBeforeCoinList() throws Exception {
+		Map<String, Object> map = new HashMap<>();
+
 		upbitAPI.insertCoinList("KRW");
+		mapper.insertBeforeRaceList(map);	// Temp테이블에 있는데이터를 경주마테이블에 넣는다
 
 	}
 }
