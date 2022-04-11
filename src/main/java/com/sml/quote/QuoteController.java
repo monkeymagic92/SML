@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 날짜       : 2022-01-01
- * 설명       : 시세관련 Controller.
+ * 설명       : 시세관련 Controller..
  */
 
 @Controller
