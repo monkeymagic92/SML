@@ -8,10 +8,18 @@
 
     <!-- 코인리스트 inert (INSERT IGNORE를 하여 중복 insert방지) -->
     <insert id="insertCoinListKRW" parameterType="LinkedHashMap">
-        INSERT IGNORE INTO T_COIN_QUOTE_KRW
+        INSERT INTO T_COIN_QUOTE_KRW
         (MARKET, KOR_NM, ENG_NM)
-        VALUES
-        (#{MARKET}, #{KOR_NM}, #{ENG_NM})
+        SELECT #{MARKET}, #{KOR_NM}, #{ENG_NM} FROM DUAL
+        WHERE NOT EXISTS
+        (
+            SELECT
+                #{MARKET}
+                , #{KOR_NM}
+                , #{ENG_NM}
+            FROM T_COIN_QUOTE_KRW
+            WHERE MARKET = #{MARKET}
+        )
     </insert>
 
     <!-- 코인가격 update ( 스케줄러로 인해 특정시간대만 update ) -->
@@ -28,7 +36,7 @@
                 , LOW_PRICE = #{LOW_PRICE}
                 , TRADE_PRICE = #{TRADE_PRICE}
                 , PREV_CLOSING_PRICE = #{PREV_CLOSING_PRICE}
-                , `CHANGE` = #{CHANGE}
+                , CHANGE = #{CHANGE}
                 , CHANGE_PRICE = #{CHANGE_PRICE}
                 , CHANGE_RATE = #{CHANGE_RATE}
                 , SIGNED_CHANGE_PRICE = #{SIGNED_CHANGE_PRICE}
@@ -42,8 +50,8 @@
                 , HIGHEST_52_WEEK_DATE = #{HIGHEST_52_WEEK_DATE}
                 , LOWEST_52_WEEK_PRICE = #{LOWEST_52_WEEK_PRICE}
                 , LOWEST_52_WEEK_DATE = #{LOWEST_52_WEEK_DATE}
-                , `TIMESTAMP` = #{TIMESTAMP}
-                , UPD_DT = (SELECT NOW())
+                <!-- , TIMESTAMP = #{TIMESTAMP} -->
+                , UPD_DT = (SELECT SYSDATE FROM DUAL)
         WHERE MARKET = #{MARKET}
     </update>
 
@@ -62,7 +70,7 @@
             , LOW_PRICE
             , TRADE_PRICE
             , PREV_CLOSING_PRICE
-            , `CHANGE`
+            , CHANGE
             , CHANGE_PRICE
             , CHANGE_RATE
             , SIGNED_CHANGE_PRICE
@@ -76,7 +84,7 @@
             , HIGHEST_52_WEEK_DATE
             , LOWEST_52_WEEK_PRICE
             , LOWEST_52_WEEK_DATE
-            , `TIMESTAMP`
+            , TIMESTAMP
             , UPD_DT
         )
         VALUES
@@ -107,7 +115,7 @@
             , #{LOWEST_52_WEEK_PRICE}
             , #{LOWEST_52_WEEK_DATE}
             , #{TIMESTAMP}
-            , (SELECT NOW())
+            , #{UPD_DT}
         )
     </insert>
     <!-- ***************** KRW 관련 End ***************** -->
@@ -137,7 +145,7 @@
                 , LOW_PRICE = #{LOW_PRICE}
                 , TRADE_PRICE = #{TRADE_PRICE}
                 , PREV_CLOSING_PRICE = #{PREV_CLOSING_PRICE}
-                , `CHANGE` = #{CHANGE}
+                , CHANGE = #{CHANGE}
                 , CHANGE_PRICE = #{CHANGE_PRICE}
                 , CHANGE_RATE = #{CHANGE_RATE}
                 , SIGNED_CHANGE_PRICE = #{SIGNED_CHANGE_PRICE}
@@ -151,8 +159,8 @@
                 , HIGHEST_52_WEEK_DATE = #{HIGHEST_52_WEEK_DATE}
                 , LOWEST_52_WEEK_PRICE = #{LOWEST_52_WEEK_PRICE}
                 , LOWEST_52_WEEK_DATE = #{LOWEST_52_WEEK_DATE}
-                , `TIMESTAMP` = #{TIMESTAMP}
-                , UPD_DT = (SELECT NOW())
+                , TIMESTAMP = #{TIMESTAMP}
+                , UPD_DT = #{UPD_DT}
         WHERE MARKET = #{MARKET}
     </update>
 
@@ -171,7 +179,7 @@
             , LOW_PRICE
             , TRADE_PRICE
             , PREV_CLOSING_PRICE
-            , `CHANGE`
+            , CHANGE
             , CHANGE_PRICE
             , CHANGE_RATE
             , SIGNED_CHANGE_PRICE
@@ -185,7 +193,7 @@
             , HIGHEST_52_WEEK_DATE
             , LOWEST_52_WEEK_PRICE
             , LOWEST_52_WEEK_DATE
-            , `TIMESTAMP`
+            , TIMESTAMP
             , UPD_DT
         )
         VALUES
@@ -216,7 +224,7 @@
             , #{LOWEST_52_WEEK_PRICE}
             , #{LOWEST_52_WEEK_DATE}
             , #{TIMESTAMP}
-            , (SELECT NOW())
+            , #{UPD_DT}
         )
     </insert>
     <!-- ***************** BTC 관련 End ***************** -->

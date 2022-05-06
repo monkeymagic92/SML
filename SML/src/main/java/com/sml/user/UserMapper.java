@@ -35,4 +35,5 @@ public interface UserMapper {
 	 * @param vo
 	 */
 	public void insertUserId(UserVO vo);
+
 }

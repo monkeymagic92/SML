@@ -48,7 +48,7 @@ public class QuoteService extends CommonService {
 		Map<String, Object> map = new HashMap<>();
 
 		upbitAPI.insertCoinList("KRW");		// 어떤 3시간 6시간 경주마든 어떤테이블이든 기본으로 값 가져오는 Temp 테이블이라 보면됨
-		mapper.insertBeforeRaceList(map);	// Temp테이블에 있는데이터를 경주마테이블에 넣는다
+		//mapper.insertBeforeRaceList(map);	// Temp테이블에 있는데이터를 경주마테이블에 넣는다
 	}
 
 	/**
@@ -59,8 +59,8 @@ public class QuoteService extends CommonService {
 	public void updateRaceBeforeCoinList() throws Exception {
 		Map<String, Object> map = new HashMap<>();
 
-		upbitAPI.insertCoinList("KRW");
-		mapper.insertBeforeRaceList(map);	// Temp테이블에 있는데이터를 경주마테이블에 넣는다
+//		upbitAPI.insertCoinList("KRW");
+//		mapper.insertBeforeRaceList(map);	// Temp테이블에 있는데이터를 경주마테이블에 넣는다
 
 	}
 }

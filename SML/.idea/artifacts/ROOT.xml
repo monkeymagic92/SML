@@ -12,6 +12,10 @@
           <element id="library" level="application" name="all" />
           <element id="library" level="application" name="jquery-ui" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="osdt_core" />
+          <element id="library" level="project" name="ojdbc8" />
+        </element>
       </element>
     </root>
   </artifact>

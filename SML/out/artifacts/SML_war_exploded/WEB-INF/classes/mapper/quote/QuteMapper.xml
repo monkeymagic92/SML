@@ -15,7 +15,7 @@
 
     <select id="selectThKRWUpdDt" resultType="String">
         SELECT
-            DATE_FORMAT(UPD_DT, '%Y-%m-%d  /  %H:%i:%s')
+            UPD_DT
         FROM T_COIN_QUOTE_KRW
         WHERE MARKET = 'KRW-BTC'
     </select>

@@ -3,6 +3,7 @@ package com.sml.api;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sml.utils.common.CommonService;
 import com.sml.utils.util.StringUtil;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -30,7 +31,7 @@ import java.util.Map;
  */
 
 @Service
-public class UpbitAPIService {
+public class UpbitAPIService extends CommonService {
 
 	@Autowired
 	private UpbitAPIMapper mapper;
@@ -105,10 +106,10 @@ public class UpbitAPIService {
 
 			if(market.equals("KRW")) {
 				mapper.updateCoinQuoteKRW(map);
-				mapper.insertCoinQuoteKRW_HIS(map); // KRW_HIS 테이블
+				//mapper.insertCoinQuoteKRW_HIS(map); // KRW_HIS 테이블
 			} else {
 				mapper.updateCoinQuoteBTC(map);
-				mapper.insertCoinQuoteBTC_HIS(map); // KRW_BTC 테이블
+				//mapper.insertCoinQuoteBTC_HIS(map); // KRW_BTC 테이블
 			}
 		}
 	}
@@ -184,8 +185,6 @@ public class UpbitAPIService {
 				String korean_name = allCoin.get("korean_name").getAsString();
 				String english_name = allCoin.get("english_name").getAsString();
 
-
-
 				// 파라미터가 KRW일경우 KRW 마켓에 코인리스트만 들고온다
 				if(coinCode.equals("KRW")) {
 
@@ -197,7 +196,7 @@ public class UpbitAPIService {
 						listKRWMap.add(krwMap);
 					}
 
-				// 파라미터가 BTC일경우 BTC마켓에 코인리스트만 들고온다
+				// 파라미터가 BTC일경우 BTC 마켓에 코인리스트만 들고온다
 				} else if(coinCode.equals("BTC")) {
 
 					if(market.substring(0, 3).equals("BTC")) {
