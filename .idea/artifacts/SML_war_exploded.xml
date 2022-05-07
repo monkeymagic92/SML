@@ -14,7 +14,6 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="Spring-5.2.3.RELEASE" />
           <element id="library" level="project" name="Spring MVC-5.2.3.RELEASE" />
-          <element id="library" level="project" name="ojdbc6" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:5.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.2.3.RELEASE" />
@@ -75,6 +74,10 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.11.3" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.11.3" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.11.3" />
+          <element id="library" level="project" name="osdt_core" />
+          <element id="library" level="project" name="ojdbc8" />
+          <element id="library" level="project" name="osdt_cert" />
+          <element id="library" level="project" name="oraclepki" />
         </element>
       </element>
     </root>

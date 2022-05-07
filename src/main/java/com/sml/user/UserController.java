@@ -3,6 +3,7 @@ package com.sml.user;
 import com.sml.utils.common.CommonController;
 import com.sml.utils.util.CommonFunction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,12 @@ public class UserController extends CommonController {
 	@Autowired
 	private UserService service;
 
+	@Value("#{systemProp['db.orcl.username']}")
+	private String userName;
+
+	@Value("#{systemProp['db.orcl.url']}")
+	private String url;
+
 	/**
 	 * 로그인 첫 화면 (index)
 	 * @param model
@@ -39,6 +46,11 @@ public class UserController extends CommonController {
 	public String loginReg(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String result = CommonFunction.loginChk(request);
+		logger.info("------ 외부DB테스트 ( 다끝나고 지우기 ) -------");
+		logger.info("userName : " + userName);
+		logger.info("url : " + url);
+		logger.info("------ 외부DB테스트 ( 다끝나고 지우기 ) -------");
+
 
 		if(result.equals("fail")) {		// 로그인이 안되어있다면 로그인페이지로
 			return "/user/loginReg";

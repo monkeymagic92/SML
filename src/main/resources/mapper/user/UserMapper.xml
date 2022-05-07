@@ -5,7 +5,7 @@
 
     <!-- 로그인유저 전체 데이터 -->
     <select id="selectUserInfo" parameterType="LinkedHashMap" resultType="LinkedHashMap">
-        SELECT SEQ
+        SELECT I_USER
             , USER_ID
             , USER_PW
             , USER_EMAIL
@@ -28,9 +28,9 @@
     <!-- 회원가입 -->
     <insert id="insertUserId" parameterType="UserVO">
         INSERT INTO T_USER
-        (USER_ID, USER_PW, USER_EMAIL)
+        (I_USER, USER_ID, USER_PW, USER_EMAIL)
         VALUES
-        (#{USER_ID}, #{USER_PW}, #{USER_EMAIL})
+        (I_USER_SEQ.NEXTVAL, #{USER_ID}, #{USER_PW}, #{USER_EMAIL})
     </insert>
 
 </mapper>
