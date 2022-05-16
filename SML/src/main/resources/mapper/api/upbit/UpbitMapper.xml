@@ -10,49 +10,51 @@
     <insert id="insertCoinListKRW" parameterType="LinkedHashMap">
         INSERT INTO T_COIN_QUOTE_KRW
         (MARKET, KOR_NM, ENG_NM)
-        SELECT #{MARKET}, #{KOR_NM}, #{ENG_NM} FROM DUAL
+        <foreach item="item" collection="list" separator="union">
+        SELECT #{item.MARKET}, #{item.KOR_NM}, #{item.ENG_NM} FROM DUAL
         WHERE NOT EXISTS
         (
             SELECT
-                #{MARKET}
-                , #{KOR_NM}
-                , #{ENG_NM}
+                #{item.MARKET}
+                , #{item.KOR_NM}
+                , #{item.ENG_NM}
             FROM T_COIN_QUOTE_KRW
-            WHERE MARKET = #{MARKET}
+            WHERE MARKET = #{item.MARKET}
         )
+        </foreach>
     </insert>
 
     <!-- 코인가격 update ( 스케줄러로 인해 특정시간대만 update ) -->
     <update id="updateCoinQuoteKRW" parameterType="LinkedHashMap">
+        <foreach collection="list" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
         UPDATE T_COIN_QUOTE_KRW
-            SET MARKET = #{MARKET}
-                , TRADE_DATE = #{TRADE_DATE}
-                , TRADE_TIME = #{TRADE_TIME}
-                , TRADE_DATE_KST = #{TRADE_DATE_KST}
-                , TRADE_TIME_KST = #{TRADE_TIME_KST}
-                , TRADE_TIMESTAMP = #{TRADE_TIMESTAMP}
-                , OPENING_PRICE = #{OPENING_PRICE}
-                , HIGH_PRICE = #{HIGH_PRICE}
-                , LOW_PRICE = #{LOW_PRICE}
-                , TRADE_PRICE = #{TRADE_PRICE}
-                , PREV_CLOSING_PRICE = #{PREV_CLOSING_PRICE}
-                , CHANGE = #{CHANGE}
-                , CHANGE_PRICE = #{CHANGE_PRICE}
-                , CHANGE_RATE = #{CHANGE_RATE}
-                , SIGNED_CHANGE_PRICE = #{SIGNED_CHANGE_PRICE}
-                , SIGNED_CHANGE_RATE = #{SIGNED_CHANGE_RATE}
-                , TRADE_VOLUME = #{TRADE_VOLUME}
-                , ACC_TRADE_PRICE = #{ACC_TRADE_PRICE}
-                , ACC_TRADE_PRICE_24H = #{ACC_TRADE_PRICE_24H}
-                , ACC_TRADE_VOLUME = #{ACC_TRADE_VOLUME}
-                , ACC_TRADE_VOLUME_24H = #{ACC_TRADE_VOLUME_24H}
-                , HIGHEST_52_WEEK_PRICE = #{HIGHEST_52_WEEK_PRICE}
-                , HIGHEST_52_WEEK_DATE = #{HIGHEST_52_WEEK_DATE}
-                , LOWEST_52_WEEK_PRICE = #{LOWEST_52_WEEK_PRICE}
-                , LOWEST_52_WEEK_DATE = #{LOWEST_52_WEEK_DATE}
-                <!-- , TIMESTAMP = #{TIMESTAMP} -->
-                , UPD_DT = (SELECT SYSDATE FROM DUAL)
-        WHERE MARKET = #{MARKET}
+                SET MARKET = #{item.MARKET}
+                , TRADE_DATE = #{item.TRADE_DATE}
+                , TRADE_TIME = #{item.TRADE_TIME}
+                , TRADE_DATE_KST = #{item.TRADE_DATE_KST}
+                , TRADE_TIME_KST = #{item.TRADE_TIME_KST}
+                , TRADE_TIMESTAMP = #{item.TRADE_TIMESTAMP}
+                , OPENING_PRICE = #{item.OPENING_PRICE}
+                , HIGH_PRICE = #{item.HIGH_PRICE}
+                , LOW_PRICE = #{item.LOW_PRICE}
+                , TRADE_PRICE = #{item.TRADE_PRICE}
+                , PREV_CLOSING_PRICE = #{item.PREV_CLOSING_PRICE}
+                , CHANGE = #{item.CHANGE}
+                , CHANGE_PRICE = #{item.CHANGE_PRICE}
+                , CHANGE_RATE = #{item.CHANGE_RATE}
+                , SIGNED_CHANGE_PRICE = #{item.SIGNED_CHANGE_PRICE}
+                , SIGNED_CHANGE_RATE = #{item.SIGNED_CHANGE_RATE}
+                , TRADE_VOLUME = #{item.TRADE_VOLUME}
+                , ACC_TRADE_PRICE = #{item.ACC_TRADE_PRICE}
+                , ACC_TRADE_PRICE_24H = #{item.ACC_TRADE_PRICE_24H}
+                , ACC_TRADE_VOLUME = #{item.ACC_TRADE_VOLUME}
+                , ACC_TRADE_VOLUME_24H = #{item.ACC_TRADE_VOLUME_24H}
+                , HIGHEST_52_WEEK_PRICE = #{item.HIGHEST_52_WEEK_PRICE}
+                , HIGHEST_52_WEEK_DATE = #{item.HIGHEST_52_WEEK_DATE}
+                , LOWEST_52_WEEK_PRICE = #{item.LOWEST_52_WEEK_PRICE}
+                , UPD_DT = FN_SYSDATE
+                WHERE MARKET = #{item.MARKET}
+        </foreach>
     </update>
 
     <!-- KRW 코인가격 history -->
@@ -84,7 +86,6 @@
             , HIGHEST_52_WEEK_DATE
             , LOWEST_52_WEEK_PRICE
             , LOWEST_52_WEEK_DATE
-            , TIMESTAMP
             , UPD_DT
         )
         VALUES
@@ -113,9 +114,7 @@
             , #{HIGHEST_52_WEEK_PRICE}
             , #{HIGHEST_52_WEEK_DATE}
             , #{LOWEST_52_WEEK_PRICE}
-            , #{LOWEST_52_WEEK_DATE}
-            , #{TIMESTAMP}
-            , #{UPD_DT}
+            , FN_SYSDATE
         )
     </insert>
     <!-- ***************** KRW 관련 End ***************** -->
@@ -134,6 +133,7 @@
     <!-- 코인가격 update ( 스케줄러로 인해 특정시간대만 update ) -->
     <update id="updateCoinQuoteBTC" parameterType="LinkedHashMap">
         UPDATE T_COIN_QUOTE_BTC
+        <foreach collection="list" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
             SET MARKET = #{MARKET}
                 , TRADE_DATE = #{TRADE_DATE}
                 , TRADE_TIME = #{TRADE_TIME}
@@ -158,10 +158,9 @@
                 , HIGHEST_52_WEEK_PRICE = #{HIGHEST_52_WEEK_PRICE}
                 , HIGHEST_52_WEEK_DATE = #{HIGHEST_52_WEEK_DATE}
                 , LOWEST_52_WEEK_PRICE = #{LOWEST_52_WEEK_PRICE}
-                , LOWEST_52_WEEK_DATE = #{LOWEST_52_WEEK_DATE}
-                , TIMESTAMP = #{TIMESTAMP}
-                , UPD_DT = #{UPD_DT}
+                , UPD_DT = FN_SYSDATE
         WHERE MARKET = #{MARKET}
+        </foreach>
     </update>
 
     <!-- BTC 코인가격 history -->
@@ -192,8 +191,6 @@
             , HIGHEST_52_WEEK_PRICE
             , HIGHEST_52_WEEK_DATE
             , LOWEST_52_WEEK_PRICE
-            , LOWEST_52_WEEK_DATE
-            , TIMESTAMP
             , UPD_DT
         )
         VALUES
@@ -222,9 +219,7 @@
             , #{HIGHEST_52_WEEK_PRICE}
             , #{HIGHEST_52_WEEK_DATE}
             , #{LOWEST_52_WEEK_PRICE}
-            , #{LOWEST_52_WEEK_DATE}
-            , #{TIMESTAMP}
-            , #{UPD_DT}
+            , FN_SYSDATE
         )
     </insert>
     <!-- ***************** BTC 관련 End ***************** -->

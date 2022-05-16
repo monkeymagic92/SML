@@ -17,7 +17,6 @@
 </head>
 <body>
 <%-- test용 --%>
-
 <h1 id="quoteIndexTitle">
 	<span>3th Hour Table</span>
 </h1>
@@ -58,15 +57,18 @@
 <script type="text/javascript">
 
 	$(document).ready(function () {
+
+
 		$("#a").click(function() {
+
 			fnAjaxSubmit('<c:url value="/quote/insertCoinList" />', "#frm", call);
 		});
-
 	});
 
 	function call(data) {
 		console.log(data.AAA);
 	}
+
 </script>
 </body>
 </html>

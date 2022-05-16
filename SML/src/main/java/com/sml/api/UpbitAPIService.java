@@ -45,19 +45,13 @@ public class UpbitAPIService extends CommonService {
 		// 1. coin리스트를 List<Map>에 담는다
 		List<Map<String, Object>> coinList = getUpbitCoinList(market);
 
-		// 1차적으로 merge in to 해서 코인정보를 다 insert한후
-		for(int i=0; i<coinList.size(); i++) {
-			Map<String, Object> map = new HashMap<>();
-			map.put("MARKET", coinList.get(i).get("MARKET"));
-			map.put("KOR_NM", coinList.get(i).get("KOR_NM"));
-			map.put("ENG_NM", coinList.get(i).get("ENG_NM"));
-
-			if(market.equals("KRW")) {
-				mapper.insertCoinListKRW(map);
-			} else {
-				mapper.insertCoinListBTC(map);
-			}
+		// 1차적으로 merge in to 해서 코인정보를 다 insert한후 ( mybatis에서 forEach 돌리기 )
+		if(market.equals("KRW")) {
+			mapper.insertCoinListKRW(coinList);
+		} else {
+			mapper.insertCoinListBTC(coinList);
 		}
+
 
 		// 리스트맵에서 market키값을 가져온다
 		String str = parsingJsonToString(coinList, "MARKET");
@@ -73,10 +67,14 @@ public class UpbitAPIService extends CommonService {
 		Object obj = parser.parse(coinQuoteList);
 		JSONArray jsonArr = (JSONArray)obj;
 
+		List<Map<String, Object>> listMap = new ArrayList<>();
+
+
 		for(int i=0; i<jsonArr.size(); i++) {
 			JSONObject jsonObj = (JSONObject)jsonArr.get(i);
 
 			Map<String, Object> map = new HashMap<>();
+
 			map.put("MARKET", jsonObj.get("market"));
 			map.put("TRADE_DATE", jsonObj.get("trade_date"));
 			map.put("TRADE_TIME", jsonObj.get("trade_time"));
@@ -101,16 +99,24 @@ public class UpbitAPIService extends CommonService {
 			map.put("HIGHEST_52_WEEK_PRICE", jsonObj.get("highest_52_week_price"));
 			map.put("HIGHEST_52_WEEK_DATE", jsonObj.get("highest_52_week_date"));
 			map.put("LOWEST_52_WEEK_PRICE", jsonObj.get("lowest_52_week_price"));
-			map.put("LOWEST_52_WEEK_DATE", jsonObj.get("lowest_52_week_date"));
+			map.put(" LOWEST_52_WEEK_DATE", jsonObj.get("lowest_52_week_date"));
 			map.put("TIMESTAMP", jsonObj.get("timestamp"));
 
-			if(market.equals("KRW")) {
-				mapper.updateCoinQuoteKRW(map);
-				//mapper.insertCoinQuoteKRW_HIS(map); // KRW_HIS 테이블
-			} else {
-				mapper.updateCoinQuoteBTC(map);
-				//mapper.insertCoinQuoteBTC_HIS(map); // KRW_BTC 테이블
-			}
+			listMap.add(map);
+
+		}
+
+		// .listMap log
+		for(int i=0; i<listMap.size(); i++) {
+			logger.info(i + " : " + listMap.get(i));
+		}
+
+		if(market.equals("KRW")) {
+			mapper.updateCoinQuoteKRW(listMap);	//( mybatis에서 forEach 돌리기 )
+			//mapper.insertCoinQuoteKRW_HIS(listMap); // KRW_HIS 테이블
+		} else {
+			mapper.updateCoinQuoteBTC(listMap);
+			//mapper.insertCoinQuoteBTC_HIS(listMap); // KRW_BTC 테이블
 		}
 	}
 
@@ -196,7 +202,7 @@ public class UpbitAPIService extends CommonService {
 						listKRWMap.add(krwMap);
 					}
 
-				// 파라미터가 BTC일경우 BTC 마켓에 코인리스트만 들고온다
+					// 파라미터가 BTC일경우 BTC 마켓에 코인리스트만 들고온다
 				} else if(coinCode.equals("BTC")) {
 
 					if(market.substring(0, 3).equals("BTC")) {
