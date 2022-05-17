@@ -45,7 +45,7 @@ public class UpbitAPIService extends CommonService {
 		// 1. coin리스트를 List<Map>에 담는다
 		List<Map<String, Object>> coinList = getUpbitCoinList(market);
 
-		// 1차적으로 merge in to 해서 코인정보를 다 insert한후 ( mybatis에서 forEach 돌리기 )
+		// 1차적으로 merge in to 해서 코인정보를 전체 insert ( mybatis에서 forEach 사용 (batch, INSERT 속도 향상 )
 		if(market.equals("KRW")) {
 			mapper.insertCoinListKRW(coinList);
 		} else {
@@ -99,7 +99,7 @@ public class UpbitAPIService extends CommonService {
 			map.put("HIGHEST_52_WEEK_PRICE", jsonObj.get("highest_52_week_price"));
 			map.put("HIGHEST_52_WEEK_DATE", jsonObj.get("highest_52_week_date"));
 			map.put("LOWEST_52_WEEK_PRICE", jsonObj.get("lowest_52_week_price"));
-			map.put(" LOWEST_52_WEEK_DATE", jsonObj.get("lowest_52_week_date"));
+			map.put("LOWEST_52_WEEK_DATE", jsonObj.get("lowest_52_week_date"));
 			map.put("TIMESTAMP", jsonObj.get("timestamp"));
 
 			listMap.add(map);

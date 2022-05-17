@@ -52,6 +52,7 @@
                 , HIGHEST_52_WEEK_PRICE = #{item.HIGHEST_52_WEEK_PRICE}
                 , HIGHEST_52_WEEK_DATE = #{item.HIGHEST_52_WEEK_DATE}
                 , LOWEST_52_WEEK_PRICE = #{item.LOWEST_52_WEEK_PRICE}
+                , LOWEST_52_WEEK_DATE = #{item.LOWEST_52_WEEK_DATE}
                 , UPD_DT = FN_SYSDATE
                 WHERE MARKET = #{item.MARKET}
         </foreach>
@@ -114,6 +115,7 @@
             , #{HIGHEST_52_WEEK_PRICE}
             , #{HIGHEST_52_WEEK_DATE}
             , #{LOWEST_52_WEEK_PRICE}
+            , #{LOWEST_52_WEEK_DATE}
             , FN_SYSDATE
         )
     </insert>
