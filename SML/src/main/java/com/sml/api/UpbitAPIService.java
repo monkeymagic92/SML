@@ -102,14 +102,17 @@ public class UpbitAPIService extends CommonService {
 			map.put("LOWEST_52_WEEK_DATE", jsonObj.get("lowest_52_week_date"));
 			map.put("TIMESTAMP", jsonObj.get("timestamp"));
 
+			logger.info(i + " : " + map.get("LOWEST_52_WEEK_DATE") );
+
 			listMap.add(map);
 
 		}
 
 		// .listMap log
-		for(int i=0; i<listMap.size(); i++) {
-			logger.info(i + " : " + listMap.get(i));
-		}
+//		for(int i=0; i<listMap.size(); i++) {
+//			logger.info(i + " : " + listMap.get(i));
+//		}
+
 
 		if(market.equals("KRW")) {
 			mapper.updateCoinQuoteKRW(listMap);	//( mybatis에서 forEach 돌리기 )
