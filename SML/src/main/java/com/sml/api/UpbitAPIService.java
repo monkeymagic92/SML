@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sml.utils.common.CommonService;
 import com.sml.utils.util.StringUtil;
+import com.sml.utils.util.TimeMaximum;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -42,6 +43,9 @@ public class UpbitAPIService extends CommonService {
 	 */
 	public void insertCoinList(String market) throws Exception {
 
+		// 현재시간 날짜 가져오기 ( YYYY-MM-DD HH24:MI:SS ) ( 오라클 클라우드 SYSDATE
+		String upd_dt = TimeMaximum.nowDate();
+
 		// 1. coin리스트를 List<Map>에 담는다
 		List<Map<String, Object>> coinList = getUpbitCoinList(market);
 
@@ -51,7 +55,6 @@ public class UpbitAPIService extends CommonService {
 		} else {
 			mapper.insertCoinListBTC(coinList);
 		}
-
 
 		// 리스트맵에서 market키값을 가져온다
 		String str = parsingJsonToString(coinList, "MARKET");
@@ -68,7 +71,6 @@ public class UpbitAPIService extends CommonService {
 		JSONArray jsonArr = (JSONArray)obj;
 
 		List<Map<String, Object>> listMap = new ArrayList<>();
-
 
 		for(int i=0; i<jsonArr.size(); i++) {
 			JSONObject jsonObj = (JSONObject)jsonArr.get(i);
@@ -101,6 +103,7 @@ public class UpbitAPIService extends CommonService {
 			map.put("LOWEST_52_WEEK_PRICE", jsonObj.get("lowest_52_week_price"));
 			map.put("LOWEST_52_WEEK_DATE", jsonObj.get("lowest_52_week_date"));
 			map.put("TIMESTAMP", jsonObj.get("timestamp"));
+			map.put("UPD_DT", upd_dt);
 
 			logger.info(i + " : " + map.get("LOWEST_52_WEEK_DATE") );
 

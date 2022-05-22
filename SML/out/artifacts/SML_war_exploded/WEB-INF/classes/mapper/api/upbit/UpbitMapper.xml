@@ -53,7 +53,7 @@
                 , HIGHEST_52_WEEK_DATE = TO_CHAR(TO_DATE(#{item.HIGHEST_52_WEEK_DATE}, 'YYYY-MM-DD'), 'YYYY-MM-DD')
                 , LOWEST_52_WEEK_PRICE = #{item.LOWEST_52_WEEK_PRICE}
                 , LOWEST_52_WEEK_DATE = TO_CHAR(TO_DATE(#{item.LOWEST_52_WEEK_DATE}, 'YYYY-MM-DD'), 'YYYY-MM-DD')
-                , UPD_DT = FN_SYSDATE
+                , UPD_DT = TO_CHAR(TO_DATE(#{item.UPD_DT}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
                 WHERE MARKET = #{item.MARKET}
         </foreach>
     </update>
