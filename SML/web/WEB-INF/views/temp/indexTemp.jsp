@@ -11,7 +11,7 @@
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <META HTTP-EQUIV="Expires" CONTENT="-1">
 <head>
-	<title>Title</title>
+	<title>SML</title>
 
 	<%-- js / css공통함수cdn jsp파일 --%>
 	<%@ include file="../../common/commonUtils.jsp" %>
@@ -23,6 +23,9 @@
 	<a class="navbar-brand ps-3" href="/temp/index" style="font-size: 2em;">SML</a>
 	<!-- Sidebar Toggle-->
 	<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+	<div>
+		<a href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AAAPL" target="_blank">chart by tradingView</a>
+	</div>
 	<!-- Navbar Search-->
 	<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
 		<div class="input-group">

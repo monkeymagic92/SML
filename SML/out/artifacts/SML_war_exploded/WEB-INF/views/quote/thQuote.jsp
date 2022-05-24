@@ -9,7 +9,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
-	<title>Title</title>
 
 	<%-- js / css공통함수cdn jsp파일 --%>
 	<link href="/res/css/quote/quoteIndex.css" rel="stylesheet">
