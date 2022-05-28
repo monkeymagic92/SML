@@ -1,0 +1,8 @@
+1. T_COIN_QUOTE_KRW 테이블은 PK = MARKET / 그외 가격
+	즉, 가격들만 저장하는 테이블임 ( TEMP 테이블이라 보면 됨 )
+
+	다른 시간대 스케줄러를 통한 테이블에는 KOR_NM, ENG_NM 값이 없음
+
+	EX) 
+		항상 T_COIN_QUOTE_KRW.MARKET = T_COIN_10_KRW.MARKET
+			서로 JOIN하여 KOR_NM, ENG_NM 값을 가져오기

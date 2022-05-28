@@ -16,8 +16,9 @@ public interface UpbitAPIMapper {
 	// KRW 코인 가격 update
 	public void updateCoinQuoteKRW(List<Map<String, Object>> map);
 
-	// KRW_HIS 코인 가격 insert
-	public void insertCoinQuoteKRW_HIS(Map<String, Object> map);
+	// 10시 코인 리스트
+	public void insertCoin10KRW(List<Map<String, Object>> map);
+
 
 
 
@@ -26,9 +27,5 @@ public interface UpbitAPIMapper {
 
 	// BTC 코인 가격 update
 	public void updateCoinQuoteBTC(List<Map<String, Object>> map);
-
-	// KRW_HIS 코인 가격 insert
-	public void insertCoinQuoteBTC_HIS(Map<String, Object> map);
-
 
 }

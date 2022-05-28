@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,26 +41,28 @@ public class QuoteService extends CommonService {
 
 
 	/**
-	 	나중에 스케쥴러 매 3시간update하는 로직 넣기
+	 * thQuote.jsp - click Test Ajax버튼 눌렀을때 테스트용 함수
+	 * @throws Exception
 	 */
-	//@Scheduled(fixedRate=20000)
 	public void insertCoinList() throws Exception {
-		Map<String, Object> map = new HashMap<>();
 
-		upbitAPI.insertCoinList("KRW");		// 어떤 3시간 6시간 경주마든 어떤테이블이든 기본으로 값 가져오는 Temp 테이블이라 보면됨
-		//mapper.insertBeforeRaceList(map);	// Temp테이블에 있는데이터를 경주마테이블에 넣는다
+		List<Map<String, Object>> listMap = new ArrayList<>();
+		listMap = upbitAPI.insertCoinList("KRW"); // 코인 가격 저장하는 QUOTE 테이블
+		upbitAPI.insertCoin10KRW(listMap);
+
 	}
 
 	/**
-		Scheduled : 매일 오전 08:55분
-		경주마 뛰기전 코인 리스트의 값을 저장한다
+		Scheduled : 매일 오전 10:00분
+		경주마 뛰고난후 오전10시에 시작가 - 고가 최대 몇% 올랐는지 통계낸다
 	 */
-	@Scheduled(cron = "0 55 08 * * *")
+	@Scheduled(cron = "0 00 10 * * *")
 	public void updateRaceBeforeCoinList() throws Exception {
-		Map<String, Object> map = new HashMap<>();
 
-		upbitAPI.insertCoinList("KRW");
-//		mapper.insertBeforeRaceList(map);	// Temp테이블에 있는데이터를 경주마테이블에 넣는다
+		List<Map<String, Object>> listMap = new ArrayList<>();
+
+		listMap = upbitAPI.insertCoinList("KRW");		// 코인 가격 저장하는 QUOTE 테이블
+		upbitAPI.insertCoin10KRW(listMap);				// 실제 10시 코인 테이블
 
 	}
 }

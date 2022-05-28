@@ -29,11 +29,19 @@
 </form>
 
 <table class="quoteIndexContainer">
+	<colgroup>
+		<col width="16.5%">
+		<col width="16.5%">
+		<col width="16.5%">
+		<col width="16.5%">
+		<col width="16.5%">
+		<col width="16.5%">
+	</colgroup>
 	<thead>
 	<tr>
 		<th><h1>마켓</h1></th>
 		<th><h1>한글이름</h1></th>
-		<th><h1>영어이름</h1></th>
+		<th><h1>Average</h1></th>
 		<th><h1>Average</h1></th>
 		<th><h1>Average</h1></th>
 		<th><h1>Average</h1></th>
@@ -45,9 +53,9 @@
 			<td>${list.MARKET}</td>
 			<td>${list.KOR_NM}</td>
 			<td>${list.ENG_NM}</td>
-			<td>100</td>
-			<td>1000</td>
-			<td>10000</td>
+			<td>null</td>
+			<td>null</td>
+			<td>null</td>
 		</tr>
 	</c:forEach>
 	</tbody>
@@ -56,7 +64,6 @@
 <script type="text/javascript">
 
 	$(document).ready(function () {
-
 
 		$("#a").click(function() {
 

@@ -41,7 +41,7 @@ public class UpbitAPIService extends CommonService {
 	 * 코인 전체리스트와 코인 시세정보를 가져온다
 	 * @throws Exception
 	 */
-	public void insertCoinList(String market) throws Exception {
+	public List<Map<String, Object>> insertCoinList(String market) throws Exception {
 
 		// 현재시간 날짜 가져오기 ( YYYY-MM-DD HH24:MI:SS ) ( 오라클 클라우드 SYSDATE
 		String upd_dt = TimeMaximum.nowDate();
@@ -84,7 +84,7 @@ public class UpbitAPIService extends CommonService {
 
 		 */
 
-		// 코인가격이 배열로 JSON형태의 값을 가지고 온다
+		// 코인가격이 배열로 JSON형태의 값을 가지고 온다  (strReplace = KRW-BTC 형태)
 		String coinQuoteList = getCoinQuoteList(strReplace);
 
 		// 코인시세(quote) 파싱작업
@@ -144,6 +144,8 @@ public class UpbitAPIService extends CommonService {
 			mapper.updateCoinQuoteBTC(listMap);
 			//mapper.insertCoinQuoteBTC_HIS(listMap); // KRW_BTC 테이블
 		}
+
+		return listMap;
 	}
 
 
@@ -284,6 +286,10 @@ public class UpbitAPIService extends CommonService {
 //        System.out.println(response);
 
 		return response;
+	}
+
+	public void insertCoin10KRW(List<Map<String, Object>> listMap) {
+		mapper.insertCoin10KRW(listMap);
 	}
 
 
