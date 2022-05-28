@@ -39,16 +39,25 @@ public class QuoteService extends CommonService {
 		return mapper.selectThKRWUpdDt();
 	}
 
+	/**
+	 * 오전10시 코인가격를 10시테이블에 ISNERT
+	 * @param listMap
+	 */
+	public void insertCoin10KRW(List<Map<String, Object>> listMap) {
+		mapper.insertCoin10KRW(listMap);
+	}
+
 
 	/**
-	 * thQuote.jsp - click Test Ajax버튼 눌렀을때 테스트용 함수
+	 * quote_AM10.jsp - click Test Ajax버튼 눌렀을때 테스트용 함수
 	 * @throws Exception
 	 */
 	public void insertCoinList() throws Exception {
 
 		List<Map<String, Object>> listMap = new ArrayList<>();
 		listMap = upbitAPI.insertCoinList("KRW"); // 코인 가격 저장하는 QUOTE 테이블
-		upbitAPI.insertCoin10KRW(listMap);
+
+		insertCoin10KRW(listMap);				  // 당일 오전10시에 코인가격 insert
 
 	}
 
@@ -60,9 +69,10 @@ public class QuoteService extends CommonService {
 	public void updateRaceBeforeCoinList() throws Exception {
 
 		List<Map<String, Object>> listMap = new ArrayList<>();
+		listMap = upbitAPI.insertCoinList("KRW");	// 코인 가격 저장하는 QUOTE 테이블
 
-		listMap = upbitAPI.insertCoinList("KRW");		// 코인 가격 저장하는 QUOTE 테이블
-		upbitAPI.insertCoin10KRW(listMap);				// 실제 10시 코인 테이블
-
+		insertCoin10KRW(listMap);					// 당일 오전10시에 코인가격 insert
 	}
+
+
 }

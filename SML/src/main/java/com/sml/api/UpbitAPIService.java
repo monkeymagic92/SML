@@ -288,10 +288,6 @@ public class UpbitAPIService extends CommonService {
 		return response;
 	}
 
-	public void insertCoin10KRW(List<Map<String, Object>> listMap) {
-		mapper.insertCoin10KRW(listMap);
-	}
-
 
 	/**
 	 * List<Map>에 특정Key값을 ',' 구분으로 뽑아온다  (StringUtil.lastStringDelete(str) 함수랑 같이사용

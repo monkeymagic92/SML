@@ -57,69 +57,6 @@
                 WHERE MARKET = #{item.MARKET}
         </foreach>
     </update>
-
-    <!-- AM 10:00 코인 리스트 -->
-    <insert id="insertCoin10KRW" parameterType="LinkedHashMap">
-        INSERT INTO T_COIN_10_KRW
-        (
-            MARKET
-            , TRADE_DATE
-            , TRADE_TIME
-            , TRADE_DATE_KST
-            , TRADE_TIME_KST
-            , TRADE_TIMESTAMP
-            , OPENING_PRICE
-            , HIGH_PRICE
-            , LOW_PRICE
-            , TRADE_PRICE
-            , PREV_CLOSING_PRICE
-            , CHANGE
-            , CHANGE_PRICE
-            , CHANGE_RATE
-            , SIGNED_CHANGE_PRICE
-            , SIGNED_CHANGE_RATE
-            , TRADE_VOLUME
-            , ACC_TRADE_PRICE
-            , ACC_TRADE_PRICE_24H
-            , ACC_TRADE_VOLUME
-            , ACC_TRADE_VOLUME_24H
-            , HIGHEST_52_WEEK_PRICE
-            , HIGHEST_52_WEEK_DATE
-            , LOWEST_52_WEEK_PRICE
-            , LOWEST_52_WEEK_DATE
-            , UPD_DT
-        )
-        <foreach item="item" collection="list" separator="union">
-            SELECT
-                #{item.MARKET}
-                , #{item.TRADE_DATE}
-                , #{item.TRADE_TIME}
-                , #{item.TRADE_DATE_KST}
-                , #{item.TRADE_TIME_KST}
-                , #{item.TRADE_TIMESTAMP}
-                , #{item.OPENING_PRICE}
-                , #{item.HIGH_PRICE}
-                , #{item.LOW_PRICE}
-                , #{item.TRADE_PRICE}
-                , #{item.PREV_CLOSING_PRICE}
-                , #{item.CHANGE}
-                , #{item.CHANGE_PRICE}
-                , #{item.CHANGE_RATE}
-                , #{item.SIGNED_CHANGE_PRICE}
-                , #{item.SIGNED_CHANGE_RATE}
-                , #{item.TRADE_VOLUME}
-                , #{item.ACC_TRADE_PRICE}
-                , #{item.ACC_TRADE_PRICE_24H}
-                , #{item.ACC_TRADE_VOLUME}
-                , #{item.ACC_TRADE_VOLUME_24H}
-                , #{item.HIGHEST_52_WEEK_PRICE}
-                , TO_CHAR(TO_DATE(#{item.HIGHEST_52_WEEK_DATE}, 'YYYY-MM-DD'), 'YYYY-MM-DD')
-                , #{item.LOWEST_52_WEEK_PRICE}
-                , TO_CHAR(TO_DATE(#{item.LOWEST_52_WEEK_DATE}, 'YYYY-MM-DD'), 'YYYY-MM-DD')
-                , TO_CHAR(TO_DATE(#{item.UPD_DT}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
-            FROM DUAL
-        </foreach>
-    </insert>
     <!-- ***************** KRW 관련 End ***************** -->
 
 

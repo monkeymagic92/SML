@@ -23,7 +23,7 @@ public class QuoteController extends CommonController {
 	@Autowired
 	private QuoteService service;
 
-	@RequestMapping(value = "/quote/thHour", method = RequestMethod.GET)
+	@RequestMapping(value = "/quote/quote_AM10", method = RequestMethod.GET)
 	public String selectThHour(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		// thHour.jsp에 들어갈 model
@@ -33,7 +33,7 @@ public class QuoteController extends CommonController {
 		model.addAttribute("title", "3th Hour Table");
 		model.addAttribute("subCntn", "갱신일자 : " + service.selectThKRWUpdDt());
 
-		model.addAttribute("view", "/quote/thQuote");
+		model.addAttribute("view", "/quote/quote_AM10");
 
 		return ViewRef.LAYOUT_TEMP;
 	}

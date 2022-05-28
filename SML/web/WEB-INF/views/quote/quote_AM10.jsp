@@ -41,7 +41,7 @@
 	<tr>
 		<th><h1>마켓</h1></th>
 		<th><h1>한글이름</h1></th>
-		<th><h1>Average</h1></th>
+		<th><h1>영어이름</h1></th>
 		<th><h1>Average</h1></th>
 		<th><h1>Average</h1></th>
 		<th><h1>Average</h1></th>
