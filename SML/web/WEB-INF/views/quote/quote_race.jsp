@@ -17,45 +17,52 @@
 <body>
 <%-- test용 --%>
 <h1 id="quoteIndexTitle">
-	<span>3th Hour Table</span>
+	<span>10:00AM Quote Table</span>
 </h1>
-<h2 id="quoteIndexTitle2">Created with love by
+<h2 id="quoteIndexTitle2">업비트 바로가기
 	<a href="https://upbit.com/exchange?code=CRIX.UPBIT.KRW-BTC" target="_blank">Upbit</a>
-	<br>
 </h2>
+
 <button type="button" id="a" name="a">click Test Ajax</button>
+
 <form id="frm" name="frm" method="post">
 	<input type="hidden" id="ina" name="ina" value="123" />
 </form>
 
 <table class="quoteIndexContainer">
 	<colgroup>
-		<col width="16.5%">
-		<col width="16.5%">
-		<col width="16.5%">
-		<col width="16.5%">
-		<col width="16.5%">
-		<col width="16.5%">
+		<col width="12.5%">
+		<col width="12.5%">
+		<col width="12.5%">
+		<col width="12.5%">
+		<col width="12.5%">
+		<col width="12.5%">
+		<col width="12.5%">
+		<col width="12.5%">
 	</colgroup>
 	<thead>
 	<tr>
+		<th><h1>No</h1></th>
 		<th><h1>마켓</h1></th>
 		<th><h1>한글이름</h1></th>
-		<th><h1>영어이름</h1></th>
-		<th><h1>Average</h1></th>
-		<th><h1>Average</h1></th>
-		<th><h1>Average</h1></th>
+		<th><h1>저가</h1></th>
+		<th><h1>시가</h1></th>
+		<th><h1>고가</h1></th>
+		<th><h1>상승률</h1></th>
+		<th><h1>보합</h1></th>
 	</tr>
 	</thead>
 	<tbody>
 	<c:forEach var="list" items="${list}">
 		<tr>
+			<td>${list.RNUM}</td>
 			<td>${list.MARKET}</td>
 			<td>${list.KOR_NM}</td>
-			<td>${list.ENG_NM}</td>
-			<td>null</td>
-			<td>null</td>
-			<td>null</td>
+			<td>${list.LOW_PRICE}</td>
+			<td>${list.OPENING_PRICE}</td>
+			<td>${list.HIGH_PRICE}</td>
+			<td>${list.RISE_PRICE}</td>
+			<td>${list.CHANGE}</td>
 		</tr>
 	</c:forEach>
 	</tbody>

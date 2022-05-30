@@ -64,7 +64,7 @@
 					</a>
 					<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 						<nav class="sb-sidenav-menu-nested nav">
-							<a class="nav-link" href="/quote/quote_AM10">3Hour Quote</a>
+							<a class="nav-link" href="/quote/quote_race">10:00AM 가격</a>
 							<a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
 						</nav>
 					</div>

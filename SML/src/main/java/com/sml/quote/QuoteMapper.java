@@ -15,13 +15,13 @@ import java.util.Map;
 @Repository
 public interface QuoteMapper {
 
-	public List<?> selectQuoteKRWList();	// 값 뿌리기 테스트용
+	// 값 뿌리기 테스트용
+	public List<?> selectCoinRaceList();
 
-	public String selectThKRWUpdDt();		// 갱신일자 값 가져오기
-
-	public void insertBeforeRaceList(Map<String, Object> map);	// 경주마 테이블에 값 넣기
+	// 갱신일자 값 가져오기
+	public String selectCoinRaceUpdDt();
 
 	// 10시 코인 리스트
-	public void insertCoin10KRW(List<Map<String, Object>> map);
+	public void insertCoinRace(List<Map<String, Object>> map);
 
 }

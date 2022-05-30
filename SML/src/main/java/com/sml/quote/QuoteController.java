@@ -23,17 +23,17 @@ public class QuoteController extends CommonController {
 	@Autowired
 	private QuoteService service;
 
-	@RequestMapping(value = "/quote/quote_AM10", method = RequestMethod.GET)
-	public String selectThHour(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/quote/quote_race", method = RequestMethod.GET)
+	public String coinRaceIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		// thHour.jsp에 들어갈 model
-		model.addAttribute("list", service.selectCoinThQuote());
+		// 10시 데이터 list
+		model.addAttribute("list", service.selectCoinRaceList());
 
 		// indexTemp.jsp에 들어갈 model
-		model.addAttribute("title", "3th Hour Table");
-		model.addAttribute("subCntn", "갱신일자 : " + service.selectThKRWUpdDt());
+		model.addAttribute("title", "10:00AM Table");
+		model.addAttribute("subCntn", "최근갱신일자 : " + service.selectCoinRaceUpdDt());
 
-		model.addAttribute("view", "/quote/quote_AM10");
+		model.addAttribute("view", "/quote/quote_race");
 
 		return ViewRef.LAYOUT_TEMP;
 	}
@@ -41,9 +41,10 @@ public class QuoteController extends CommonController {
 	// 나중에 스케줄러 돌리면 해당 부분은 삭제해도됨
 	// 테스트용으로 클릭버튼 눌렀을때 DB에 코인업데이트내용 저장되게 하는 controller
 	@RequestMapping(value = "/quote/insertCoinList", method = RequestMethod.POST)
-	public void insertCoinList(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void insertSchRaceCoin(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		service.insertCoinList();
+		// 버튼 클릭시 테스트 insert 코인
+		service.insertCoinRaceTest();
 	}
 
 }

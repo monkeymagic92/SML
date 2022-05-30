@@ -26,38 +26,38 @@ public class QuoteService extends CommonService {
 	private UpbitAPIService upbitAPI;
 
 
-	public List<?> selectCoinThQuote() throws Exception {
-		List<?> list = mapper.selectQuoteKRWList();
+	public List<?> selectCoinRaceList() throws Exception {
+		List<?> list = mapper.selectCoinRaceList();
 		return list;
 	}
 
 	/**
-	 * (3시간) 갱신일자(UPD_DT) 값 가져오기.
+	 *  갱신일자(UPD_DT) 값 가져오기.
 	 * @return
 	 */
-	public String selectThKRWUpdDt() {
-		return mapper.selectThKRWUpdDt();
+	public String selectCoinRaceUpdDt() {
+		return mapper.selectCoinRaceUpdDt();
 	}
 
 	/**
-	 * 오전10시 코인가격를 10시테이블에 ISNERT
+	 * 오전10시 코인가격를 10시테이블에 INSERT
 	 * @param listMap
 	 */
-	public void insertCoin10KRW(List<Map<String, Object>> listMap) {
-		mapper.insertCoin10KRW(listMap);
+	public void insertCoinRace(List<Map<String, Object>> listMap) {
+		mapper.insertCoinRace(listMap);
 	}
 
 
 	/**
-	 * quote_AM10.jsp - click Test Ajax버튼 눌렀을때 테스트용 함수
+	 * quote_race.jsp - click Test Ajax버튼 눌렀을때 테스트용 함수
 	 * @throws Exception
 	 */
-	public void insertCoinList() throws Exception {
+	public void insertCoinRaceTest() throws Exception {
 
 		List<Map<String, Object>> listMap = new ArrayList<>();
 		listMap = upbitAPI.insertCoinList("KRW"); // 코인 가격 저장하는 QUOTE 테이블
 
-		insertCoin10KRW(listMap);				  // 당일 오전10시에 코인가격 insert
+		insertCoinRace(listMap);				  // 당일 오전10시에 코인가격 insert
 
 	}
 
@@ -66,12 +66,11 @@ public class QuoteService extends CommonService {
 		경주마 뛰고난후 오전10시에 시작가 - 고가 최대 몇% 올랐는지 통계낸다
 	 */
 	@Scheduled(cron = "0 00 10 * * *")
-	public void updateRaceBeforeCoinList() throws Exception {
+	public void insertSchRaceCoin() throws Exception {
 
 		List<Map<String, Object>> listMap = new ArrayList<>();
 		listMap = upbitAPI.insertCoinList("KRW");	// 코인 가격 저장하는 QUOTE 테이블
-
-		insertCoin10KRW(listMap);					// 당일 오전10시에 코인가격 insert
+		insertCoinRace(listMap);					// 당일 오전10시에 코인가격 insert
 	}
 
 

@@ -5,30 +5,47 @@
 <mapper namespace="com.sml.quote.QuoteMapper">
 
     <!-- 테스트용 -->
-    <select id="selectQuoteKRWList" resultType="LinkedHashMap">
+    <select id="selectCoinRaceList" resultType="LinkedHashMap">
         SELECT
-            MARKET
-            , KOR_NM
-            , ENG_NM
-        FROM T_COIN_QUOTE_KRW
+            ROWNUM AS RNUM
+            , A.MARKET
+            , A.KOR_NM
+            , B.OPENING_PRICE
+            , B.LOW_PRICE
+            , B.HIGH_PRICE
+            , B.RISE_PRICE
+            , B.CHANGE
+        FROM T_COIN_QUOTE_KRW A
+            , (
+                SELECT
+                    MARKET
+                    , OPENING_PRICE
+                    , LOW_PRICE
+                    , HIGH_PRICE
+                    , ROUND((((HIGH_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100),2) AS RISE_PRICE    /* 시가 - 고가 상승률 */
+                    , DECODE(CHANGE, 'RISE', '상승', 'FALL', '하락') AS CHANGE
+                FROM T_COIN_10_KRW B
+                WHERE 1=1
+                <!--
+                    if문 사용하여 검색조건 만들기
+                -->
+                AND UPD_DT = (SELECT TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD') || ' 10:00:00' FROM DUAL)     /* 당일 10시 데이터 가져오기 */
+
+                ORDER BY RISE_PRICE DESC
+            ) B
+        WHERE A.MARKET = B.MARKET
+        ORDER BY RNUM ASC
     </select>
 
-    <select id="selectThKRWUpdDt" resultType="String">
+    <select id="selectCoinRaceUpdDt" resultType="String">
         SELECT
             UPD_DT
         FROM T_COIN_QUOTE_KRW
         WHERE MARKET = 'KRW-BTC'
     </select>
 
-    <!-- 08:55분 경주마달리기 전 현재 코인리스트 ( 밑에 INSERT 컬럼 더 추가하기 ) -->
-    <insert id="insertBeforeRaceList" parameterType="LinkedHashMap">
-        INSERT INTO T_COIN_RACE_KRW
-        (MARKET, KOR_NM, ENG_NM, TRADE_TIME, UPD_DT)
-        SELECT MARKET, KOR_NM, ENG_NM, TRADE_TIME, UPD_DT FROM T_COIN_QUOTE_KRW
-    </insert>
-
     <!-- AM 10:00 코인 리스트 (QuoteMapper로 옮기기 (  QuoteMapper 이름도 바꾸기 (10시간을 명확하게)) -->
-    <insert id="insertCoin10KRW" parameterType="LinkedHashMap">
+    <insert id="insertCoinRace" parameterType="LinkedHashMap">
         INSERT INTO T_COIN_10_KRW
         (
             MARKET
