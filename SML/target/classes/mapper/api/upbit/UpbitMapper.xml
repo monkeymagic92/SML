@@ -6,7 +6,7 @@
 
     <!-- ***************** KRW 관련 Start ***************** -->
 
-    <!-- 코인리스트 inert (INSERT IGNORE를 하여 중복 insert방지) -->
+    <!-- 코인리스트 inert (NOT EXISTS 하여 INSERT중복방지) -->
     <insert id="insertCoinListKRW" parameterType="LinkedHashMap">
         INSERT INTO T_COIN_QUOTE_KRW
         (MARKET, KOR_NM, ENG_NM)

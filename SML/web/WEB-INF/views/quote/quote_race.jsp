@@ -13,21 +13,76 @@
 	<%-- js / css공통함수cdn jsp파일 --%>
 	<link href="/res/css/quote/quoteIndex.css" rel="stylesheet">
 
+	<!-- ----------------- style Start ----------------- -->
+	<style>
+		#market {cursor: pointer;}
+	</style>
+	<!-- ----------------- style End ----------------- -->
 </head>
 <body>
-<%-- test용 --%>
+<script type="text/javascript">
+
+	// ----------------- Document Start -----------------
+	$(document).ready(function () {
+
+		var market = $("#market").html();
+
+		$("#testAjaxBtn").click(function() {
+			fnAjaxSubmit('<c:url value="/quote/insertCoinList" />', "#frm", call);
+		});
+
+	});
+	// ----------------- Document End -----------------
+
+	// ----------------- Function Start -----------------
+
+	// 클릭한 market 명으로 upbit 사이트 이동 (쿼리스트링=market)
+	function fnMoveToUpbit(market) {
+		var link = 'https://upbit.com/exchange?code=CRIX.UPBIT.'+market;
+		window.open(link);
+	}
+
+	// Test Ajax 클릭시 콜백함수
+	function call(data) {
+		console.log(data.AAA);
+	}
+
+	function coinList() {
+		var coinInfo = new Array();
+
+		<c:forEach var="list" items="${list}">
+			coinInfo.push({market: "${list.MARKET}"
+						, high_price: "${list.HIGH_PRICE}"
+						, opening_price: "${list.OPENING_PRICE}"
+						, low_price: "${list.LOW_PRICE}"
+						, rise_price: "${list.RISE_PRICE}"});
+		</c:forEach>
+
+		for(var i=0; i<coinInfo.length; i++) {
+			console.log('market : ' + coinInfo[i].market);
+			console.log('high_price : ' + coinInfo[i].rise_price);
+		}
+	}
+
+
+	// ----------------- Function End -----------------
+
+</script>
+
+<%-- ----------------- Test ----------------- --%>
 <h1 id="quoteIndexTitle">
 	<span>10:00AM Quote Table</span>
 </h1>
 <h2 id="quoteIndexTitle2">업비트 바로가기
 	<a href="https://upbit.com/exchange?code=CRIX.UPBIT.KRW-BTC" target="_blank">Upbit</a>
+	<button type="button" id="testAjaxBtn" name="testAjaxBtn">click To Test Ajax</button>
 </h2>
-
-<button type="button" id="a" name="a">click Test Ajax</button>
 
 <form id="frm" name="frm" method="post">
 	<input type="hidden" id="ina" name="ina" value="123" />
 </form>
+<%-- ----------------- Test q----------------- --%>
+
 
 <table class="quoteIndexContainer">
 	<colgroup>
@@ -56,32 +111,23 @@
 	<c:forEach var="list" items="${list}">
 		<tr>
 			<td>${list.RNUM}</td>
-			<td>${list.MARKET}</td>
-			<td>${list.KOR_NM}</td>
-			<td>${list.LOW_PRICE}</td>
-			<td>${list.OPENING_PRICE}</td>
-			<td>${list.HIGH_PRICE}</td>
-			<td>${list.RISE_PRICE}</td>
-			<td>${list.CHANGE}</td>
+			<td id="market" onclick="fnMoveToUpbit('${list.MARKET}');">${list.MARKET}</td>
+			<td id="kor_nm">${list.KOR_NM}</td>
+			<td id="low_price">${list.LOW_PRICE}</td>
+			<td id="opening_price">${list.OPENING_PRICE}</td>
+			<td id="high_price">${list.HIGH_PRICE}</td>
+			<c:choose>
+				<c:when test="${list.RISE_PRICE >= 10}">
+					<td id="rise_price" style="color: red;">${list.RISE_PRICE}%</td>
+				</c:when>
+				<c:otherwise>
+					<td id="rise_price">${list.RISE_PRICE}%</td>
+				</c:otherwise>
+			</c:choose>
+			<td id="change">${list.CHANGE}</td>
 		</tr>
 	</c:forEach>
 	</tbody>
 </table>
-
-<script type="text/javascript">
-
-	$(document).ready(function () {
-
-		$("#a").click(function() {
-
-			fnAjaxSubmit('<c:url value="/quote/insertCoinList" />', "#frm", call);
-		});
-	});
-
-	function call(data) {
-		console.log(data.AAA);
-	}
-
-</script>
 </body>
 </html>
