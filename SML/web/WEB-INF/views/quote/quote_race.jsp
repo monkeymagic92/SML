@@ -25,8 +25,6 @@
 	// ----------------- Document Start -----------------
 	$(document).ready(function () {
 
-		var market = $("#market").html();
-
 		$("#testAjaxBtn").click(function() {
 			fnAjaxSubmit('<c:url value="/quote/insertCoinList" />', "#frm", call);
 		});
@@ -47,6 +45,7 @@
 		console.log(data.AAA);
 	}
 
+	// 서버단에서 날라온값을 자바스크립트에 담는법 ( 해당함수는 사용안하는중 )
 	function coinList() {
 		var coinInfo = new Array();
 
@@ -81,7 +80,7 @@
 <form id="frm" name="frm" method="post">
 	<input type="hidden" id="ina" name="ina" value="123" />
 </form>
-<%-- ----------------- Test q----------------- --%>
+<%-- ----------------- Test ----------------- --%>
 
 
 <table class="quoteIndexContainer">

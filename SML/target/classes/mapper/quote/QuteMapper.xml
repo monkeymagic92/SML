@@ -22,9 +22,9 @@
                     , OPENING_PRICE
                     , LOW_PRICE
                     , HIGH_PRICE
-                    , ROUND((((HIGH_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100),2) AS RISE_PRICE    /* 시가 - 고가 상승률 */
+                    , ROUND((((HIGH_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100), 2) AS RISE_PRICE    /* 시가 - 고가 상승률 */
                     , DECODE(CHANGE, 'RISE', '상승', 'FALL', '하락') AS CHANGE
-                FROM T_COIN_10_KRW B
+                FROM T_COIN_RACE_KRW B
                 WHERE 1=1
                 <!--
                     if문 사용하여 검색조건 만들기
@@ -45,7 +45,7 @@
 
     <!-- AM 10:00 코인 리스트 (QuoteMapper로 옮기기 (  QuoteMapper 이름도 바꾸기 (10시간을 명확하게)) -->
     <insert id="insertCoinRace" parameterType="LinkedHashMap">
-        INSERT INTO T_COIN_10_KRW
+        INSERT INTO T_COIN_RACE_KRW
         (
             MARKET
             , TRADE_DATE
