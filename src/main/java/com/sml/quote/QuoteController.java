@@ -27,6 +27,8 @@ public class QuoteController extends CommonController {
 	@RequestMapping(value = "/quote/quote_race", method = RequestMethod.GET)
 	public String coinRaceIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		// git test
+
 		// 10:00am (RACE) 데이터 list
 		model.addAttribute("list", service.selectCoinRaceList());
 
