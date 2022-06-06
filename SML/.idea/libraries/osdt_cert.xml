@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="osdt_cert">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../Lib/ojdbcFullPakage/ojdbc8-full/osdt_cert.jar!/" />
+      <root url="jar://D:/Lib/ojdbcFullPakage/ojdbc8-full/osdt_cert.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

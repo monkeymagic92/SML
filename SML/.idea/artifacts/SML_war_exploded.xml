@@ -74,12 +74,12 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.11.3" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.11.3" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.11.3" />
-          <element id="library" level="project" name="osdt_core" />
-          <element id="library" level="project" name="ojdbc8" />
-          <element id="library" level="project" name="osdt_cert" />
-          <element id="library" level="project" name="oraclepki" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.6.6" />
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.6.6" />
+          <element id="library" level="project" name="ojdbc8" />
+          <element id="library" level="project" name="oraclepki" />
+          <element id="library" level="project" name="osdt_cert" />
+          <element id="library" level="project" name="osdt_core" />
         </element>
       </element>
     </root>

@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="oraclepki">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../Lib/ojdbcFullPakage/ojdbc8-full/oraclepki.jar!/" />
+      <root url="jar://D:/Lib/ojdbcFullPakage/ojdbc8-full/oraclepki.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

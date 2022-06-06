@@ -25,14 +25,19 @@ public class QuoteService extends CommonService {
 	@Autowired
 	private UpbitAPIService upbitAPI;
 
-
+	// **************************** (Race) 코인 Start ****************************
+	/**
+	 * (Race) 코인 리스트
+	 * @return
+	 * @throws Exception
+	 */
 	public List<?> selectCoinRaceList() throws Exception {
 		List<?> list = mapper.selectCoinRaceList();
 		return list;
 	}
 
 	/**
-	 *  갱신일자(UPD_DT) 값 가져오기.
+	 *  (Race) 갱신일자(UPD_DT) 값 가져오기.
 	 * @return
 	 */
 	public String selectCoinRaceUpdDt() {
@@ -40,7 +45,7 @@ public class QuoteService extends CommonService {
 	}
 
 	/**
-	 * 오전10시 코인가격를 10시테이블에 INSERT
+	 * (Race) 오전10시 코인가격를 10시테이블에 INSERT
 	 * @param listMap
 	 */
 	public void insertCoinRace(List<Map<String, Object>> listMap) {
@@ -53,11 +58,9 @@ public class QuoteService extends CommonService {
 	 * @throws Exception
 	 */
 	public void insertCoinRaceTest() throws Exception {
-
 		List<Map<String, Object>> listMap = new ArrayList<>();
-		listMap = upbitAPI.insertCoinList("KRW"); // 코인 가격 저장하는 QUOTE 테이블
-
-		insertCoinRace(listMap);				  // 당일 오전10시에 코인가격 insert
+		listMap = upbitAPI.insertCoinList("KRW");
+		insertCoinRace(listMap);
 
 	}
 
@@ -67,11 +70,57 @@ public class QuoteService extends CommonService {
 	 */
 	@Scheduled(cron = "0 00 10 * * *")
 	public void insertSchRaceCoin() throws Exception {
-
 		List<Map<String, Object>> listMap = new ArrayList<>();
 		listMap = upbitAPI.insertCoinList("KRW");	// 코인 가격 저장하는 QUOTE 테이블
 		insertCoinRace(listMap);					// 당일 오전10시에 코인가격 insert
 	}
+	// **************************** (Race) 코인 End ****************************
+
+
+
+	// **************************** (Day) 코인 Start ****************************
+	public List<?> selectCoinDayList() throws Exception {
+		List<?> list = mapper.selectCoinDayList();
+		return list;
+	}
+
+	/**
+	 *  갱신일자(UPD_DT) 값 가져오기.
+	 * @return
+	 */
+	public String selectCoinDayUpdDt() {
+		return mapper.selectCoinDayUpdDt();
+	}
+
+	/**
+	 * Day(08:55am) 코인가격를 10시테이블에 INSERT
+	 * @param listMap
+	 */
+	public void insertCoinDay(List<Map<String, Object>> listMap) {
+		mapper.insertCoinDay(listMap);
+	}
+
+
+	/**
+	 * quote_day.jsp - Test Ajax버튼 눌렀을때 Day(08:55am) 테스트용 함수
+	 * @throws Exception
+	 */
+	public void insertCoinDayTest() throws Exception {
+		List<Map<String, Object>> listMap = new ArrayList<>();
+		listMap = upbitAPI.insertCoinList("KRW");
+		insertCoinDay(listMap);
+	}
+
+	/**
+	 * Scheduled : 매일 오전 08:55분
+	 */
+	@Scheduled(cron = "0 55 08 * * *")
+	public void insertSchDayCoin() throws Exception {
+		List<Map<String, Object>> listMap = new ArrayList<>();
+		listMap = upbitAPI.insertCoinList("KRW");
+		insertCoinDay(listMap);
+	}
+	// **************************** (Day) 코인 End ****************************
 
 
 }

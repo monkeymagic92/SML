@@ -23,10 +23,11 @@ public class QuoteController extends CommonController {
 	@Autowired
 	private QuoteService service;
 
+	// **************************** (Race) 코인 Start ****************************
 	@RequestMapping(value = "/quote/quote_race", method = RequestMethod.GET)
 	public String coinRaceIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		// 10시 데이터 list
+		// (Race) 10:00am데이터 list
 		model.addAttribute("list", service.selectCoinRaceList());
 
 		// indexTemp.jsp에 들어갈 model
@@ -38,13 +39,39 @@ public class QuoteController extends CommonController {
 		return ViewRef.LAYOUT_TEMP;
 	}
 
-	// 나중에 스케줄러 돌리면 해당 부분은 삭제해도됨
-	// 테스트용으로 클릭버튼 눌렀을때 DB에 코인업데이트내용 저장되게 하는 controller
-	@RequestMapping(value = "/quote/insertCoinList", method = RequestMethod.POST)
+	// (Race) 나중에 스케줄러 돌리면 해당 부분은 삭제해도됨 (ajax Test버튼 눌렀을때 insert용)
+	@RequestMapping(value = "/quote/insertRaceCoinList", method = RequestMethod.POST)
 	public void insertSchRaceCoin(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		// 버튼 클릭시 테스트 insert 코인
 		service.insertCoinRaceTest();
 	}
+	// **************************** (Race) 코인 End ****************************
+
+
+
+	// **************************** (Day) 코인 Start ****************************
+	@RequestMapping(value = "/quote/quote_day", method = RequestMethod.GET)
+	public String coinDayIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		// (Day) 08:55am 데이터 list
+		model.addAttribute("list", service.selectCoinDayList());
+
+		// indexTemp.jsp에 들어갈 model
+		model.addAttribute("title", "08:55AM Table");
+		model.addAttribute("subCntn", "최근갱신일자 : " + service.selectCoinDayUpdDt());
+
+		model.addAttribute("view", "/quote/quote_day");
+
+		return ViewRef.LAYOUT_TEMP;
+	}
+
+	// (Day) 나중에 스케줄러 돌리면 해당 부분은 삭제해도됨  (ajax Test버튼 눌렀을때 insert용)
+	@RequestMapping(value = "/quote/insertDayCoinList", method = RequestMethod.POST)
+	public void insertSchDayCoin(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		service.insertCoinDayTest();
+	}
+	// **************************** (Day) 코인 End ****************************
 
 }

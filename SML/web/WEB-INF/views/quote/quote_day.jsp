@@ -26,7 +26,7 @@
 	$(document).ready(function () {
 
 		$("#testAjaxBtn").click(function() {
-			fnAjaxSubmit('<c:url value="/quote/insertCoinList" />', "#frm", call);
+			fnAjaxSubmit('<c:url value="/quote/insertDayCoinList" />', "#frm", call);
 		});
 
 	});
@@ -50,11 +50,11 @@
 		var coinInfo = new Array();
 
 		<c:forEach var="list" items="${list}">
-			coinInfo.push({market: "${list.MARKET}"
-						, high_price: "${list.HIGH_PRICE}"
-						, opening_price: "${list.OPENING_PRICE}"
-						, low_price: "${list.LOW_PRICE}"
-						, rise_price: "${list.RISE_PRICE}"});
+		coinInfo.push({market: "${list.MARKET}"
+			, high_price: "${list.HIGH_PRICE}"
+			, opening_price: "${list.OPENING_PRICE}"
+			, low_price: "${list.LOW_PRICE}"
+			, rise_price: "${list.RISE_PRICE}"});
 		</c:forEach>
 
 		for(var i=0; i<coinInfo.length; i++) {
@@ -72,10 +72,8 @@
 <h1 id="quoteIndexTitle">
 	<span>10:00AM Quote Table</span>
 </h1>
-<h2 id="quoteIndexTitle2">업비트 바로가기
-	<a href="https://upbit.com/exchange?code=CRIX.UPBIT.KRW-BTC" target="_blank">Upbit</a>
-	<button type="button" id="testAjaxBtn" name="testAjaxBtn">click To Test Ajax</button>
-</h2>
+
+<button type="button" id="testAjaxBtn" name="testAjaxBtn">click To Test Ajax</button>
 
 <form id="frm" name="frm" method="post">
 	<input type="hidden" id="ina" name="ina" value="123" />
