@@ -9,7 +9,7 @@
         <!-- user -->
         <typeAlias type="com.sml.user.UserVO" alias="UserVO" />
 
-        <!-- quote -->
+        <!-- user -->
         <typeAlias type="com.sml.quote.QuoteVO" alias="QuoteVO" />
 
     </typeAliases>
