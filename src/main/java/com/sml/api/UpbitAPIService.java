@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sml.utils.common.CommonService;
 import com.sml.utils.util.StringUtil;
+import com.sml.utils.util.TimeMaximum;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -40,23 +41,19 @@ public class UpbitAPIService extends CommonService {
 	 * 코인 전체리스트와 코인 시세정보를 가져온다
 	 * @throws Exception
 	 */
-	public void insertCoinList(String market) throws Exception {
+	public List<Map<String, Object>> insertCoinList(String market) throws Exception {
+
+		// 현재시간 날짜 가져오기 ( YYYY-MM-DD HH24:MI:SS ) ( 오라클 클라우드 SYSDATE
+		String upd_dt = TimeMaximum.nowDate();
 
 		// 1. coin리스트를 List<Map>에 담는다
 		List<Map<String, Object>> coinList = getUpbitCoinList(market);
 
-		// 1차적으로 merge in to 해서 코인정보를 다 insert한후
-		for(int i=0; i<coinList.size(); i++) {
-			Map<String, Object> map = new HashMap<>();
-			map.put("MARKET", coinList.get(i).get("MARKET"));
-			map.put("KOR_NM", coinList.get(i).get("KOR_NM"));
-			map.put("ENG_NM", coinList.get(i).get("ENG_NM"));
-
-			if(market.equals("KRW")) {
-				mapper.insertCoinListKRW(map);
-			} else {
-				mapper.insertCoinListBTC(map);
-			}
+		// 1차적으로 merge in to 해서 코인정보를 전체 insert ( mybatis에서 forEach 사용 (batch, INSERT 속도 향상 )
+		if(market.equals("KRW")) {
+			mapper.insertCoinListKRW(coinList);
+		} else {
+			mapper.insertCoinListBTC(coinList);
 		}
 
 		// 리스트맵에서 market키값을 가져온다
@@ -65,7 +62,29 @@ public class UpbitAPIService extends CommonService {
 		// 마지막 쉼표제거를 위해 replace
 		String strReplace = StringUtil.lastStringDelete(str);
 
-		// 코인가격이 배열로 JSON형태의 값을 가지고 온다
+		/*
+			■ 아래 글은 내일 작업할때 꼭 보고 작업하기 중요한 내용임, 분(minute)봉 기준으로 8:59 ~ 10:00 데이터 api 추출후 해당 정볼를 RACE테이블에 insert, update 하기
+
+			■ 08:59분에는 분(minute)봉 기준으로 '저가'를 update하고 10:00에는 일(day)봉 기준으로 '고가'를 update하기
+			( 분봉 기준으로 하면 09:10분에 최고점찍고 하락갔을때 10시기준으로 보면 10시 '분'봉에 고점이 찍히기에 정확한 데이터 통계가 안됨
+			그래서 '일'봉 기준으로 잡아야 그날 10시까지 '고점' 데이터를 가져올수 있음 )
+
+			■ 분봉 테이블, 일봉 테이블 HIS로 2개 만들기 그리고 계속 거기다가 UPDATE 누적하기
+			T_COIN_QUOTE_KRW 테이블은 단순 코인 시세를 받아오는 테이블이고 각 상황에따라 분,일봉 HIS 테이블에 계속 update 치기
+
+			(T_COIN_QUOTE_KRW = 분봉HIS : 일봉HIS) 테이블로 누적한다고 생각하면 됨
+			그리고 제일위에 내용대로 분봉 '저가' 일봉 '고가'는 각 테이블끼리 서로 MRAKET을 JOIN 하기
+
+			strReplace가 코인 이름 가지고있음 ex)KRW-BTC
+			즉, if문 분기처리하여 coinQuoteList < 변수에다가 분봉일경우 분봉 API 실행하여 데이터 가져오기
+			해당 데이터는 getCoinQuoteList() 함수처럼 간단하게 값 가져오는 코드 참고하면 됨
+			그리고 JSONParser parser = new JSONParser(); 사용해서 for 반복문 돌려서 데이터 들고오면됨
+			반복문 또한 함수처리하여 작성해보기
+			다시말해 내가 나중에 알아볼수있게 간단하게 코딩하기 ( 현재 너무 복잡함 )
+
+		 */
+
+		// 코인가격이 배열로 JSON형태의 값을 가지고 온다  (strReplace = KRW-BTC 형태)
 		String coinQuoteList = getCoinQuoteList(strReplace);
 
 		// 코인시세(quote) 파싱작업
@@ -73,10 +92,13 @@ public class UpbitAPIService extends CommonService {
 		Object obj = parser.parse(coinQuoteList);
 		JSONArray jsonArr = (JSONArray)obj;
 
+		List<Map<String, Object>> listMap = new ArrayList<>();
+
 		for(int i=0; i<jsonArr.size(); i++) {
 			JSONObject jsonObj = (JSONObject)jsonArr.get(i);
 
 			Map<String, Object> map = new HashMap<>();
+
 			map.put("MARKET", jsonObj.get("market"));
 			map.put("TRADE_DATE", jsonObj.get("trade_date"));
 			map.put("TRADE_TIME", jsonObj.get("trade_time"));
@@ -103,15 +125,27 @@ public class UpbitAPIService extends CommonService {
 			map.put("LOWEST_52_WEEK_PRICE", jsonObj.get("lowest_52_week_price"));
 			map.put("LOWEST_52_WEEK_DATE", jsonObj.get("lowest_52_week_date"));
 			map.put("TIMESTAMP", jsonObj.get("timestamp"));
+			map.put("UPD_DT", upd_dt);
 
-			if(market.equals("KRW")) {
-				mapper.updateCoinQuoteKRW(map);
-				//mapper.insertCoinQuoteKRW_HIS(map); // KRW_HIS 테이블
-			} else {
-				mapper.updateCoinQuoteBTC(map);
-				//mapper.insertCoinQuoteBTC_HIS(map); // KRW_BTC 테이블
-			}
+			listMap.add(map);
+
 		}
+
+		// 코인 (일) 시세정보 log
+//		for(int i=0; i<listMap.size(); i++) {
+//			logger.info(i + " : " + listMap.get(i));
+//		}
+
+
+		if(market.equals("KRW")) {
+			mapper.updateCoinQuoteKRW(listMap);	//( mybatis에서 forEach 돌리기 )
+			//mapper.insertCoinQuoteKRW_HIS(listMap); // KRW_HIS 테이블
+		} else {
+			mapper.updateCoinQuoteBTC(listMap);
+			//mapper.insertCoinQuoteBTC_HIS(listMap); // KRW_BTC 테이블
+		}
+
+		return listMap;
 	}
 
 
@@ -196,7 +230,7 @@ public class UpbitAPIService extends CommonService {
 						listKRWMap.add(krwMap);
 					}
 
-				// 파라미터가 BTC일경우 BTC 마켓에 코인리스트만 들고온다
+					// 파라미터가 BTC일경우 BTC 마켓에 코인리스트만 들고온다
 				} else if(coinCode.equals("BTC")) {
 
 					if(market.substring(0, 3).equals("BTC")) {
@@ -269,4 +303,5 @@ public class UpbitAPIService extends CommonService {
 		}
 		return str;
 	}
+
 }

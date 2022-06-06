@@ -11,7 +11,7 @@
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <META HTTP-EQUIV="Expires" CONTENT="-1">
 <head>
-	<title>Title</title>
+	<title>SML</title>
 
 	<%-- js / css공통함수cdn jsp파일 --%>
 	<%@ include file="../../common/commonUtils.jsp" %>
@@ -22,7 +22,10 @@
 	<!-- Navbar Brand-->
 	<a class="navbar-brand ps-3" href="/temp/index" style="font-size: 2em;">SML</a>
 	<!-- Sidebar Toggle-->
-	<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+	<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+	<div style="margin-left: 3%;">
+		<a href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AAAPL" target="_blank" style="font-size:1em; font-weight: bold;">Trading View</a>
+	</div>
 	<!-- Navbar Search-->
 	<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
 		<div class="input-group">
@@ -61,8 +64,8 @@
 					</a>
 					<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 						<nav class="sb-sidenav-menu-nested nav">
-							<a class="nav-link" href="/quote/thHour">3Hour Quote</a>
-							<a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+							<a class="nav-link" href="/quote/quote_race">Race</a>
+							<a class="nav-link" href="/quote/quote_day">Day</a>
 						</nav>
 					</div>
 					<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">

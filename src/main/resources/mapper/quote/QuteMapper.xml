@@ -4,27 +4,217 @@
 
 <mapper namespace="com.sml.quote.QuoteMapper">
 
-    <!-- 테스트용 -->
-    <select id="selectQuoteKRWList" resultType="LinkedHashMap">
+    <!-- *********************** 10:00 (RACE) 코인 Start *********************** -->
+    <!-- 10:00am (RACE) 코인 리스트 -->
+    <select id="selectCoinRaceList" resultType="LinkedHashMap">
         SELECT
-            MARKET
-            , KOR_NM
-            , ENG_NM
-        FROM T_COIN_QUOTE_KRW
+            ROWNUM AS RNUM
+            , A.MARKET
+            , A.KOR_NM
+            , TO_CHAR(B.OPENING_PRICE, '999,999,999,999,999') AS OPENING_PRICE
+            , TO_CHAR(B.LOW_PRICE, '999,999,999,999,999') AS LOW_PRICE
+            , TO_CHAR(B.HIGH_PRICE, '999,999,999,999,999') AS HIGH_PRICE
+            , B.RISE_PRICE
+            , B.CHANGE
+        FROM T_COIN_QUOTE_KRW A
+            , (
+                SELECT
+                    MARKET
+                    , OPENING_PRICE
+                    , LOW_PRICE
+                    , HIGH_PRICE
+                    , ROUND((((HIGH_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100), 2) AS RISE_PRICE    /* 시가 - 고가 상승률 */
+                    , DECODE(CHANGE, 'RISE', '상승', 'FALL', '하락') AS CHANGE
+                FROM T_COIN_RACE_KRW B
+                WHERE 1=1
+                AND UPD_DT = (SELECT MAX(UPD_DT) FROM T_COIN_RACE_KRW)
+                <!--
+                    if문 사용하여 검색조건 만들기
+                -->
+                ORDER BY RISE_PRICE DESC
+            ) B
+        WHERE A.MARKET = B.MARKET
+        ORDER BY RNUM ASC
     </select>
 
-    <select id="selectThKRWUpdDt" resultType="String">
+    <!-- 10:00 (RACE) 코인 갱신일자 -->
+    <select id="selectCoinRaceUpdDt" resultType="String">
         SELECT
-            UPD_DT
-        FROM T_COIN_QUOTE_KRW
+            MAX(UPD_DT) AS UPD_DT
+        FROM T_COIN_RACE_KRW
         WHERE MARKET = 'KRW-BTC'
     </select>
 
-    <!-- 08:55분 경주마달리기 전 현재 코인리스트 ( 밑에 INSERT 컬럼 더 추가하기 ) -->
-    <insert id="insertBeforeRaceList" parameterType="LinkedHashMap">
+    <!-- AM 10:00 (RACE) 코인 리스트 -->
+    <insert id="insertCoinRace" parameterType="LinkedHashMap">
         INSERT INTO T_COIN_RACE_KRW
-        (MARKET, KOR_NM, ENG_NM, TRADE_TIME, UPD_DT)
-        SELECT MARKET, KOR_NM, ENG_NM, TRADE_TIME, UPD_DT FROM T_COIN_QUOTE_KRW
+        (
+            MARKET
+            , TRADE_DATE
+            , TRADE_TIME
+            , TRADE_DATE_KST
+            , TRADE_TIME_KST
+            , TRADE_TIMESTAMP
+            , OPENING_PRICE
+            , HIGH_PRICE
+            , LOW_PRICE
+            , TRADE_PRICE
+            , PREV_CLOSING_PRICE
+            , CHANGE
+            , CHANGE_PRICE
+            , CHANGE_RATE
+            , SIGNED_CHANGE_PRICE
+            , SIGNED_CHANGE_RATE
+            , TRADE_VOLUME
+            , ACC_TRADE_PRICE
+            , ACC_TRADE_PRICE_24H
+            , ACC_TRADE_VOLUME
+            , ACC_TRADE_VOLUME_24H
+            , HIGHEST_52_WEEK_PRICE
+            , HIGHEST_52_WEEK_DATE
+            , LOWEST_52_WEEK_PRICE
+            , LOWEST_52_WEEK_DATE
+            , UPD_DT
+        )
+        <foreach item="item" collection="list" separator="union">
+            SELECT
+                #{item.MARKET}
+                , #{item.TRADE_DATE}
+                , #{item.TRADE_TIME}
+                , #{item.TRADE_DATE_KST}
+                , #{item.TRADE_TIME_KST}
+                , #{item.TRADE_TIMESTAMP}
+                , #{item.OPENING_PRICE}
+                , #{item.HIGH_PRICE}
+                , #{item.LOW_PRICE}
+                , #{item.TRADE_PRICE}
+                , #{item.PREV_CLOSING_PRICE}
+                , #{item.CHANGE}
+                , #{item.CHANGE_PRICE}
+                , #{item.CHANGE_RATE}
+                , #{item.SIGNED_CHANGE_PRICE}
+                , #{item.SIGNED_CHANGE_RATE}
+                , #{item.TRADE_VOLUME}
+                , #{item.ACC_TRADE_PRICE}
+                , #{item.ACC_TRADE_PRICE_24H}
+                , #{item.ACC_TRADE_VOLUME}
+                , #{item.ACC_TRADE_VOLUME_24H}
+                , #{item.HIGHEST_52_WEEK_PRICE}
+                , TO_CHAR(TO_DATE(#{item.HIGHEST_52_WEEK_DATE}, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+                , #{item.LOWEST_52_WEEK_PRICE}
+                , TO_CHAR(TO_DATE(#{item.LOWEST_52_WEEK_DATE}, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+                , TO_CHAR(TO_DATE(#{item.UPD_DT}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
+            FROM DUAL
+        </foreach>
     </insert>
+    <!-- *********************** 10:00 (RACE) 코인 End *********************** -->
+
+
+
+    <!-- *********************** 08:55 (DAY) 코인 Start *********************** -->
+    <!-- DAY 코인 리스트 -->
+    <select id="selectCoinDayList" resultType="LinkedHashMap">
+        SELECT
+            ROWNUM AS RNUM
+            , A.MARKET
+            , A.KOR_NM
+            , TO_CHAR(B.OPENING_PRICE, '999,999,999,999,999') AS OPENING_PRICE
+            , TO_CHAR(B.LOW_PRICE, '999,999,999,999,999') AS LOW_PRICE
+            , TO_CHAR(B.HIGH_PRICE, '999,999,999,999,999') AS HIGH_PRICE
+            , B.RISE_PRICE
+            , B.CHANGE
+        FROM T_COIN_QUOTE_KRW A
+            , (
+            SELECT
+                MARKET
+                , OPENING_PRICE
+                , LOW_PRICE
+                , HIGH_PRICE
+                , ROUND((((HIGH_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100), 2) AS RISE_PRICE    /* 시가 - 고가 상승률 */
+                , DECODE(CHANGE, 'RISE', '상승', 'FALL', '하락') AS CHANGE
+            FROM T_COIN_DAY_KRW B
+            WHERE 1=1
+            <!-- AND UPD_DT = (SELECT TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD') || ' ' || '23:59:00' FROM DUAL)     /* 당일 23:59pm (DAY) 데이터 가져오기 */ -->
+            AND UPD_DT = (SELECT MAX(UPD_DT) FROM T_COIN_DAY_KRW)
+            <!--
+                if문 사용하여 검색조건 만들기
+            -->
+            ORDER BY RISE_PRICE DESC
+            ) B
+        WHERE A.MARKET = B.MARKET
+        ORDER BY RNUM ASC
+    </select>
+
+    <!-- DAY 코인 갱신일자 -->
+    <select id="selectCoinDayUpdDt" resultType="String">
+        SELECT
+            MAX(UPD_DT) AS UPD_DT
+        FROM T_COIN_DAY_KRW
+        WHERE MARKET = 'KRW-BTC'
+    </select>
+
+    <!-- DAY 코인 저장 -->
+    <insert id="insertCoinDay" parameterType="LinkedHashMap">
+        INSERT INTO T_COIN_DAY_KRW
+        (
+        MARKET
+        , TRADE_DATE
+        , TRADE_TIME
+        , TRADE_DATE_KST
+        , TRADE_TIME_KST
+        , TRADE_TIMESTAMP
+        , OPENING_PRICE
+        , HIGH_PRICE
+        , LOW_PRICE
+        , TRADE_PRICE
+        , PREV_CLOSING_PRICE
+        , CHANGE
+        , CHANGE_PRICE
+        , CHANGE_RATE
+        , SIGNED_CHANGE_PRICE
+        , SIGNED_CHANGE_RATE
+        , TRADE_VOLUME
+        , ACC_TRADE_PRICE
+        , ACC_TRADE_PRICE_24H
+        , ACC_TRADE_VOLUME
+        , ACC_TRADE_VOLUME_24H
+        , HIGHEST_52_WEEK_PRICE
+        , HIGHEST_52_WEEK_DATE
+        , LOWEST_52_WEEK_PRICE
+        , LOWEST_52_WEEK_DATE
+        , UPD_DT
+        )
+        <foreach item="item" collection="list" separator="union">
+            SELECT
+            #{item.MARKET}
+            , #{item.TRADE_DATE}
+            , #{item.TRADE_TIME}
+            , #{item.TRADE_DATE_KST}
+            , #{item.TRADE_TIME_KST}
+            , #{item.TRADE_TIMESTAMP}
+            , #{item.OPENING_PRICE}
+            , #{item.HIGH_PRICE}
+            , #{item.LOW_PRICE}
+            , #{item.TRADE_PRICE}
+            , #{item.PREV_CLOSING_PRICE}
+            , #{item.CHANGE}
+            , #{item.CHANGE_PRICE}
+            , #{item.CHANGE_RATE}
+            , #{item.SIGNED_CHANGE_PRICE}
+            , #{item.SIGNED_CHANGE_RATE}
+            , #{item.TRADE_VOLUME}
+            , #{item.ACC_TRADE_PRICE}
+            , #{item.ACC_TRADE_PRICE_24H}
+            , #{item.ACC_TRADE_VOLUME}
+            , #{item.ACC_TRADE_VOLUME_24H}
+            , #{item.HIGHEST_52_WEEK_PRICE}
+            , TO_CHAR(TO_DATE(#{item.HIGHEST_52_WEEK_DATE}, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+            , #{item.LOWEST_52_WEEK_PRICE}
+            , TO_CHAR(TO_DATE(#{item.LOWEST_52_WEEK_DATE}, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+            , TO_CHAR(TO_DATE(#{item.UPD_DT}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
+            FROM DUAL
+        </foreach>
+    </insert>
+    <!-- *********************** 08:55 (DAY) 코인 End *********************** -->
 
 </mapper>

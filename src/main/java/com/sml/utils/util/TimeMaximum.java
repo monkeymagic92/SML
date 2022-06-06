@@ -1,5 +1,6 @@
 package com.sml.utils.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TimeMaximum {
@@ -51,5 +52,14 @@ public class TimeMaximum {
         }
 
         return msg;
+    }
+
+    // 현재시간 날짜 가져오기 ( 오라클 클라우드 현재시간 값이 정상적으로 나오지않는 관계로..)
+    public static String nowDate() {
+        SimpleDateFormat format = new SimpleDateFormat ( "yyyy/MM/dd HH:mm:ss");
+        Date time = new Date();
+        String upd_dt = format.format(time);
+
+        return upd_dt;
     }
 }

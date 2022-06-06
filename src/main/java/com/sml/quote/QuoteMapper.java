@@ -15,10 +15,32 @@ import java.util.Map;
 @Repository
 public interface QuoteMapper {
 
-	public List<?> selectQuoteKRWList();	// 값 뿌리기 테스트용
+	// *********************** 10:00 (RACE) 코인 Start ***********************
 
-	public String selectThKRWUpdDt();		// 갱신일자 값 가져오기
+	// 10:00am (RACE) 코인 리스트
+	public List<?> selectCoinRaceList();
 
-	public void insertBeforeRaceList(Map<String, Object> map);	// 경주마 테이블에 값 넣기
+	// 10:00am (RACE) 코인 갱신일자
+	public String selectCoinRaceUpdDt();
+
+	// 10:00am 코인 저장
+	public void insertCoinRace(List<Map<String, Object>> map);
+
+	// *********************** 10:00 (RACE) 코인 End ***********************
+
+
+
+	// *********************** 08:55 (DAY) 코인 Start ***********************
+
+	// DAY 코인 리스트
+	public List<?> selectCoinDayList();
+
+	// DAY 코인 갱신일자
+	public String selectCoinDayUpdDt();
+
+	// DAY 코인 저장
+	public void insertCoinDay(List<Map<String, Object>> map);
+
+	// *********************** 08:55 (DAY) 코인 End ***********************
 
 }

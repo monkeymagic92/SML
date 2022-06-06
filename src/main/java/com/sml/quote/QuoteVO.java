@@ -9,4 +9,31 @@ package com.sml.quote;
 
 public class QuoteVO {
 
+	private String searchUPD_DT;
+	private String searchKOR_NM;
+	private String searchRISE_PRICE;
+
+	public String getSearchUPD_DT() {
+		return searchUPD_DT;
+	}
+
+	public void setSearchUPD_DT(String searchUPD_DT) {
+		this.searchUPD_DT = searchUPD_DT;
+	}
+
+	public String getSearchKOR_NM() {
+		return searchKOR_NM;
+	}
+
+	public void setSearchKOR_NM(String searchKOR_NM) {
+		this.searchKOR_NM = searchKOR_NM;
+	}
+
+	public String getSearchRISE_PRICE() {
+		return searchRISE_PRICE;
+	}
+
+	public void setSearchRISE_PRICE(String searchRISE_PRICE) {
+		this.searchRISE_PRICE = searchRISE_PRICE;
+	}
 }

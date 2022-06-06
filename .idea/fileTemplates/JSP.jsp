@@ -12,18 +12,32 @@
 	<title>Title</title>
 	<!-- 패키지 / 파일명 적기 -->
 	<link href="/res/css/package/name.css" rel="stylesheet">
+	
+	<!-- ----------------- style Start ----------------- -->
+	<style>
+	
+	</style>
+	<!-- ----------------- style End ----------------- -->
 
 </head>
 <body>
-
-
-
 <script type="text/javascript">
 
+    // ----------------- Document Start -----------------
 	$(document).ready(function () {
 
 	});
+	// ----------------- Document End -----------------
+	
+	
+		
+	// ----------------- function Start ----------------- 	
+	// ...
+	// ----------------- function Start -----------------
 
 </script>
+
+
+
 </body>
 </html>
