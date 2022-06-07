@@ -16,6 +16,7 @@
 	<!-- ----------------- style Start ----------------- -->
 	<style>
 		#market {cursor: pointer;}
+		#kor_nm {cursor: pointer;}
 	</style>
 	<!-- ----------------- style End ----------------- -->
 </head>
@@ -26,7 +27,7 @@
 	$(document).ready(function () {
 
 		$("#testAjaxBtn").click(function() {
-			fnAjaxSubmit('<c:url value="/quote/insertDayCoinList" />', "#frm", call);
+			fnAjaxSubmit('<c:url value="/quote/insertCoinDayList" />', "#frm", call);
 		});
 
 	});
@@ -70,10 +71,12 @@
 
 <%-- ----------------- Test ----------------- --%>
 <h1 id="quoteIndexTitle">
-	<span>10:00AM Quote Table</span>
+	<span>08:55am 시세 조회</span>
 </h1>
-
-<button type="button" id="testAjaxBtn" name="testAjaxBtn">click To Test Ajax</button>
+<br>
+<h2 id="quoteIndexTitle2">
+	<button type="button" id="testAjaxBtn" name="testAjaxBtn">Test Ajax</button>
+</h2>
 
 <form id="frm" name="frm" method="post">
 	<input type="hidden" id="ina" name="ina" value="123" />
@@ -84,13 +87,13 @@
 <table class="quoteIndexContainer">
 	<colgroup>
 		<col width="6.5%">
-		<col width="12.5%">
-		<col width="12.5%">
-		<col width="12.5%">
-		<col width="12.5%">
-		<col width="12.5%">
-		<col width="12.5%">
-		<col width="12.5%">
+		<col width="11.5%">
+		<col width="14.5%">
+		<col width="13.5%">
+		<col width="13.5%">
+		<col width="13.5%">
+		<col width="13.5%">
+		<col width="13.5%">
 	</colgroup>
 	<thead>
 	<tr>
@@ -109,7 +112,7 @@
 		<tr>
 			<td>${list.RNUM}</td>
 			<td id="market" onclick="fnMoveToUpbit('${list.MARKET}');">${list.MARKET}</td>
-			<td id="kor_nm">${list.KOR_NM}</td>
+			<td id="kor_nm" onclick="fnMoveToUpbit('${list.MARKET}');">${list.KOR_NM}</td>
 			<td id="low_price">${list.LOW_PRICE}</td>
 			<td id="opening_price">${list.OPENING_PRICE}</td>
 			<td id="high_price">${list.HIGH_PRICE}</td>

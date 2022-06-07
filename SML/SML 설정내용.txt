@@ -1,0 +1,21 @@
+※ refreshable 적용
+
+※ lo4j2 설정
+
+※ aop 설정
+
+※ 부트스트랩 파일 받고 뿌리기
+
+※ jsp includeFile 설정
+   <%@ include file="../../common/ajaxCommon.jsp" %>
+
+※ web.xml context 경로 변경
+   application, dispatcher 
+
+
+
+
+
+
+
+서버DB - ROOT.war 파일 생성 및 설정

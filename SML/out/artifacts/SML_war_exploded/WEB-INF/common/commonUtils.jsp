@@ -18,7 +18,6 @@
 
 
     <!-- ********************** Javascript Start ********************* -->
-
     <!-- HTML TEMP JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -33,5 +32,6 @@
 
     <!-- jquery ui (모달창 관련) -->
 <%--    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>--%>
+    <!-- ********************** Javascript End ********************* -->
 
 </html>
