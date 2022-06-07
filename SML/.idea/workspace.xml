@@ -6,37 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99027fe0-f479-408c-8b72-f3f4145b19a6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/SML/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SML/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/out/artifacts/SML_war_exploded/WEB-INF/classes/http_cdnjs.cloudflare.com_ajax_libs_jquery.form_4.3.0_jquery.form.js" beforeDir="false" afterPath="$PROJECT_DIR$/SML/out/artifacts/SML_war_exploded/WEB-INF/classes/http_cdnjs.cloudflare.com_ajax_libs_jquery.form_4.3.0_jquery.form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/out/artifacts/SML_war_exploded/WEB-INF/classes/http_code.jquery.com_jquery-3.6.0.js" beforeDir="false" afterPath="$PROJECT_DIR$/SML/out/artifacts/SML_war_exploded/WEB-INF/classes/http_code.jquery.com_jquery-3.6.0.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/META-INF/SML.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/context/context-common.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/context/context-database.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/context/context-exception.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/log4j2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/log4jdbc.log4j2.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/mapper/api/upbit/UpbitMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/mapper/quote/QuteMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/mapper/user/UserMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/memo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/message/message-common.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/mybatis/mybatis-alias.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/static/css/boot/bootThema.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/static/css/boot/dashboard.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/static/css/carculater/carculater.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/static/css/loginReg/loginReg.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/static/css/quote/quoteIndex.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/static/css/template/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/static/img/loading1.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/static/js/common.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/static/js/template/chart-area-demo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/static/js/template/chart-bar-demo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/static/js/template/chart-pie-demo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/static/js/template/datatables-demo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/static/js/template/datatables-simple-demo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SML/target/classes/static/js/template/scripts.js" beforeDir="false" />
-    </list>
+    <list default="true" id="99027fe0-f479-408c-8b72-f3f4145b19a6" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -117,13 +87,13 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/SML" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Facets" />
     <property name="project.structure.proportion" value="0.15527344" />
     <property name="project.structure.side.proportion" value="0.4097222" />
-    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -759,6 +729,7 @@
       <workItem from="1654480502750" duration="5714000" />
       <workItem from="1654494446302" duration="2257000" />
       <workItem from="1654503590369" duration="654000" />
+      <workItem from="1654604160338" duration="22000" />
     </task>
     <task id="LOCAL-00007" summary="깃허브 연동 테스트">
       <created>1649674315406</created>
@@ -863,6 +834,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
+      <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <MESSAGE value="JS파일 되게만듬\n 시간경과함수 추가\n 불필요 부트스트랩내용 삭제" />
     <MESSAGE value="깃허브 연동 테스트" />
@@ -882,10 +854,6 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="552" y="198" key="#Servers/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1646472864750" />
-    <state x="552" y="198" key="#Template_Data_Languages" timestamp="1645927585158">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="552" y="198" key="#Template_Data_Languages/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1645927585158" />
     <state x="521" y="115" width="1092" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1654399947425">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -1070,10 +1038,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="782" y="235" key="RollbackChangesDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1654496306169" />
-    <state x="404" y="117" width="1026" height="715" key="SettingsEditor" timestamp="1654496538081">
+    <state x="404" y="117" width="1026" height="715" key="SettingsEditor" timestamp="1654604173392">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="404" y="117" key="SettingsEditor/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1654496538081" />
+    <state x="404" y="117" key="SettingsEditor/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1654604173392" />
     <state x="404" y="120" width="1026" height="715" key="SettingsEditor/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1647229979635" />
     <state x="859" y="455" key="SimpleOpenTaskDialog" timestamp="1646539033384">
       <screen x="0" y="0" width="1920" height="1080" />
