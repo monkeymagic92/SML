@@ -12,8 +12,6 @@
           <element id="library" level="application" name="jquery.form" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="Spring-5.2.3.RELEASE" />
-          <element id="library" level="project" name="Spring MVC-5.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:5.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.2.3.RELEASE" />
