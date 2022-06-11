@@ -27,10 +27,15 @@
                     , DECODE(CHANGE, 'RISE', '상승', 'FALL', '하락') AS CHANGE
                 FROM T_COIN_RACE_KRW B
                 WHERE 1=1
-                <!--
-                    if문 사용하여 검색조건 만들기
-                -->
-                AND UPD_DT = (SELECT MAX(UPD_DT) FROM T_COIN_RACE_KRW)
+                <if test="searchUPD_DT != null">
+                    AND TO_CHAR(TO_DATE(UPD_DT, 'YYYY-MM-DD HH24:MI:SS'), 'YYYYMMDD') = #{searchUPD_DT}
+                </if>
+                <if test="searchUPD_DT == null">
+                    AND UPD_DT = (SELECT MAX(UPD_DT) FROM T_COIN_RACE_KRW)
+                </if>
+                <if test="searchKOR_NM != null">
+                    AND MARKET LIKE '%' || FN_GET_MARKET(#{searchKOR_NM}) || '%'    /* 한글명을 MARKET으로 변환하여 대입 */
+                </if>
                 ORDER BY RISE_PRICE DESC
             ) B
         WHERE A.MARKET = B.MARKET

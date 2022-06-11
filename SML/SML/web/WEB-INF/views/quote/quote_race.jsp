@@ -72,10 +72,8 @@
 <h1 id="quoteIndexTitle">
 	<span>10:00AM Quote Table</span>
 </h1>
-<h2 id="quoteIndexTitle2">업비트 바로가기
-	<a href="https://upbit.com/exchange?code=CRIX.UPBIT.KRW-BTC" target="_blank">Upbit</a>
-	<button type="button" id="testAjaxBtn" name="testAjaxBtn">click To Test Ajax</button>
-</h2>
+<button type="button" id="testAjaxBtn" name="testAjaxBtn">click To Test Ajax</button>
+
 
 <form id="frm" name="frm" method="post">
 	<input type="hidden" id="ina" name="ina" value="123" />
