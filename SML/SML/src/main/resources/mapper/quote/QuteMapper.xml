@@ -6,7 +6,7 @@
 
     <!-- ****************************** Race 코인 Start ****************************** -->
     <!-- (Race) 코인 list -->
-    <select id="selectCoinRaceList" resultType="LinkedHashMap">
+    <select id="selectCoinRaceList" parameterType="QuoteVO" resultType="LinkedHashMap">
         SELECT
             ROWNUM AS RNUM
             , A.MARKET

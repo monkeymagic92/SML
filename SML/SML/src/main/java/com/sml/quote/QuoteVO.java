@@ -12,6 +12,7 @@ public class QuoteVO {
 	private String searchUPD_DT;
 	private String searchKOR_NM;
 	private String searchRISE_PRICE;
+	private String searchMARKET;
 
 	public String getSearchUPD_DT() {
 		return searchUPD_DT;
@@ -35,5 +36,13 @@ public class QuoteVO {
 
 	public void setSearchRISE_PRICE(String searchRISE_PRICE) {
 		this.searchRISE_PRICE = searchRISE_PRICE;
+	}
+
+	public String getSearchMARKET() {
+		return searchMARKET;
+	}
+
+	public void setSearchMARKET(String searchMARKET) {
+		this.searchMARKET = searchMARKET;
 	}
 }

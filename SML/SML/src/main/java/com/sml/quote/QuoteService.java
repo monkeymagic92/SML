@@ -31,8 +31,8 @@ public class QuoteService extends CommonService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<?> selectCoinRaceList() throws Exception {
-		List<?> list = mapper.selectCoinRaceList();
+	public List<?> selectCoinRaceList(QuoteVO vo) throws Exception {
+		List<?> list = mapper.selectCoinRaceList(vo);
 		return list;
 	}
 

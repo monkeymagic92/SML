@@ -25,10 +25,14 @@ public class QuoteController extends CommonController {
 
 	// **************************** (Race) 코인 Start ****************************
 	@RequestMapping(value = "/quote/quote_race", method = RequestMethod.GET)
-	public String coinRaceIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String coinRaceIndex(Model model, HttpServletRequest request, HttpServletResponse response, QuoteVO vo) throws Exception {
 
 		// (Race) 10:00am데이터 list
-		model.addAttribute("list", service.selectCoinRaceList());
+		model.addAttribute("list", service.selectCoinRaceList(vo));
+
+		System.out.println("--jytest--");
+		System.out.println(vo.getSearchMARKET());
+		System.out.println("--jytest--");
 
 		// indexTemp.jsp에 들어갈 model
 		model.addAttribute("title", "10:00AM Table");

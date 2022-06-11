@@ -16,7 +16,7 @@ import java.util.Map;
 public interface QuoteMapper {
 
 	// (Race) 코인 list
-	public List<?> selectCoinRaceList();
+	public List<?> selectCoinRaceList(QuoteVO vo);
 
 	// (Race) 코인 갱신일자 값 가져오기
 	public String selectCoinRaceUpdDt();

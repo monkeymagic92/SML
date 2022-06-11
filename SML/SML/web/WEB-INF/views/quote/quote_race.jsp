@@ -29,12 +29,16 @@
 			fnAjaxSubmit('<c:url value="/quote/insertCoinList" />', "#frm", call);
 		});
 
+		$("#btnSearch").click(function() {
+			fnAjaxSubmit('<c:url value="/quote/quote_race" />', "#searchForm", call);
+		});
+
 	});
 	// ----------------- Document End -----------------
 
 	// ----------------- Function Start -----------------
 
-	// 클릭한 market 명으로 upbit 사이트 이동 (쿼리스트링=market)
+	// 클릭한 market 명으로 upbit 사이트 이동 (쿼리스트링=market)`
 	function fnMoveToUpbit(market) {
 		var link = 'https://upbit.com/exchange?code=CRIX.UPBIT.'+market;
 		window.open(link);
@@ -79,6 +83,14 @@
 	<input type="hidden" id="ina" name="ina" value="123" />
 </form>
 <%-- ----------------- Test ----------------- --%>
+
+<!-- -------------------- SearchForm Start -------------------- -->
+<form id="searchForm" name="searchForm" mathod="post">
+	<input type="input" id="searchMARKET" name="searchMARKET">
+	<button type="button" id="btnSearch" name="btnSearch">검색</button>
+</form>
+<!-- -------------------- SearchForm End-------------------- -->
+
 
 
 <table class="quoteIndexContainer">
