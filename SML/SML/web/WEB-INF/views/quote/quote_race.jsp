@@ -9,34 +9,23 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
-
 	<%-- js / css공통함수cdn jsp파일 --%>
 	<link href="/res/css/quote/quoteIndex.css" rel="stylesheet">
 
-	<!-- ----------------- style Start ----------------- -->
 	<style>
 		#market {cursor: pointer;}
 	</style>
-	<!-- ----------------- style End ----------------- -->
 </head>
 <body>
 <script type="text/javascript">
 
-	// ----------------- Document Start -----------------
 	$(document).ready(function () {
 
 		$("#testAjaxBtn").click(function() {
-			fnAjaxSubmit('<c:url value="/quote/insertCoinList" />', "#frm", call);
-		});
-
-		$("#btnSearch").click(function() {
-			fnAjaxSubmit('<c:url value="/quote/quote_race" />', "#searchForm", call);
+			fnAjaxSubmit('<c:url value="/quote/insertRaceCoinList" />', "#frm");
 		});
 
 	});
-	// ----------------- Document End -----------------
-
-	// ----------------- Function Start -----------------
 
 	// 클릭한 market 명으로 upbit 사이트 이동 (쿼리스트링=market)`
 	function fnMoveToUpbit(market) {
@@ -44,38 +33,12 @@
 		window.open(link);
 	}
 
-	// Test Ajax 클릭시 콜백함수
-	function call(data) {
-		console.log(data.AAA);
-	}
-
-	// 서버단에서 날라온값을 자바스크립트에 담는법 ( 해당함수는 사용안하는중 )
-	function coinList() {
-		var coinInfo = new Array();
-
-		<c:forEach var="list" items="${list}">
-			coinInfo.push({market: "${list.MARKET}"
-						, high_price: "${list.HIGH_PRICE}"
-						, opening_price: "${list.OPENING_PRICE}"
-						, low_price: "${list.LOW_PRICE}"
-						, rise_price: "${list.RISE_PRICE}"});
-		</c:forEach>
-
-		for(var i=0; i<coinInfo.length; i++) {
-			console.log('market : ' + coinInfo[i].market);
-			console.log('high_price : ' + coinInfo[i].rise_price);
-		}
-	}
-
-
-	// ----------------- Function End -----------------
-
 </script>
 
 <%-- ----------------- Test ----------------- --%>
-<h1 id="quoteIndexTitle">
-	<span>10:00AM Quote Table</span>
-</h1>
+<h3 id="quoteIndexTitle">
+	<span style="color: #CCCCCC; font-weight: bold;">10:00am Race List</span>
+</h3>
 <button type="button" id="testAjaxBtn" name="testAjaxBtn">click To Test Ajax</button>
 
 
@@ -83,15 +46,6 @@
 	<input type="hidden" id="ina" name="ina" value="123" />
 </form>
 <%-- ----------------- Test ----------------- --%>
-
-<!-- -------------------- SearchForm Start -------------------- -->
-<form id="searchForm" name="searchForm" mathod="post">
-	<input type="input" id="searchMARKET" name="searchMARKET">
-	<button type="button" id="btnSearch" name="btnSearch">검색</button>
-</form>
-<!-- -------------------- SearchForm End-------------------- -->
-
-
 
 <table class="quoteIndexContainer">
 	<colgroup>

@@ -30,12 +30,8 @@ public class QuoteController extends CommonController {
 		// (Race) 10:00am데이터 list
 		model.addAttribute("list", service.selectCoinRaceList(vo));
 
-		System.out.println("--jytest--");
-		System.out.println(vo.getSearchMARKET());
-		System.out.println("--jytest--");
-
 		// indexTemp.jsp에 들어갈 model
-		model.addAttribute("title", "10:00AM Table");
+		model.addAttribute("title", "Race");
 		model.addAttribute("subCntn", "최근갱신일자 : " + service.selectCoinRaceUpdDt());
 
 		model.addAttribute("view", "/quote/quote_race");
@@ -62,7 +58,7 @@ public class QuoteController extends CommonController {
 		model.addAttribute("list", service.selectCoinDayList());
 
 		// indexTemp.jsp에 들어갈 model
-		model.addAttribute("title", "08:55AM Table");
+		model.addAttribute("title", "Day");
 		model.addAttribute("subCntn", "최근갱신일자 : " + service.selectCoinDayUpdDt());
 
 		model.addAttribute("view", "/quote/quote_day");
