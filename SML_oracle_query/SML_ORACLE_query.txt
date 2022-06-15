@@ -139,6 +139,22 @@ CREATE TABLE T_COIN_DAY_KRW (
 
 
 
+---------------------------- 기타 Start ----------------------------
+-- (클래스이름 적어주기) 에 있는 n%이상 펌핑이 간 코인을 담는 테이블 
+CREATE TABLE T_COIN_PUMP_DAY_KRW (
+    MARKET VARCHAR2(20)
+    , OPENING_PRICE FLOAT(15)
+    , HIGH_PRICE FLOAT(15)
+	, LOW_PRICE FLOAT(15)
+    , CONN_CD VARCHAR2(100) DEFAULT '0'
+    , CRT_DT DATE DEFAULT CURRENT_DATE
+	, CRT_IP_ADDR VARCHAR(50) DEFAULT ''
+	, UPD_DT VARCHAR2(30) DEFAULT CURRENT_DATE
+	, UPD_IP_ADDR VARCHAR(50) DEFAULT ''
+);
+
+---------------------------- 기타 End ----------------------------
+
 
 
 
