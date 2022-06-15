@@ -43,7 +43,7 @@ public class UpbitAPIService extends CommonService {
 	 */
 	public List<Map<String, Object>> insertCoinList(String market) throws Exception {
 
-		// 현재시간 날짜 가져오기 ( YYYY-MM-DD HH24:MI:SS ) ( 오라클 클라우드 SYSDATE
+		// 현재시간 날짜 가져오기 ( YYYY-MM-DD HH24:MI:SS ) ( 오라클 클라우드 SYSDATE를 대신할 변수 (SYSDATE는 현재 내 시스템시간이랑 안맞기때문에 자바로 대체)
 		String upd_dt = TimeMaximum.nowDate();
 
 		// 1. coin리스트를 List<Map>에 담는다
