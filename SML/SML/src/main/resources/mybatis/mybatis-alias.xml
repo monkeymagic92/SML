@@ -12,5 +12,8 @@
         <!-- quote -->
         <typeAlias type="com.sml.quote.QuoteVO" alias="QuoteVO" />
 
+        <!-- pump -->
+        <typeAlias type="com.sml.pump.PumpVO" alias="PumpVO" />
+
     </typeAliases>
 </configuration>

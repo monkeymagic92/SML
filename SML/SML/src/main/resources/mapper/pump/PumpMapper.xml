@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sml.pump.PumpMapper">
+
+    <select id="selectPumpDayList" parameterType="LinkedHashMap" resultType="LinkedHashMap">
+        SELECT MARKET FROM T_COIN_PUMP_DAY_KRW
+        GROUP BY MARKET
+    </select>
+
+    <insert id="insertPumpDay" parameterType="LinkedHashMap">
+        INSERT INTO T_COIN_PUMP_DAY_KRW
+        (
+            MARKET
+            , OPENING_PRICE
+            , HIGH_PRICE
+            , LOW_PRICE
+            , RISE_PRICE
+            , PUMP_SET_RISE_PRICE
+            , UPD_DT
+        )
+        <foreach item="item" collection="list" separator="union">
+            SELECT
+                #{item.MARKET}
+                , #{item.OPENING_PRICE}
+                , #{item.HIGH_PRICE}
+                , #{item.LOW_PRICE}
+                , #{item.RISE_PRICE}
+                , #{item.PUMP_SET_RISE_PRICE}
+                , TO_CHAR(TO_DATE(#{item.UPD_DT}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
+            FROM DUAL
+        </foreach>
+    </insert>
+</mapper>
+

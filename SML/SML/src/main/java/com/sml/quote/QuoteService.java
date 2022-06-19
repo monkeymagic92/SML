@@ -1,6 +1,7 @@
 package com.sml.quote;
 
 import com.sml.api.UpbitAPIService;
+import com.sml.pump.PumpService;
 import com.sml.utils.common.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,6 +27,9 @@ public class QuoteService extends CommonService {
 
 	@Autowired
 	private UpbitAPIService upbitAPI;
+
+	@Autowired
+	private PumpService pumpService;
 
 	// **************************** (Race) 코인 Start ****************************
 	/**
@@ -111,10 +115,7 @@ public class QuoteService extends CommonService {
 		List<Map<String, Object>> listMap = new ArrayList<>();
 		listMap = upbitAPI.insertCoinList("KRW");
 		insertCoinDay(listMap);
-		System.out.println("--jytest--");
-		insertCoinPumpDay(listMap, 15);
-		System.out.println("--jytest--");
-
+		pumpService.insertPumpDay(listMap, 20);
 	}
 
 	/**
@@ -127,36 +128,5 @@ public class QuoteService extends CommonService {
 		insertCoinDay(listMap);
 	}
 	// **************************** (Day) 코인 End ****************************
-
-	public void insertCoinPumpDay(List<Map<String, Object>> listMap, int risePrice) {
-		for(int i=0; i<listMap.size(); i++) {
-			Map<String, Object> map = new HashMap<>();
-
-			String market = (String) listMap.get(i).get("MARKET");
-
-			Double low_price = (Double) listMap.get(i).get("LOW_PRICE");
-			Double high_price = (Double) listMap.get(i).get("HIGH_PRICE");
-			Double opening_price = (Double) listMap.get(i).get("OPENING_PRICE");
-			Double result = (high_price - opening_price) / opening_price * 100;	// 그날 상승률
-			Double rise_price = Math.round(result*100)/100.0;					// 상승률을 소수점 2자리 반올림
-
-			if(rise_price >= risePrice) {
-				map.put("MARKET", market);
-				map.put("HIGH_PRICE", high_price);
-				map.put("OPENING_PRICE", opening_price);
-				map.put("LOW_PRICE", low_price);
-				map.put("RISE_PRICE", rise_price);
-				map.put("P_RISE_PRICE", risePrice);		// 설정한 파라미터를 상승률 몇%이상을 기준으로 잡았는지
-
-				System.out.println("market : " + map.get("MARKET"));
-
-				// 1. insert
-				// 2. select 해서 이미 PUMP테이블에 저장된 코인이 있다면
-				// (2)번에 if 분기문 처리하고 P_CNT 컬럼에 +1 한후  update하기  ( 쿼리에서 바로 +1 넣기 )
-
-				// MARKET을 primary key 주지말고 계속 누적해서 insert 하기 ( 몇월 몇일에 몇% 펌핑갔는지 데이터를 남기기 위해서 )
-			}
-		}
-	}
 
 }
