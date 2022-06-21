@@ -126,6 +126,7 @@ public class QuoteService extends CommonService {
 		List<Map<String, Object>> listMap = new ArrayList<>();
 		listMap = upbitAPI.insertCoinList("KRW");
 		insertCoinDay(listMap);
+		pumpService.insertPumpDay(listMap, 20);
 	}
 	// **************************** (Day) 코인 End ****************************
 

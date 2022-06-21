@@ -11,9 +11,11 @@
 <head>
 	<%-- js / css공통함수cdn jsp파일 --%>
 	<link href="/res/css/quote/quoteIndex.css" rel="stylesheet">
+	<link href="/res/css/pump/pumpModal.css" rel="stylesheet">
 
 	<style>
 		#market {cursor: pointer;}
+		#market:hover {color: #9d9d9d; transition: 0.4s;}
 	</style>
 </head>
 <body>
@@ -34,6 +36,12 @@
 		window.open(link);
 	}
 
+	// PUMP팝업창 오픈 ( 해당 코인 이름으로 PUMP테이블 조회 )
+	function fnOpenPump(market) {
+		var s_url = '<c:url value="/pump/pumpDayModal" />'+ "?MARKET="+market;
+		fnOpenPopup('pumpPopup', s_url, 700, 450);
+	}
+
 </script>
 
 <%-- ----------------- Test ----------------- --%>
@@ -42,7 +50,6 @@
 </h3>
 
 <button type="button" id="testAjaxBtn" name="testAjaxBtn">click To Test Ajax</button>
-
 <form id="frm" name="frm" method="post">
 	<input type="hidden" id="ina" name="ina" value="123" />
 </form>
@@ -58,7 +65,8 @@
 		<col width="12.5%">
 		<col width="12.5%">
 		<col width="12.5%">
-		<col width="12.5%">
+		<col width="8.5%">
+		<col width="16.5%">
 	</colgroup>
 	<thead>
 	<tr>
@@ -70,6 +78,7 @@
 		<th><h1>고가</h1></th>
 		<th><h1>상승률</h1></th>
 		<th><h1>보합</h1></th>
+		<th><h1>pump</h1></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -90,9 +99,11 @@
 				</c:otherwise>
 			</c:choose>
 			<td id="change">${list.CHANGE}</td>
+			<td><button id="openPumpModal" name="openPumpModal" type="button" onclick="fnOpenPump('${list.MARKET}');">pump</button></td>
 		</tr>
 	</c:forEach>
 	</tbody>
 </table>
+
 </body>
 </html>

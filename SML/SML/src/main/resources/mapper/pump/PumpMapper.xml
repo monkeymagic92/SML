@@ -4,11 +4,13 @@
 
 <mapper namespace="com.sml.pump.PumpMapper">
 
+    <!-- PUMP 데이터 조회 -->
     <select id="selectPumpDayList" parameterType="LinkedHashMap" resultType="LinkedHashMap">
-        SELECT MARKET FROM T_COIN_PUMP_DAY_KRW
-        GROUP BY MARKET
+        SELECT MARKET, UPD_DT FROM T_COIN_DAY_KRW
+        WHERE MARKET = #{MARKET}
     </select>
 
+    <!-- 일정 상승률 이상 오른코인을 PUMP테이블에 저장 -->
     <insert id="insertPumpDay" parameterType="LinkedHashMap">
         INSERT INTO T_COIN_PUMP_DAY_KRW
         (

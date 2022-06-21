@@ -18,7 +18,7 @@ import java.util.Map;
 public interface PumpMapper {
 
 	// (Day) Pump 리스트
-	public List<?> selectPumpDayList(PumpVO vo);
+	public List<?> selectPumpDayList(Map<String, Object> map);
 
 	// (Day) Pump 저장
 	public void insertPumpDay(List<Map<String, Object>> map);

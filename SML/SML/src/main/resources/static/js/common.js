@@ -1,3 +1,20 @@
+function fnOpenPopup() {
+    var args = arguments;
+    var name = args[0];
+    var url = args[1];
+    var width = args[2];
+    var height = args[3];
+    var scrollbars = args[4]!=null?args[4]:'no';
+
+    // var leftpos = (document.body.offsetWidth / 2) - (width / 2);   	// 싱글모니터에서 팝업창 중앙정렬
+    // var leftpos = (document.body.offsetWidth / 2) - (width / 2) + window.screenLeft;		// 듀얼모니터에서 화면정렬
+    var leftpos = (document.body.offsetWidth / 2) - (width / 2) + window.screenLeft + 100;	// 듀얼모니터 정렬 + 좌측에서 100(px) 떨어진만큼
+    var toppos = (window.screen.height / 2) - (height / 2);
+
+    if (!url || url == "") url = "about:blank";
+    return window.open(url, name, 'scrollbars='+scrollbars+', toolbar=no, location=no, status=no, menubar=no, resizable=no, width='+width+', height='+height+', left='+leftpos+', top='+toppos);
+}
+
 
 // 마스크 생성
 function wrapWindowByMask() {

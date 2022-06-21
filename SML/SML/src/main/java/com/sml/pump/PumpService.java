@@ -23,6 +23,11 @@ public class PumpService extends CommonController {
 	@Autowired
 	private PumpMapper mapper;
 
+	// PUMP 데이터 조회
+	public List<?> selectPumpDayList(Map<String, Object> map) {
+		return mapper.selectPumpDayList(map);
+	}
+
 
 	// ------ ★ 아래부터 PUMP관련은 패키지 만들어서 새로 Controller만들고 Mybatis Alias sqlmap 등록한뒤 작업하기 ★ ------
 	public void insertPumpDay(List<Map<String, Object>> listMap, int pumpSetRisePrice) {
@@ -58,7 +63,6 @@ public class PumpService extends CommonController {
 		}
 
 		// pumpSetRisePrice에 설정한 상승률 이상으로 오른코인이 있다면 PUMP 테이블에 INSERT
-
 		if(listPumpMap.size() > 0) {
 			mapper.insertPumpDay(listPumpMap);
 		}

@@ -15,6 +15,7 @@
 
     <!-- HTML TEMP CSS -->
     <link href="/res/css/template/styles.css" rel="stylesheet">
+    <link href="/res/css/animate/animate.css" rel="stylesheet">
 
 
     <!-- ********************** Javascript Start ********************* -->
