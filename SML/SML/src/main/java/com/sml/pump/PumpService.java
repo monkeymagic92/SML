@@ -1,15 +1,20 @@
 package com.sml.pump;
 
+import com.nhncorp.lucy.security.xss.CommonUtils;
 import com.sml.utils.common.CommonController;
+import com.sml.utils.core.BusinessException;
+import com.sml.utils.util.Bind;
+import com.sml.utils.util.CommonUtil;
 import com.sml.utils.util.StringUtil;
 import com.sml.utils.util.TimeMaximum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.Writer;
+import java.util.*;
 
 /**
  * 날짜       : 2022-06-16 / 목요일 / 오후 6:59
@@ -67,4 +72,42 @@ public class PumpService extends CommonController {
 			mapper.insertPumpDay(listPumpMap);
 		}
 	}
+
+
+
+
+
+
+
+
+
+	// // <!-- 트랜잭션 Test -->
+	public void selectTest(ModelMap model, HttpServletRequest request, HttpServletResponse response, Writer out) throws Exception {
+
+		Bind bind = new Bind(request);
+		Map<String, Object> map = bind.getDto();
+
+		List<?> list = mapper.selectTest(map);
+
+		CommonUtil.jsonResponse(response, list);
+	}
+
+	public void saveTest(ModelMap model, HttpServletRequest request, HttpServletResponse response, Writer out) throws Exception {
+
+		Bind bind = new Bind(request);
+		Map<String, Object> map = bind.getDto();
+
+		mapper.saveTest(map);
+
+		int a = 2;
+		if(a == 2) {	// 트랜잭션 테스트
+			throw new BusinessException("에러발생@");
+		}
+
+		Map<String, Object> map2 = new LinkedHashMap<>();
+		map2.put("MSG", "서버에서 날라오는 jsonResponse");
+
+		CommonUtil.jsonResponse(response, map2);
+	}
+	// // <!-- 트랜잭션 Test -->
 }

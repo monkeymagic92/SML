@@ -34,5 +34,25 @@
             FROM DUAL
         </foreach>
     </insert>
+
+
+
+
+
+
+
+
+    <!-- 트랜잭션 Test -->
+    <select id="selectTest" parameterType="LinkedHashMap" resultType="LinkedHashMap">
+        SELECT MARKET, RISE_PRICE FROM T_COIN_PUMP_DAY_KRW
+    </select>
+
+    <insert id="saveTest" parameterType="LinkedHashMap">
+        INSERT INTO T_COIN_PUMP_DAY_KRW
+        (MARKET, RISE_PRICE)
+        VALUES
+        (#{MARKET}, #{RISE_PRICE})
+    </insert>
+    <!-- 트랜잭션 Test -->
 </mapper>
 

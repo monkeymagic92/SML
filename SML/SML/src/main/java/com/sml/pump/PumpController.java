@@ -7,11 +7,13 @@ import com.sml.utils.util.ViewRef;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.Writer;
 import java.util.Map;
 
 /**
@@ -34,6 +36,16 @@ public class PumpController extends CommonController {
 		model.addAttribute("list", service.selectPumpDayList(map));
 
 		return "/modal/pumpModal";
+	}
+
+	@RequestMapping (value="/pump/selectTest")
+	public void selectTest(ModelMap model, HttpServletRequest request, HttpServletResponse response, Writer out) throws Exception {
+		service.selectTest(model, request, response, out);
+	}
+
+	@RequestMapping (value="/pump/saveTest")
+	public void saveTest(ModelMap model, HttpServletRequest request, HttpServletResponse response, Writer out) throws Exception {
+		service.saveTest(model, request, response, out);
 	}
 
 }

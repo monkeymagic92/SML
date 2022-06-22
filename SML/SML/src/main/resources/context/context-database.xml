@@ -71,20 +71,20 @@
     <tx:annotation-driven transaction-manager="transactionManager" />
 
 
-    <!-- xml 트랜잭션 생성  (아직 미완성 추후 더 살펴보기) -->
-<!--    <tx:advice id="txAdvice" transaction-manager="transactionManager">-->
-<!--        <tx:attributes>-->
-<!--            <tx:method name="list*" read-only="true"/>-->
-<!--            <tx:method name="select*" read-only="true"/>-->
-<!--            <tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception"/>    &lt;!&ndash; rollback-for="Exception" 으로도 해보기 &ndash;&gt;-->
-<!--            <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>-->
-<!--            <tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>-->
-<!--            <tx:method name="save*" propagation="REQUIRED" rollback-for="Exception"/>-->
-<!--        </tx:attributes>-->
-<!--    </tx:advice>-->
+    <!-- xml 트랜잭션 생성 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="list*" read-only="true"/>
+            <tx:method name="select*" read-only="true"/>
+            <tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception"/>    <!-- rollback-for="Exception" 으로도 해보기 -->
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="save*" propagation="REQUIRED" rollback-for="Exception"/>
+        </tx:attributes>
+    </tx:advice>
 
-<!--    <aop:config>-->
-<!--        <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* com..*Service.*(..))" />-->
-<!--    </aop:config>-->
+    <aop:config>
+        <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* com..*Service.*(..))" />
+    </aop:config>
 
 </beans>

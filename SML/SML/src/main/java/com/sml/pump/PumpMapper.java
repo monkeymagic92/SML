@@ -22,4 +22,16 @@ public interface PumpMapper {
 
 	// (Day) Pump 저장
 	public void insertPumpDay(List<Map<String, Object>> map);
+
+
+
+
+
+	// <!-- 트랜잭션 Test -->
+	public List<?> selectTest(Map<String, Object> map);
+
+	public void saveTest(Map<String, Object> map);
+	// <!-- 트랜잭션 Test -->
+
+
 }
