@@ -17,26 +17,33 @@ import java.util.Map;
 @Repository
 public interface PumpMapper {
 
+	// (RACE) Pump 헤더
+	public Map<String, Object> selectPumpRaceHeader(Map<String, Object> map) throws Exception;
+
+	// (RACE) Pump 리스트
+	public List<?> selectPumpRaceList(Map<String, Object> map) throws Exception;
+
+	// (RACE) Pump 저장
+	public void insertPumpRace(List<Map<String, Object>> map) throws Exception;
+
+
+	// (DAY) Pump 헤더
+	public Map<String, Object> selectPumpDayHeader(Map<String, Object> map) throws Exception;
+
 	// (Day) Pump 리스트
-	public List<?> selectPumpRaceList(Map<String, Object> map);
+	public List<?> selectPumpDayList(Map<String, Object> map) throws Exception;
 
 	// (Day) Pump 저장
-	public void insertPumpRace(List<Map<String, Object>> map);
-
-	// (Day) Pump 리스트
-	public List<?> selectPumpDayList(Map<String, Object> map);
-
-	// (Day) Pump 저장
-	public void insertPumpDay(List<Map<String, Object>> map);
+	public void insertPumpDay(List<Map<String, Object>> map) throws Exception;
 
 
 
 
 
 	// <!-- 트랜잭션 Test -->
-	public List<?> selectTest(Map<String, Object> map);
+	public List<?> selectTest(Map<String, Object> map) throws Exception;
 
-	public void saveTest(Map<String, Object> map);
+	public void saveTest(Map<String, Object> map) throws Exception;
 	// <!-- 트랜잭션 Test -->
 
 

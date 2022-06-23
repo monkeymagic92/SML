@@ -27,25 +27,39 @@ public class PumpController extends CommonController {
 	@Autowired
 	private PumpService service;
 
-	@RequestMapping(value = "/pump/pumpDayModal", method = RequestMethod.GET)
+	@RequestMapping(value = "/pump/pumpPopup", method = RequestMethod.GET)
 	public String pumpModalIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		Bind bind = new Bind(request);
 		Map<String, Object> map = bind.getDto();
-		System.out.println(map.get("MARKET"));
-		model.addAttribute("list", service.selectPumpDayList(map));
 
-		return "/modal/pumpModal";
+		if(map.get("TYPE").equals("RACE")) {
+			model.addAttribute("title", service.selectPumpRaceHeader(map));	// (RACE) 팝업창 헤더 데이터
+			model.addAttribute("list", service.selectPumpRaceList(map));		// 팝업창 데이터 list
+
+		} else if(map.get("TYPE").equals("DAY")) {
+			model.addAttribute("title", service.selectPumpDayHeader(map));		// (DAY) 팝업창 헤더 데이터
+			model.addAttribute("list", service.selectPumpDayList(map));			// 팝업창 데이터 list
+		}
+
+		return "/pump/pumpPopup";
 	}
 
-	@RequestMapping (value="/pump/selectTest")
-	public void selectTest(ModelMap model, HttpServletRequest request, HttpServletResponse response, Writer out) throws Exception {
-		service.selectTest(model, request, response, out);
-	}
+
+
+
+	// ------------------------------------------------------------------------------------------------------------
 
 	@RequestMapping (value="/pump/saveTest")
 	public void saveTest(ModelMap model, HttpServletRequest request, HttpServletResponse response, Writer out) throws Exception {
 		service.saveTest(model, request, response, out);
 	}
+
+	// pump 트랜잭션 및 ajax 테스트
+	@RequestMapping (value="/pump/selectTest")
+	public void selectTest(ModelMap model, HttpServletRequest request, HttpServletResponse response, Writer out) throws Exception {
+		service.selectTest(model, request, response, out);
+	}
+	// ------------------------------------------------------------------------------------------------------------
 
 }

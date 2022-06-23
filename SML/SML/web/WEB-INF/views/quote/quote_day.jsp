@@ -38,8 +38,9 @@
 
 	// PUMP팝업창 오픈 ( 해당 코인 이름으로 PUMP테이블 조회 )
 	function fnOpenPump(market) {
-		var s_url = '<c:url value="/pump/pumpDayModal" />'+ "?MARKET="+market;
-		fnOpenPopup('pumpPopup', s_url, 700, 500);
+		var type = "DAY";
+		var s_url = '<c:url value="/pump/pumpPopup" />'+ "?MARKET="+market+"&TYPE="+type;
+		fnOpenPopup('pumpPopup', s_url, 800, 500);
 	}
 
 </script>

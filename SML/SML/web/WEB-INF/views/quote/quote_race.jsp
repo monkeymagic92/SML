@@ -33,6 +33,13 @@
 		window.open(link);
 	}
 
+	// PUMP팝업창 오픈 ( 해당 코인 이름으로 PUMP테이블 조회 )
+	function fnOpenPump(market) {
+		var type = "RACE";
+		var s_url = '<c:url value="/pump/pumpPopup" />'+ "?MARKET="+market+"&TYPE="+type;
+		fnOpenPopup('pumpPopup', s_url, 800, 500);
+	}
+
 </script>
 
 <%-- ----------------- Test ----------------- --%>
@@ -56,7 +63,8 @@
 		<col width="12.5%">
 		<col width="12.5%">
 		<col width="12.5%">
-		<col width="12.5%">
+		<col width="8.5%">
+		<col width="16.5%">
 	</colgroup>
 	<thead>
 	<tr>
@@ -68,6 +76,7 @@
 		<th><h1>고가</h1></th>
 		<th><h1>상승률</h1></th>
 		<th><h1>보합</h1></th>
+		<th><h1>pump</h1></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -88,6 +97,7 @@
 				</c:otherwise>
 			</c:choose>
 			<td id="change">${list.CHANGE}</td>
+			<td><button id="openPumpModal" name="openPumpModal" type="button" onclick="fnOpenPump('${list.MARKET}');">pump</button></td>
 		</tr>
 	</c:forEach>
 	</tbody>

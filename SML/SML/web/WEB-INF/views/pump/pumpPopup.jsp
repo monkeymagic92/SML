@@ -10,7 +10,7 @@
 <html>
 <head>
 	<title>Title</title>
-	<link href="/res/css/pump/pumpModal.css" rel="stylesheet">
+	<link href="/res/css/pump/pumpPopup.css" rel="stylesheet">
 	<%@ include file="../../common/commonUtils.jsp" %>
 </head>
 
@@ -22,6 +22,7 @@
 	});
 
 	// 트랜잭션 Test ===================================================
+	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 해당부분은 따로 sample이나 study이런 패키지에 jsp로 넣어서 참고용으로 두기
 	// ajax 호출
 	function selectTest() {
 		fnAjaxSubmit('/pump/selectTest', '#testFrm', selectCall);
@@ -59,21 +60,45 @@
 	// 트랜잭션 Test ===================================================
 
 </script>
-	<div class="pumpContainer">
-		<!-- 테스트 성공 값 정상적으로 날라옴 -->
-		<c:forEach var="list" items="${list}">
-			<div>${list.MARKET}</div>
-			<div>${list.UPD_DT}</div>
-		</c:forEach>
-
-		<!-- 트랜잭션 및 ajax 테스트  -->
-		<button type="button" id="saveBtn" name="saveBtn" onclick="saveTest();">saveTest</button>
-		<button type="button" id="testBtn" name="testBtn" onclick="selectTest();">selectTest</button>
-		<form id="testFrm" name="testFrm" method="post">
-			<input type="hidden" id="MARKET" name="MARKET" value="AAA"/>
-			<input type="hidden" id="RISE_PRICE" name="RISE_PRICE" value="123"/>
-		</form>
-		<!-- 트랜잭션 및 ajax 테스트  -->
+<div class="pumpContainer">
+	<div class="pumpHeader">
+		<h3>${title.KOR_NM}(${title.MARKET})</h3>
+		<h3>상승 : ${title.PUMP_CNT}회</h3>
+		<h3>마지막 상승시간 : ${title.UPD_DT}</h3>
 	</div>
+
+	<table class="pumpIndexContainer">
+		<colgroup>
+			<col width="5.5%">
+			<col width="11.5%">
+			<col width="12.5%">
+			<col width="13.5%">
+			<col width="13.5%">
+			<col width="18.5%">
+		</colgroup>
+		<thead>
+		<tr>
+			<th><h1>No</h1></th>
+			<th><h1>마켓</h1></th>
+			<th><h1>한글이름</h1></th>
+			<th><h1>상승기준</h1></th>
+			<th><h1>상승률</h1></th>
+			<th><h1>상승날짜</h1></th>
+		</tr>
+		</thead>
+		<tbody>
+		<c:forEach var="list" items="${list}">
+			<tr>
+				<td id="rnum">${list.RNUM}</td>
+				<td id="market">${list.MARKET}</td>
+				<td id="kor_nm">${list.KOR_NM}</td>
+				<td id="pump_set_rise_price">${list.PUMP_SET_RISE_PRICE}</td>
+				<td id="rise_price">${list.RISE_PRICE}</td>
+				<td id="upd_dt">${list.UPD_DT}</td>
+			</tr>
+		</c:forEach>
+		</tbody>
+	</table>
+</div>
 </body>
 </html>

@@ -28,19 +28,34 @@ public class PumpService extends CommonController {
 	@Autowired
 	private PumpMapper mapper;
 
+	// -------------------------------- PUMP (RACE) START ------------------------------------
+	// PUMP (Race) 헤더
+	public Map<String, Object> selectPumpRaceHeader(Map<String, Object> map) throws Exception {
+		return mapper.selectPumpRaceHeader(map);
+	}
+
 	// PUMP (Race) 데이터 조회
-	public List<?> selectPumpRaceList(Map<String, Object> map) {
+	public List<?> selectPumpRaceList(Map<String, Object> map) throws Exception {
 		return mapper.selectPumpRaceList(map);
+	}
+	// -------------------------------- PUMP (RACE) END ------------------------------------
+
+
+	// -------------------------------- PUMP (DAY) START ------------------------------------
+	// PUMP (Race) 헤더
+	public Map<String, Object> selectPumpDayHeader(Map<String, Object> map) throws Exception {
+		return mapper.selectPumpDayHeader(map);
 	}
 
 	// PUMP (Day) 데이터 조회
-	public List<?> selectPumpDayList(Map<String, Object> map) {
+	public List<?> selectPumpDayList(Map<String, Object> map) throws Exception {
 		return mapper.selectPumpDayList(map);
 	}
+	// -------------------------------- PUMP (DAY) END ------------------------------------
 
 
-	// PUMP 데이터 저장 (DAY, RACE 공통 사용 (3번째 파라미터에 따라 분기))
-	public void insertPump(List<Map<String, Object>> listMap, int pumpSetRisePrice, String tableNm) {
+	// PUMP 데이터 저장 (DAY, RACE 공통 사용) - quote 스케줄러에서 사용
+	public void insertPump(List<Map<String, Object>> listMap, int pumpSetRisePrice, String tableNm) throws Exception {
 
 		List<Map<String, Object>> listPumpMap = new ArrayList<>();
 

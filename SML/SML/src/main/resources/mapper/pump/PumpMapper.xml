@@ -5,13 +5,32 @@
 <mapper namespace="com.sml.pump.PumpMapper">
 
     <!-- *************************** RACE 관련 Start *************************** -->
-    <!-- PUMP 데이터 조회 -->
-    <select id="selectPumpRaceList" parameterType="LinkedHashMap" resultType="LinkedHashMap">
-        SELECT MARKET, UPD_DT FROM T_COIN_RACE_KRW
+    <!-- PUMP (RACE) 헤더 -->
+    <select id="selectPumpRaceHeader" parameterType="LinkedHashMap" resultType="LinkedHashMap">
+        SELECT
+            COUNT(MARKET) AS PUMP_CNT
+            , MAX(FN_GET_KOR_NM(MARKET)) AS KOR_NM
+            , MAX(MARKET) AS MARKET
+            , MAX(UPD_DT) AS UPD_DT
+        FROM T_COIN_PUMP_RACE_KRW
         WHERE MARKET = #{MARKET}
     </select>
 
-    <!-- (DAY)기준 일정 상승률 이상 오른코인을 PUMP테이블에 저장 -->
+    <!-- PUMP (RACE) 데이터 조회 -->
+    <select id="selectPumpRaceList" parameterType="LinkedHashMap" resultType="LinkedHashMap">
+       SELECT
+            ROWNUM AS RNUM
+            , MARKET
+            , FN_GET_KOR_NM(MARKET) AS KOR_NM
+            , PUMP_SET_RISE_PRICE
+            , RISE_PRICE
+            , UPD_DT
+        FROM T_COIN_PUMP_RACE_KRW
+        WHERE MARKET = #{MARKET}
+        ORDER BY RNUM DESC
+    </select>
+
+    <!-- PUMP (RACE) 기준 일정 상승률 이상 오른코인을 PUMP테이블에 저장 -->
     <insert id="insertPumpRace" parameterType="LinkedHashMap">
         INSERT INTO T_COIN_PUMP_RACE_KRW
         (
@@ -40,10 +59,29 @@
 
 
     <!-- *************************** DAY 관련 Start *************************** -->
+    <!-- PUMP (DAY) 헤더 -->
+    <select id="selectPumpDayHeader" parameterType="LinkedHashMap" resultType="LinkedHashMap">
+        SELECT
+            COUNT(MARKET) AS PUMP_CNT
+            , MAX(FN_GET_KOR_NM(MARKET)) AS KOR_NM
+            , MAX(MARKET) AS MARKET
+            , MAX(UPD_DT) AS UPD_DT
+        FROM T_COIN_PUMP_DAY_KRW
+        WHERE MARKET = #{MARKET}
+    </select>
+
     <!-- PUMP 데이터 조회 -->
     <select id="selectPumpDayList" parameterType="LinkedHashMap" resultType="LinkedHashMap">
-        SELECT MARKET, UPD_DT FROM T_COIN_DAY_KRW
+        SELECT
+            ROWNUM AS RNUM
+            , MARKET
+            , FN_GET_KOR_NM(MARKET) AS KOR_NM
+            , PUMP_SET_RISE_PRICE
+            , RISE_PRICE
+            , UPD_DT
+        FROM T_COIN_PUMP_DAY_KRW
         WHERE MARKET = #{MARKET}
+        ORDER BY RNUM DESC
     </select>
 
     <!-- (DAY)기준 일정 상승률 이상 오른코인을 PUMP테이블에 저장 -->
