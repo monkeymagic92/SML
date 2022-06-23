@@ -59,19 +59,21 @@
 	// 트랜잭션 Test ===================================================
 
 </script>
-	<!-- 테스트 성공 값 정상적으로 날라옴 -->
-	<c:forEach var="list" items="${list}">
-		<div>${list.MARKET}</div>
-		<div>${list.UPD_DT}</div>
-	</c:forEach>
+	<div class="pumpContainer">
+		<!-- 테스트 성공 값 정상적으로 날라옴 -->
+		<c:forEach var="list" items="${list}">
+			<div>${list.MARKET}</div>
+			<div>${list.UPD_DT}</div>
+		</c:forEach>
 
-	<!-- 트랜잭션 및 ajax 테스트  -->
-	<button type="button" id="saveBtn" name="saveBtn" onclick="saveTest();">saveTest</button>
-	<button type="button" id="testBtn" name="testBtn" onclick="selectTest();">selectTest</button>
-	<form id="testFrm" name="testFrm" method="post">
-		<input type="hidden" id="MARKET" name="MARKET" value="AAA"/>
-		<input type="hidden" id="RISE_PRICE" name="RISE_PRICE" value="123"/>
-	</form>
-	<!-- 트랜잭션 및 ajax 테스트  -->
+		<!-- 트랜잭션 및 ajax 테스트  -->
+		<button type="button" id="saveBtn" name="saveBtn" onclick="saveTest();">saveTest</button>
+		<button type="button" id="testBtn" name="testBtn" onclick="selectTest();">selectTest</button>
+		<form id="testFrm" name="testFrm" method="post">
+			<input type="hidden" id="MARKET" name="MARKET" value="AAA"/>
+			<input type="hidden" id="RISE_PRICE" name="RISE_PRICE" value="123"/>
+		</form>
+		<!-- 트랜잭션 및 ajax 테스트  -->
+	</div>
 </body>
 </html>

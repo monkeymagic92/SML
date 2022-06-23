@@ -58,7 +58,6 @@ public class QuoteService extends CommonService {
 		mapper.insertCoinRace(listMap);
 	}
 
-
 	/**
 	 * quote_race.jsp - click Test Ajax버튼 눌렀을때 테스트용 함수
 	 * @throws Exception
@@ -67,7 +66,7 @@ public class QuoteService extends CommonService {
 		List<Map<String, Object>> listMap = new ArrayList<>();
 		listMap = upbitAPI.insertCoinList("KRW");
 		insertCoinRace(listMap);
-
+		pumpService.insertPump(listMap, 20, "RACE");
 	}
 
 	/**
@@ -79,6 +78,7 @@ public class QuoteService extends CommonService {
 		List<Map<String, Object>> listMap = new ArrayList<>();
 		listMap = upbitAPI.insertCoinList("KRW");	// 코인 가격 저장하는 QUOTE 테이블
 		insertCoinRace(listMap);					// 당일 오전10시에 코인가격 insert
+		pumpService.insertPump(listMap, 20, "RACE");
 	}
 	// **************************** (Race) 코인 End ****************************
 
@@ -106,7 +106,6 @@ public class QuoteService extends CommonService {
 		mapper.insertCoinDay(listMap);
 	}
 
-
 	/**
 	 * quote_day.jsp - Test Ajax버튼 눌렀을때 Day(08:55am) 테스트용 함수
 	 * @throws Exception
@@ -115,7 +114,7 @@ public class QuoteService extends CommonService {
 		List<Map<String, Object>> listMap = new ArrayList<>();
 		listMap = upbitAPI.insertCoinList("KRW");
 		insertCoinDay(listMap);
-		pumpService.insertPumpDay(listMap, 20);
+		pumpService.insertPump(listMap, 20, "DAY");
 	}
 
 	/**
@@ -126,7 +125,7 @@ public class QuoteService extends CommonService {
 		List<Map<String, Object>> listMap = new ArrayList<>();
 		listMap = upbitAPI.insertCoinList("KRW");
 		insertCoinDay(listMap);
-		pumpService.insertPumpDay(listMap, 20);
+		pumpService.insertPump(listMap, 20, "DAY");
 	}
 	// **************************** (Day) 코인 End ****************************
 
