@@ -11,7 +11,7 @@
             COUNT(MARKET) AS PUMP_CNT
             , MAX(FN_GET_KOR_NM(MARKET)) AS KOR_NM
             , MAX(MARKET) AS MARKET
-            , MAX(UPD_DT) AS UPD_DT
+            , MAX(TRADE_DATE) AS TRADE_DATE
         FROM T_COIN_PUMP_RACE_KRW
         WHERE MARKET = #{MARKET}
     </select>
@@ -67,7 +67,7 @@
             COUNT(MARKET) AS PUMP_CNT
             , MAX(FN_GET_KOR_NM(MARKET)) AS KOR_NM
             , MAX(MARKET) AS MARKET
-            , MAX(UPD_DT) AS UPD_DT
+            , MAX(TRADE_DATE) AS TRADE_DATE
         FROM T_COIN_PUMP_DAY_KRW
         WHERE MARKET = #{MARKET}
     </select>
