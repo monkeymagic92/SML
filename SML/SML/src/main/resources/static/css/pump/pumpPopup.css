@@ -1,5 +1,3 @@
-/* 테이블 header고정방법 알아보기 */
-
 .pumpContainer {
     background-color: #333;
     width: 100%;
@@ -15,7 +13,7 @@
 
 .pumpIndexContainer td {
     font-weight: normal;
-    font-size: 1em;
+    font-size: 1.1em;
     -webkit-box-shadow: 0 2px 2px -2px #0E1119;
     -moz-box-shadow: 0 2px 2px -2px #0E1119;
     box-shadow: 0 2px 2px -2px #0E1119;
@@ -68,17 +66,17 @@ tr td:first-child {
 }
 
 .pumpHeader {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: white;
+    text-align: left;
     width: 100%;
-    height: 10%;
-    margin: 0 auto;
-    display: flex;
-    padding-left: 10px;
-    text-align: center;
+    height: 70px;
+    line-height: 25px;
+    border-left: solid 6px grey;
+    border-bottom: solid 3px grey;
+    padding: 7px;
 }
 
-.pumpHeader h3 {
-    color: white;
-    font-weight: bold;
-    margin-left: 15px;
-    font-size: 1.1em;
-}
+
+

@@ -70,6 +70,11 @@ public class PumpService extends CommonController {
 			Double result = (high_price - opening_price) / opening_price * 100;	// 그날 상승률
 			Double rise_price = Math.round(result*100)/100.0;					// 상승률을 소수점 2자리 반올림
 			String upd_dt = TimeMaximum.nowDate();
+			String trade_date = (String) listMap.get(i).get("TRADE_DATE");
+
+			System.out.println("--jytest--");
+			System.out.println(trade_date);
+			System.out.println("--jytest--");
 
 			// 매개변수로 받은 'pumpSetRisePrice 상승률' 보다 '실제 상승률'이 높다면
 			if(rise_price >= pumpSetRisePrice) {
@@ -82,6 +87,7 @@ public class PumpService extends CommonController {
 				map.put("RISE_PRICE", rise_price);
 				map.put("PUMP_SET_RISE_PRICE", pumpSetRisePrice);	// 설정한 파라미터를 상승률 몇%이상을 기준으로 잡았는지
 				map.put("UPD_DT", upd_dt);
+				map.put("TRADE_DATE", trade_date);
 
 				listPumpMap.add(map);
 			}

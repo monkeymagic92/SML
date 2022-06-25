@@ -16,6 +16,7 @@
             , TO_CHAR(B.HIGH_PRICE, '999,999,999,999,9990.00') AS HIGH_PRICE
             , B.RISE_PRICE
             , B.CHANGE
+            , B.TRADE_DATE
         FROM T_COIN_QUOTE_KRW A
             , (
                 SELECT
@@ -25,13 +26,15 @@
                     , HIGH_PRICE
                     , ROUND((((HIGH_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100), 2) AS RISE_PRICE    /* 시가 - 고가 상승률 */
                     , DECODE(CHANGE, 'RISE', '상승', 'FALL', '하락') AS CHANGE
+                    , B.TRADE_DATE
                 FROM T_COIN_RACE_KRW B
                 WHERE 1=1
-                <if test="searchUPD_DT != null">
-                    AND TO_CHAR(TO_DATE(UPD_DT, 'YYYY-MM-DD HH24:MI:SS'), 'YYYYMMDD') = #{searchUPD_DT}
+                <if test="searchTRADE_DATE != null">
+                    <!-- AND TO_CHAR(TO_DATE(UPD_DT, 'YYYY-MM-DD HH24:MI:SS'), 'YYYYMMDD') = #{searchUPD_DT} -->
+                    AND TRADE_DATE = #searchTRADE_DATE#
                 </if>
-                <if test="searchUPD_DT == null">
-                    AND UPD_DT = (SELECT MAX(UPD_DT) FROM T_COIN_RACE_KRW)
+                <if test="searchTRADE_DATE == null">
+                    AND TRADE_DATE = (SELECT MAX(TRADE_DATE) FROM T_COIN_RACE_KRW)
                 </if>
                 <if test="searchKOR_NM != null">
                     AND MARKET LIKE '%' || FN_GET_MARKET(#{searchKOR_NM}) || '%'    /* 한글명을 MARKET으로 변환하여 대입 */
@@ -128,6 +131,7 @@
             , TO_CHAR(B.HIGH_PRICE, '999,999,999,999,9990.00') AS HIGH_PRICE
             , B.RISE_PRICE
             , B.CHANGE
+            , B.TRADE_DATE
         FROM T_COIN_QUOTE_KRW A
         , (
             SELECT
@@ -137,11 +141,21 @@
                 , HIGH_PRICE
                 , ROUND((((HIGH_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100), 2) AS RISE_PRICE    /* 시가 - 고가 상승률 */
                 , DECODE(CHANGE, 'RISE', '상승', 'FALL', '하락') AS CHANGE
+                , TRADE_DATE
             FROM T_COIN_DAY_KRW B
             WHERE 1=1
-            AND UPD_DT = (SELECT MAX(UPD_DT) FROM T_COIN_DAY_KRW)
+            <if test="searchTRADE_DATE != null">
+                <!-- AND TO_CHAR(TO_DATE(UPD_DT, 'YYYY-MM-DD HH24:MI:SS'), 'YYYYMMDD') = #{searchUPD_DT} -->
+                AND TRADE_DATE = #searchTRADE_DATE#
+            </if>
+            <if test="searchTRADE_DATE == null">
+                AND TRADE_DATE = (SELECT MAX(TRADE_DATE) FROM T_COIN_DAY_KRW)
+            </if>
+            <if test="searchKOR_NM != null">
+                AND MARKET LIKE '%' || FN_GET_MARKET(#{searchKOR_NM}) || '%'    /* 한글명을 MARKET으로 변환하여 대입 */
+            </if>
             ORDER BY RISE_PRICE DESC
-        ) B
+         ) B
         WHERE A.MARKET = B.MARKET
         ORDER BY RNUM ASC
     </select>

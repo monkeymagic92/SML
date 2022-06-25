@@ -13,6 +13,7 @@ public class QuoteVO {
 	private String searchKOR_NM;
 	private String searchRISE_PRICE;
 	private String searchMARKET;
+	private String searchTRADE_DATE;
 
 	public String getSearchUPD_DT() {
 		return searchUPD_DT;
@@ -44,5 +45,13 @@ public class QuoteVO {
 
 	public void setSearchMARKET(String searchMARKET) {
 		this.searchMARKET = searchMARKET;
+	}
+
+	public String getSearchTRADE_DATE() {
+		return searchTRADE_DATE;
+	}
+
+	public void setSearchTRADE_DATE(String searchTRADE_DATE) {
+		this.searchTRADE_DATE = searchTRADE_DATE;
 	}
 }

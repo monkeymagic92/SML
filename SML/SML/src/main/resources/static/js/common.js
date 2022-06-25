@@ -1,3 +1,34 @@
+// 날짜검색 ( 공통함수(common.js)로 빼기, css는 style.css 또는 indexTemp.css안에 넣기 )
+function fnDatepicker() {
+    var args = arguments;
+    var element = args[0];
+    var curDate = args[1] != null ? args[1] : false;
+    var elementForm = args[2];
+
+    var elementObj = null;
+    if (elementForm != null) {
+        elementObj = $(elementForm).find(element);
+    } else {
+        elementObj = $(element);
+    }
+    //$(element).datepicker(
+    elementObj.datepicker(
+        {
+            "dateFormat" : 'yy/mm/dd',
+            "changeYear" : true,
+            "changeMonth" : true,
+            "yearRange" : '-19:+10',
+            "showButtonPanel" : true,
+            "constrainInput" : true,
+            "defaultDate" : '+0'
+        });
+
+    if (curDate) {
+        //$(element).val($.datepicker.formatDate('yy/mm/dd', new Date()));
+        elementObj.val($.datepicker.formatDate('yy/mm/dd', new Date()));
+    }
+}
+
 function fnOpenPopup() {
     var args = arguments;
     var name = args[0];

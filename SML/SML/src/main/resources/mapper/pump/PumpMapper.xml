@@ -24,7 +24,7 @@
             , FN_GET_KOR_NM(MARKET) AS KOR_NM
             , PUMP_SET_RISE_PRICE
             , RISE_PRICE
-            , UPD_DT
+            , TO_CHAR(TO_DATE(TRADE_DATE, 'YYYY/MM/DD'), 'YYYY/MM/DD') AS TRADE_DATE
         FROM T_COIN_PUMP_RACE_KRW
         WHERE MARKET = #{MARKET}
         ORDER BY RNUM DESC
@@ -34,13 +34,14 @@
     <insert id="insertPumpRace" parameterType="LinkedHashMap">
         INSERT INTO T_COIN_PUMP_RACE_KRW
         (
-        MARKET
-        , OPENING_PRICE
-        , HIGH_PRICE
-        , LOW_PRICE
-        , RISE_PRICE
-        , PUMP_SET_RISE_PRICE
-        , UPD_DT
+            MARKET
+            , OPENING_PRICE
+            , HIGH_PRICE
+            , LOW_PRICE
+            , RISE_PRICE
+            , PUMP_SET_RISE_PRICE
+            , UPD_DT
+            , TRADE_DATE
         )
         <foreach item="item" collection="list" separator="union">
             SELECT
@@ -51,6 +52,7 @@
             , #{item.RISE_PRICE}
             , #{item.PUMP_SET_RISE_PRICE}
             , TO_CHAR(TO_DATE(#{item.UPD_DT}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
+            , #{item.TRADE_DATE}
             FROM DUAL
         </foreach>
     </insert>
@@ -78,7 +80,7 @@
             , FN_GET_KOR_NM(MARKET) AS KOR_NM
             , PUMP_SET_RISE_PRICE
             , RISE_PRICE
-            , UPD_DT
+            , TO_CHAR(TO_DATE(TRADE_DATE, 'YYYY/MM/DD'), 'YYYY/MM/DD') AS TRADE_DATE
         FROM T_COIN_PUMP_DAY_KRW
         WHERE MARKET = #{MARKET}
         ORDER BY RNUM DESC
@@ -95,6 +97,7 @@
             , RISE_PRICE
             , PUMP_SET_RISE_PRICE
             , UPD_DT
+            , TRADE_DATE
         )
         <foreach item="item" collection="list" separator="union">
             SELECT
@@ -105,6 +108,7 @@
                 , #{item.RISE_PRICE}
                 , #{item.PUMP_SET_RISE_PRICE}
                 , TO_CHAR(TO_DATE(#{item.UPD_DT}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
+                , #{item.TRADE_DATE}
             FROM DUAL
         </foreach>
     </insert>

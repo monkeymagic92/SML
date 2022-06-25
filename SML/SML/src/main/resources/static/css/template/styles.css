@@ -11503,3 +11503,38 @@ body {
   transform: translateX(-50%) translateY(-50%);
 }
 /* 물타기계산기 모달 end */
+
+/* 검색관련 start */
+/* jquery 달력UI  /  ( css는 style.css나 indexTemp.css로 옮기기 ) */
+#ui-datepicker-div {
+  filter: invert(100%);	/* 색상반전  */
+}
+
+.searchBox {
+  width: 80%;
+  height: 50px;
+  text-align: center;
+  border: 0;
+  box-shadow: 0 2px 2px -2px #0E1119;
+  margin: 0 auto;
+  background: #fffefa linear-gradient(45deg, #e91e63, #ffeb3b);
+  padding-top: 4px;
+  /* background: #fffefa linear-gradient(45deg, #3f3f3f, #e0e0e6); */
+  /* background: #fffefa linear-gradient(45deg, #03a9f4, #8bc34a); */
+}
+
+.ctl_input_1 {
+  background-color: #2c303b;
+  border: 2px solid grey;
+  width: 135px;
+  height: 25px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #c7ddef;
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 7px 22px 7px 10px;
+  border-radius: 2px;
+  border: 0;
+}
+/* 검색관련 end */

@@ -16,6 +16,7 @@
     <!-- HTML TEMP CSS -->
     <link href="/res/css/template/styles.css" rel="stylesheet">
     <link href="/res/css/animate/animate.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
     <!-- ********************** Javascript Start ********************* -->
@@ -28,6 +29,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- ajax관련 공통함수 -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/res/js/common.js"></script>

@@ -23,6 +23,9 @@
 
 	$(document).ready(function () {
 
+		// 달력 검색
+		fnDatepicker($("#searchTRADE_DATE"), true);
+
 		$("#testAjaxBtn").click(function() {
 			fnAjaxSubmit('<c:url value="/quote/insertDayCoinList" />', "#frm");
 		});
@@ -56,6 +59,20 @@
 </form>
 <%-- ----------------- Test ----------------- --%>
 
+<!-- 검색관련 -->
+<div class="searchBox">
+	<!-- 날짜 검색 -->
+	<label for="searchTRADE_DATE">
+		<span style="font-size: 1.2em; font-weight: bold; color: white; letter-spacing: 2px;">날짜</span>
+	</label>
+	<input type="text" class="ctl_input_1" id="searchTRADE_DATE" name="searchTRADE_DATE" />
+	<!-- 코인명 검색 -->
+	<label for="searchKOR_NM">
+		<span style="font-size: 1.2em; font-weight: bold; color: white; letter-spacing: 2px;">코인명</span>
+	</label>
+	<input type="text" class="ctl_input_1" id="searchKOR_NM" name="searchKOR_NM" />
+</div>
+
 
 <table class="quoteIndexContainer">
 	<colgroup>
@@ -79,7 +96,7 @@
 		<th><h1>고가</h1></th>
 		<th><h1>상승률</h1></th>
 		<th><h1>보합</h1></th>
-		<th><h1>pump</h1></th>
+		<th><h1>펌핑</h1></th>
 	</tr>
 	</thead>
 	<tbody>
