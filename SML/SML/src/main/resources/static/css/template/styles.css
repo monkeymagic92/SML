@@ -11517,9 +11517,9 @@ body {
   border: 0;
   box-shadow: 0 2px 2px -2px #0E1119;
   margin: 0 auto;
-  background: #fffefa linear-gradient(45deg, #e91e63, #ffeb3b);
   padding-top: 4px;
-  /* background: #fffefa linear-gradient(45deg, #3f3f3f, #e0e0e6); */
+  /* background: #fffefa linear-gradient(45deg, #e91e63, #ffeb3b); */
+  background: #fffefa linear-gradient(45deg, #3f3f3f, #e0e0e6);
   /* background: #fffefa linear-gradient(45deg, #03a9f4, #8bc34a); */
 }
 

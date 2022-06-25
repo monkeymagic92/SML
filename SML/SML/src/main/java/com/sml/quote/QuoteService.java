@@ -100,7 +100,7 @@ public class QuoteService extends CommonService {
 
 	/**
 	 * Day(08:55am) 코인가격를 10시테이블에 INSERT
-	 * @param listMap
+	 * @param listMap`
 	 */
 	public void insertCoinDay(List<Map<String, Object>> listMap) {
 		mapper.insertCoinDay(listMap);

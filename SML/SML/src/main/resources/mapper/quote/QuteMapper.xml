@@ -26,11 +26,10 @@
                     , HIGH_PRICE
                     , ROUND((((HIGH_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100), 2) AS RISE_PRICE    /* 시가 - 고가 상승률 */
                     , DECODE(CHANGE, 'RISE', '상승', 'FALL', '하락') AS CHANGE
-                    , B.TRADE_DATE
+                    , TO_CHAR(TO_DATE(TRADE_DATE, 'YYYY/MM/DD'), 'YYYY/MM/DD') AS TRADE_DATE
                 FROM T_COIN_RACE_KRW B
                 WHERE 1=1
                 <if test="searchTRADE_DATE != null">
-                    <!-- AND TO_CHAR(TO_DATE(UPD_DT, 'YYYY-MM-DD HH24:MI:SS'), 'YYYYMMDD') = #{searchUPD_DT} -->
                     AND TRADE_DATE = #searchTRADE_DATE#
                 </if>
                 <if test="searchTRADE_DATE == null">
@@ -141,11 +140,10 @@
                 , HIGH_PRICE
                 , ROUND((((HIGH_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100), 2) AS RISE_PRICE    /* 시가 - 고가 상승률 */
                 , DECODE(CHANGE, 'RISE', '상승', 'FALL', '하락') AS CHANGE
-                , TRADE_DATE
+                , TO_CHAR(TO_DATE(TRADE_DATE, 'YYYY/MM/DD'), 'YYYY/MM/DD') AS TRADE_DATE
             FROM T_COIN_DAY_KRW B
             WHERE 1=1
             <if test="searchTRADE_DATE != null">
-                <!-- AND TO_CHAR(TO_DATE(UPD_DT, 'YYYY-MM-DD HH24:MI:SS'), 'YYYYMMDD') = #{searchUPD_DT} -->
                 AND TRADE_DATE = #searchTRADE_DATE#
             </if>
             <if test="searchTRADE_DATE == null">
