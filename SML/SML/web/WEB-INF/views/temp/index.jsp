@@ -14,6 +14,16 @@
 </head>
 <body>
 
+<!-- script -->
+<script type="text/javascript">
+
+	$(document).ready(function () {
+
+	});
+
+</script>
+
+<!-- html -->
 <div style="display: flex; margin: 0 auto; text-align: center;">
 	<div id="bit_5" style="margin-left: 2.8%;">
 		<iframe id="chart_2" src="https://s.tradingview.com/widgetembed/?frameElementId=chart_2&symbol=BINANCE%3ABTCUSDT&interval=5&symboledit=1&saveimage=0&toolbarbg=f1f3f6&studies=RSI%40tv-basicstudies%1F&theme=Dark&style=9&timezone=Asia%2FSeoul&studies_overrides=%7B%7D&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=kr&utm_source=&utm_medium=widget&utm_campaign=chart&utm_term=BINANCE%3ABTCUSDT" style="width:720px;height:440px;margin:0!important;padding:0!important;" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen=""></iframe>
@@ -31,17 +41,5 @@
 	</div>
 </div>
 
-
-
-<!-- HTML 내용 기입 -->
-
-
-<script type="text/javascript">
-
-	$(document).ready(function () {
-
-	});
-
-</script>
 </body>
 </html>

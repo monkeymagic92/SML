@@ -28,7 +28,7 @@ public interface QuoteMapper {
 
 
 	// (Day)코인 list
-	public List<?> selectCoinDayList();
+	public List<?> selectCoinDayList(QuoteVO vo);
 
 	// (Day) 코인 갱신일자 값 가져오기
 	public String selectCoinDayUpdDt();

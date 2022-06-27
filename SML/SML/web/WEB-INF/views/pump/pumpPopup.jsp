@@ -61,11 +61,11 @@
 
 </script>
 <div class="pumpContainer">
-<%--	<div class="pumpHeader">--%>
-<%--		<h3>${title.KOR_NM}(${title.MARKET})</h3>--%>
-<%--		<h3>상승 : ${title.PUMP_CNT}회</h3>--%>
-<%--		<h3>마지막 상승시간 : ${title.TRADE_DATE}</h3>--%>
-<%--	</div>--%>
+	<div class="pumpHeader">
+		<span>${title.KOR_NM}(${title.MARKET})</span><br>
+		<span>상승 : ${title.PUMP_CNT}회</span><br>
+		<span>마지막 상승시간 : ${title.TRADE_DATE}</span>
+	</div>
 
 	<table class="pumpIndexContainer">
 		<colgroup>

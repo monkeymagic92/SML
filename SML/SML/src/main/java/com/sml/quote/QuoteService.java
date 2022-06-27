@@ -85,8 +85,8 @@ public class QuoteService extends CommonService {
 
 
 	// **************************** (Day) 코인 Start ****************************
-	public List<?> selectCoinDayList() throws Exception {
-		List<?> list = mapper.selectCoinDayList();
+	public List<?> selectCoinDayList(QuoteVO vo) throws Exception {
+		List<?> list = mapper.selectCoinDayList(vo);
 		return list;
 	}
 

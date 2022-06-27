@@ -11505,7 +11505,6 @@ body {
 /* 물타기계산기 모달 end */
 
 /* 검색관련 start */
-/* jquery 달력UI  /  ( css는 style.css나 indexTemp.css로 옮기기 ) */
 #ui-datepicker-div {
   filter: invert(100%);	/* 색상반전  */
 }

@@ -32,7 +32,6 @@
 
 	});
 
-
 	// 클릭한 market 명으로 upbit 사이트 이동 (쿼리스트링=market)
 	function fnMoveToUpbit(market) {
 		var link = 'https://upbit.com/exchange?code=CRIX.UPBIT.'+market;
@@ -61,18 +60,21 @@
 
 <!-- 검색관련 -->
 <div class="searchBox">
-	<!-- 날짜 검색 -->
-	<label for="searchTRADE_DATE">
-		<span style="font-size: 1.2em; font-weight: bold; color: white; letter-spacing: 2px;">날짜</span>
-	</label>
-	<input type="text" class="ctl_input_1" id="searchTRADE_DATE" name="searchTRADE_DATE" />
-	<!-- 코인명 검색 -->
-	<label for="searchKOR_NM">
-		<span style="font-size: 1.2em; font-weight: bold; color: white; letter-spacing: 2px;">코인명</span>
-	</label>
-	<input type="text" class="ctl_input_1" id="searchKOR_NM" name="searchKOR_NM" />
-</div>
+	<form id="searchForm" name="searchForm" action="/quote/quote_day">
+		<!-- 날짜 검색 -->
+		<label for="searchTRADE_DATE">
+			<span style="font-size: 1.2em; font-weight: bold; color: white; letter-spacing: 2px;">날짜</span>
+		</label>
+		<input type="text" class="ctl_input_1" id="searchTRADE_DATE" name="searchTRADE_DATE" />
+		<!-- 코인명 검색 -->
+		<label for="searchKOR_NM">
+			<span style="font-size: 1.2em; font-weight: bold; color: white; letter-spacing: 2px;">코인명</span>
+		</label>
+		<input type="text" class="ctl_input_1" id="searchKOR_NM" name="searchKOR_NM" value=""/>
 
+		<input type="submit" id="searchSubmit" name="searchSubmit" value="조회">
+	</form>
+</div>
 
 <table class="quoteIndexContainer">
 	<colgroup>
