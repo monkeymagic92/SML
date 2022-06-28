@@ -3,10 +3,14 @@ package com.sml.quote;
 import com.sml.api.UpbitAPIService;
 import com.sml.pump.PumpService;
 import com.sml.utils.common.CommonService;
+import com.sml.utils.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,9 +41,9 @@ public class QuoteService extends CommonService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<?> selectCoinRaceList(QuoteVO vo) throws Exception {
+	public void selectCoinRaceList(Model model, HttpServletRequest request, HttpServletResponse response, QuoteVO vo) throws Exception {
 		List<?> list = mapper.selectCoinRaceList(vo);
-		return list;
+		CommonUtil.jsonResponse(response, list);
 	}
 
 	/**
@@ -85,9 +89,14 @@ public class QuoteService extends CommonService {
 
 
 	// **************************** (Day) 코인 Start ****************************
-	public List<?> selectCoinDayList(QuoteVO vo) throws Exception {
+	/**
+	 * (Day) 코인 리스트
+	 * @return
+	 * @throws Exception
+	 */
+	public void selectCoinDayList(Model model, HttpServletRequest request, HttpServletResponse response, QuoteVO vo) throws Exception {
 		List<?> list = mapper.selectCoinDayList(vo);
-		return list;
+		CommonUtil.jsonResponse(response, list);
 	}
 
 	/**

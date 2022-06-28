@@ -26,11 +26,9 @@ public class QuoteController extends CommonController {
 	private QuoteService service;
 
 	// **************************** (Race) 코인 Start ****************************
+	// (Race) 코인 index 페이지
 	@RequestMapping(value = "/quote/quote_race", method = RequestMethod.GET)
 	public String coinRaceIndex(Model model, HttpServletRequest request, HttpServletResponse response, QuoteVO vo) throws Exception {
-
-		// (Race) 10:00am데이터 list
-		model.addAttribute("list", service.selectCoinRaceList(vo));
 
 		// indexTemp.jsp에 들어갈 model
 		model.addAttribute("title", "Race");
@@ -39,6 +37,12 @@ public class QuoteController extends CommonController {
 		model.addAttribute("view", "/quote/quote_race");
 
 		return ViewRef.LAYOUT_TEMP;
+	}
+
+	// (Race) 코인 조회
+	@RequestMapping(value = "/quote/selectQuoteRace", method = RequestMethod.GET)
+	public void selectCoinRaceList(Model model, HttpServletRequest request, HttpServletResponse response, QuoteVO vo) throws Exception {
+		service.selectCoinRaceList(model, request, response, vo);
 	}
 
 	// (Race) 나중에 스케줄러 돌리면 해당 부분은 삭제해도됨 (ajax Test버튼 눌렀을때 insert용)
@@ -54,12 +58,8 @@ public class QuoteController extends CommonController {
 
 	// **************************** (Day) 코인 Start ****************************
 	@RequestMapping(value = "/quote/quote_day", method = RequestMethod.GET)
+	// (Day) 코인 index 페이지
 	public String coinDayIndex(Model model, HttpServletRequest request, HttpServletResponse response, QuoteVO vo) throws Exception {
-
-		Bind bind = new Bind(request);
-
-		// (Day) 08:55am 데이터 list
-		model.addAttribute("list", service.selectCoinDayList(vo));
 
 		// indexTemp.jsp에 들어갈 model
 		model.addAttribute("title", "Day");
@@ -68,6 +68,12 @@ public class QuoteController extends CommonController {
 		model.addAttribute("view", "/quote/quote_day");
 
 		return ViewRef.LAYOUT_TEMP;
+	}
+
+	// (Day) 코인 조회
+	@RequestMapping(value = "/quote/selectQuoteDay", method = RequestMethod.GET)
+	public void selectCoinDayList(Model model, HttpServletRequest request, HttpServletResponse response, QuoteVO vo) throws Exception {
+		service.selectCoinDayList(model, request, response, vo);
 	}
 
 	// (Day) 나중에 스케줄러 돌리면 해당 부분은 삭제해도됨  (ajax Test버튼 눌렀을때 ins`ert용)
