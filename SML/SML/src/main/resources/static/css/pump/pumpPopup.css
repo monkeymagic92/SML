@@ -73,7 +73,7 @@ tr td:first-child {
     width: 100%;
     height: 80px;
     /*line-height: 25px;*/
-    border-left: solid 6px grey;
+    border-left: solid 7px grey;
     border-bottom: solid 3px grey;
     padding: 7px;
     display: block;

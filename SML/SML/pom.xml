@@ -327,6 +327,14 @@
             <artifactId>ant</artifactId>
             <version>1.7.0</version>
         </dependency>
+
+        <!-- Jsoup -->
+        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.14.3</version>
+        </dependency>
         <!-- Bind 클래스 사용하기 위한 회사 dependency end -->
 
         <!-- lucy xss 필터 Start -->

@@ -45,14 +45,14 @@
         )
         <foreach item="item" collection="list" separator="union">
             SELECT
-            #{item.MARKET}
-            , #{item.OPENING_PRICE}
-            , #{item.HIGH_PRICE}
-            , #{item.LOW_PRICE}
-            , #{item.RISE_PRICE}
-            , #{item.PUMP_SET_RISE_PRICE}
-            , TO_CHAR(TO_DATE(#{item.UPD_DT}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
-            , #{item.TRADE_DATE}
+                #{item.MARKET}
+                , #{item.OPENING_PRICE}
+                , #{item.HIGH_PRICE}
+                , #{item.LOW_PRICE}
+                , #{item.RISE_PRICE}
+                , #{item.PUMP_SET_RISE_PRICE}
+                , TO_CHAR(TO_DATE(#{item.UPD_DT}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
+                , #{item.TRADE_DATE}
             FROM DUAL
         </foreach>
     </insert>

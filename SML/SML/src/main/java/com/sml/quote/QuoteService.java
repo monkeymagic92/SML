@@ -136,6 +136,14 @@ public class QuoteService extends CommonService {
 		insertCoinDay(listMap);
 		pumpService.insertPump(listMap, 20, "DAY");
 	}
+
+	/**
+	 * 상승률 1~5위 코인 리스트를 Header에 표기
+	 * @return
+	 */
+	public List<?> selectCoinDayRank() {
+		return mapper.selectCoinDayRank();
+	}
 	// **************************** (Day) 코인 End ****************************
 
 }

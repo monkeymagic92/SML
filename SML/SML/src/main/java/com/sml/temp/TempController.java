@@ -20,9 +20,11 @@ public class TempController {
 
 	@RequestMapping(value = "/temp/index", method = RequestMethod.GET)
 	public String index(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// 깃허브 연동 Test
+
 		model.addAttribute("title", "TempIndex");
 		model.addAttribute("view", "/temp/index");
+
 		return ViewRef.LAYOUT_TEMP;
 	}
+
 }

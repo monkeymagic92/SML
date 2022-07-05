@@ -18,14 +18,69 @@
 
 </head>
 <body style="background-color: #212529;">
+<script type="text/javascript">
+
+	/**			Top 버튼 Start 		**/
+	let Top = document.querySelector('#TopBtn');
+
+	window.addEventListener('scroll', function(){
+		if(this.scrollY > 100){
+			Top.classList.add('on')
+		}else{
+			Top.classList.remove('on')
+		}
+	});
+	Top.addEventListener('click', function(el){
+		el.preventDefault()
+		window.scrollTo({
+			top: 0
+		})
+	});
+	/**			Top 버튼 End 		**/
+
+
+	/**         모달띄우기 Start      **/
+	const body = document.querySelector('body');
+	const modal = document.querySelector('.modal');
+	const btnOpenPopup = document.querySelector('#btn-open-popup');
+
+	btnOpenPopup.addEventListener('click', () => {
+		modal.classList.toggle('show');
+
+		if (modal.classList.contains('show')) {
+			body.style.overflow = 'hidden';
+		}
+	});
+
+	modal.addEventListener('click', (event) => {
+		if (event.target === modal) {
+			modal.classList.toggle('show');
+
+			if (!modal.classList.contains('show')) {
+				body.style.overflow = 'auto';
+			}
+		}
+	});
+	/**         모달띄우기 End      **/
+
+</script>
+
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="height: 80px;">
 	<!-- Navbar Brand-->
 	<a class="navbar-brand ps-3" href="/temp/index" style="font-size: 2em;">SML</a>
 	<!-- Sidebar Toggle-->
 	<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-	<div style="display: flex;">
+	<div style="display: inline-block;">
 		<a href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AAAPL" target="_blank">TradingView</a>
 		<a href="https://upbit.com/exchange?code=CRIX.UPBIT.KRW-BTC" target="_blank" style="margin-left: 5%;">Upbit</a>
+		<!-- 문제점 현재 TempIndex 페이지에서만 이게나옴 전체 header에서 데이터 나오게 만들기 (Controller 만들어야됨)-->
+		<div style="color: red;">
+			<c:forEach var="list" items="${dayRankList}">
+				<div>${list.KOR_NM}</div>
+				<div>${list.RISE_PRICE}</div>
+				<div>${list.TRADE_DATE_CHAR}</div>
+			</c:forEach>
+		</div>
 	</div>
 	<!-- Navbar Search-->
 	<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
@@ -170,56 +225,5 @@
 		</footer>
 	</div>
 </div>
-</body>
-<script type="text/javascript">
-
-	$(document).ready(function() {
-
-	});
-
-	/**			Top 버튼 Start 		**/
-	let Top = document.querySelector('#TopBtn');
-
-	window.addEventListener('scroll', function(){
-		if(this.scrollY > 100){
-			Top.classList.add('on')
-		}else{
-			Top.classList.remove('on')
-		}
-	});
-	Top.addEventListener('click', function(el){
-		el.preventDefault()
-		window.scrollTo({
-			top: 0
-		})
-	});
-	/**			Top 버튼 End 		**/
-
-
-	/**         모달띄우기 Start      **/
-	const body = document.querySelector('body');
-	const modal = document.querySelector('.modal');
-	const btnOpenPopup = document.querySelector('#btn-open-popup');
-
-	btnOpenPopup.addEventListener('click', () => {
-		modal.classList.toggle('show');
-
-		if (modal.classList.contains('show')) {
-			body.style.overflow = 'hidden';
-		}
-	});
-
-	modal.addEventListener('click', (event) => {
-		if (event.target === modal) {
-			modal.classList.toggle('show');
-
-			if (!modal.classList.contains('show')) {
-				body.style.overflow = 'auto';
-			}
-		}
-	});
-	/**         모달띄우기 End      **/
-
-</script>
 </body>
 </html>

@@ -36,4 +36,6 @@ public interface QuoteMapper {
 	// (Day) 코인 저장
 	public void insertCoinDay(List<Map<String, Object>> map);
 
+	public List<?> selectCoinDayRank();
+
 }

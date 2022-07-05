@@ -107,6 +107,10 @@
 				rise_price.style.color = 'red';
 			}
 
+			var rise_price_low = document.createElement('td');
+			rise_price_low.setAttribute("id", 'rise_price_low');
+			rise_price_low.style.color = 'blue';
+
 			var openPumpPopupTd = document.createElement('td');
 			var openPumpPopup = document.createElement('button');
 			openPumpPopup.setAttribute('class', 'btn btn-primary');
@@ -118,6 +122,8 @@
 			var searchIcon = document.createElement('i');
 			searchIcon.setAttribute('class', 'fas fa-search');
 
+			var pump_market = rtnVal.PUMP_MARKET;	// 펌핑 리스트 여부
+
 			// ********* 해당 속성들에 DB값 넣기 *********
 			rnum.append(rtnVal.RNUM);
 			market.append(rtnVal.MARKET);
@@ -126,6 +132,7 @@
 			opening_price.append(rtnVal.OPENING_PRICE);
 			high_price.append(rtnVal.HIGH_PRICE);
 			rise_price.append(rtnVal.RISE_PRICE);
+			rise_price_low.append(rtnVal.RISE_PRICE_LOW);
 
 			// ********* selectList에 값이 들어간 속성들을 실제나열 *********
 			$("#selectList").append(tr);
@@ -136,8 +143,12 @@
 			tr.append(opening_price);
 			tr.append(high_price);
 			tr.append(rise_price);
-			openPumpPopup.append(searchIcon);
-			openPumpPopupTd.append(openPumpPopup);
+			tr.append(rise_price_low);
+			// null일경우 펌핑버튼 비활성화
+			if(pump_market != null) {
+				openPumpPopup.append(searchIcon);
+				openPumpPopupTd.append(openPumpPopup);
+			}
 			tr.append(openPumpPopupTd);
 		});
 	}
@@ -181,7 +192,8 @@
 		<col width="12.5%">
 		<col width="12.5%">
 		<col width="12.5%">
-		<col width="12.5%">
+		<col width="10.5%">
+		<col width="10.5%">
 		<col width="16.5%">
 	</colgroup>
 	<thead>
@@ -192,7 +204,8 @@
 		<th><h1>저가</h1></th>
 		<th><h1>시가</h1></th>
 		<th><h1>고가</h1></th>
-		<th><h1>상승률</h1></th>
+		<th><h1>상승률(%)</h1></th>
+		<th><h1>하락률(%)</h1></th>
 		<th><h1>펌핑</h1></th>
 	</tr>
 	</thead>

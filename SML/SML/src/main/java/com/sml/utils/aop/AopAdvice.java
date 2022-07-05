@@ -1,7 +1,10 @@
 package com.sml.utils.aop;
 
+import com.sml.quote.QuoteService;
 import com.sml.utils.common.CommonController;
 import org.aspectj.lang.JoinPoint;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -13,6 +16,9 @@ import java.util.Map;
 
 public class AopAdvice extends CommonController {
 
+    @Autowired
+    private QuoteService quoteService;
+
     public void beforeMethodCall(JoinPoint jp) throws Exception {
 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
@@ -23,7 +29,8 @@ public class AopAdvice extends CommonController {
         // img, js, css
         setResourcesFileName(request);
 
-        request.setAttribute("aop", "AOP에서 시작되었다 (AopAdvice - beforeMethodCall)");
+        // day코인 1~5위 상승률 랭크 ( 헤더에서 어느 Controller나 접근했을시 데이터를 표출하기위해 AOP에 설정 )
+        request.setAttribute("dayRankList", quoteService.selectCoinDayRank());
     }
 
     /**

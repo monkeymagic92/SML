@@ -6,63 +6,73 @@
 
     <!-- ****************************** Race 코인 Start ****************************** -->
     <!-- (Race) 코인 list -->
-<!--    <select id="selectCoinRaceList" parameterType="QuoteVO" resultType="LinkedHashMap">-->
-<!--        SELECT-->
-<!--            ROWNUM AS RNUM-->
-<!--            , A.MARKET-->
-<!--            , A.KOR_NM-->
-<!--            , TO_CHAR(B.OPENING_PRICE, '999,999,999,999,9990.00') AS OPENING_PRICE-->
-<!--            , TO_CHAR(B.LOW_PRICE, '999,999,999,999,9990.00') AS LOW_PRICE-->
-<!--            , TO_CHAR(B.HIGH_PRICE, '999,999,999,999,9990.00') AS HIGH_PRICE-->
-<!--            , B.RISE_PRICE-->
-<!--            , B.CHANGE-->
-<!--            , B.TRADE_DATE-->
-<!--        FROM T_COIN_QUOTE_KRW A-->
-<!--            , (-->
-<!--                SELECT-->
-<!--                    MARKET-->
-<!--                    , OPENING_PRICE-->
-<!--                    , LOW_PRICE-->
-<!--                    , HIGH_PRICE-->
-<!--                    , ROUND((((HIGH_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100), 2) AS RISE_PRICE    /* 시가 - 고가 상승률 */-->
-<!--                    , DECODE(CHANGE, 'RISE', '상승', 'FALL', '하락') AS CHANGE-->
-<!--                    , TO_CHAR(TO_DATE(TRADE_DATE, 'YYYY/MM/DD'), 'YYYY/MM/DD') AS TRADE_DATE-->
-<!--                FROM T_COIN_RACE_KRW B-->
-<!--                WHERE 1=1-->
-<!--                <if test="searchTRADE_DATE != null">-->
-<!--                    AND TRADE_DATE = REPLACE(#{searchTRADE_DATE}, '/', '')-->
-<!--                </if>-->
-<!--                <if test="searchTRADE_DATE == null">-->
-<!--                    AND TRADE_DATE = (SELECT MAX(TRADE_DATE) FROM T_COIN_RACE_KRW)-->
-<!--                </if>-->
-<!--                <if test="searchKOR_NM != null">-->
-<!--                    AND MARKET IN (FN_GET_MARKET(#{searchKOR_NM}))    /* 한글명을 MARKET으로 변환하여 대입 */-->
-<!--                </if>-->
-<!--                ORDER BY RISE_PRICE DESC-->
-<!--            ) B-->
-<!--        WHERE A.MARKET = B.MARKET-->
-<!--        ORDER BY RNUM ASC-->
-<!--    </select>-->
+    <!--    <select id="selectCoinRaceList" parameterType="QuoteVO" resultType="LinkedHashMap">-->
+    <!--        SELECT-->
+    <!--            ROWNUM AS RNUM-->
+    <!--            , A.MARKET-->
+    <!--            , A.KOR_NM-->
+    <!--            , TO_CHAR(B.OPENING_PRICE, '999,999,999,999,9990.00') AS OPENING_PRICE-->
+    <!--            , TO_CHAR(B.LOW_PRICE, '999,999,999,999,9990.00') AS LOW_PRICE-->
+    <!--            , TO_CHAR(B.HIGH_PRICE, '999,999,999,999,9990.00') AS HIGH_PRICE-->
+    <!--            , B.RISE_PRICE-->
+    <!--            , B.CHANGE-->
+    <!--            , B.TRADE_DATE-->
+    <!--        FROM T_COIN_QUOTE_KRW A-->
+    <!--            , (-->
+    <!--                SELECT-->
+    <!--                    MARKET-->
+    <!--                    , OPENING_PRICE-->
+    <!--                    , LOW_PRICE-->
+    <!--                    , HIGH_PRICE-->
+    <!--                    , ROUND((((HIGH_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100), 2) AS RISE_PRICE    /* 시가 - 고가 상승률 */-->
+    <!--                    , DECODE(CHANGE, 'RISE', '상승', 'FALL', '하락') AS CHANGE-->
+    <!--                    , TO_CHAR(TO_DATE(TRADE_DATE, 'YYYY/MM/DD'), 'YYYY/MM/DD') AS TRADE_DATE-->
+    <!--                FROM T_COIN_RACE_KRW B-->
+    <!--                WHERE 1=1-->
+    <!--                <if test="searchTRADE_DATE != null">-->
+    <!--                    AND TRADE_DATE = REPLACE(#{searchTRADE_DATE}, '/', '')-->
+    <!--                </if>-->
+    <!--                <if test="searchTRADE_DATE == null">-->
+    <!--                    AND TRADE_DATE = (SELECT MAX(TRADE_DATE) FROM T_COIN_RACE_KRW)-->
+    <!--                </if>-->
+    <!--                <if test="searchKOR_NM != null">-->
+    <!--                    AND MARKET IN (FN_GET_MARKET(#{searchKOR_NM}))    /* 한글명을 MARKET으로 변환하여 대입 */-->
+    <!--                </if>-->
+    <!--                ORDER BY RISE_PRICE DESC-->
+    <!--            ) B-->
+    <!--        WHERE A.MARKET = B.MARKET-->
+    <!--        ORDER BY RNUM ASC-->
+    <!--    </select>-->
 
     <select id="selectCoinRaceList" parameterType="QuoteVO" resultType="LinkedHashMap">
         SELECT
             ROWNUM AS RNUM
-            , T.*
+            , A.*
+            , B.PUMP_MARKET
         FROM (
-                SELECT
-                    MARKET
-                    , FN_GET_KOR_NM(MARKET) AS KOR_NM
-                    , TO_CHAR(OPENING_PRICE, '999,999,999,999,9990.00') AS OPENING_PRICE
-                    , TO_CHAR(LOW_PRICE, '999,999,999,999,9990.00') AS LOW_PRICE
-                    , TO_CHAR(HIGH_PRICE, '999,999,999,999,9990.00') AS HIGH_PRICE
-                    , ROUND((((HIGH_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100), 2) AS RISE_PRICE    /* 시가 - 고가 상승률 */
-                    , DECODE(CHANGE, 'RISE', '상승', 'FALL', '하락') AS CHANGE
-                    , TRADE_DATE
-                FROM T_COIN_RACE_KRW
-                WHERE 1=1
-                ORDER BY RISE_PRICE DESC
-            ) T
+            SELECT
+                MARKET
+                , FN_GET_KOR_NM(MARKET) AS KOR_NM
+                , TO_CHAR(OPENING_PRICE, '999,999,999,999,9990.00') AS OPENING_PRICE
+                , TO_CHAR(LOW_PRICE, '999,999,999,999,9990.00') AS LOW_PRICE
+                , TO_CHAR(HIGH_PRICE, '999,999,999,999,9990.00') AS HIGH_PRICE
+                , ROUND((((HIGH_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100), 2) AS RISE_PRICE    /* 시가 - 고가 상승률 */
+                , ROUND((((LOW_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100), 2) AS RISE_PRICE_LOW
+                , DECODE(CHANGE, 'RISE', '상승', 'FALL', '하락') AS CHANGE
+                , TRADE_DATE
+            FROM T_COIN_RACE_KRW
+            WHERE 1=1
+            ORDER BY RISE_PRICE DESC
+        ) A
+        <!-- 펌핑테이블에 코인존재여부 ( 펌핑버튼 활성화/비활성화 ) -->
+        , (
+            SELECT
+                MARKET AS PUMP_MARKET
+            FROM T_COIN_PUMP_RACE_KRW
+            GROUP BY MARKET
+        ) B
         WHERE 1=1
+        AND A.MARKET = B.PUMP_MARKET(+)
         <if test="searchTRADE_DATE != null and searchTRADE_DATE != ''">
             AND TRADE_DATE = REPLACE(#{searchTRADE_DATE}, '/', '')
         </if>
@@ -151,10 +161,11 @@
 
     <!-- ****************************** Day 코인 Start ****************************** -->
     <!-- (Day) 코인 list -->
-    <select id="selectCoinDayList" resultType="LinkedHashMap">
+    <select id="selectCoinDayList" parameterType="QuoteVO" resultType="LinkedHashMap">
         SELECT
             ROWNUM AS RNUM
-            , T.*
+            , A.*
+            , B.PUMP_MARKET
         FROM (
             SELECT
                 MARKET
@@ -163,13 +174,22 @@
                 , TO_CHAR(LOW_PRICE, '999,999,999,999,9990.00') AS LOW_PRICE
                 , TO_CHAR(HIGH_PRICE, '999,999,999,999,9990.00') AS HIGH_PRICE
                 , ROUND((((HIGH_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100), 2) AS RISE_PRICE    /* 시가 - 고가 상승률 */
+                , ROUND((((LOW_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100), 2) AS RISE_PRICE_LOW
                 , DECODE(CHANGE, 'RISE', '상승', 'FALL', '하락') AS CHANGE
                 , TRADE_DATE
             FROM T_COIN_DAY_KRW
             WHERE 1=1
             ORDER BY RISE_PRICE DESC
-        ) T
+        ) A
+        <!-- 펌핑테이블에 코인존재여부 ( 펌핑버튼 활성화/비활성화 ) -->
+        , (
+            SELECT
+              MARKET AS PUMP_MARKET
+            FROM T_COIN_PUMP_DAY_KRW
+            GROUP BY MARKET
+        ) B
         WHERE 1=1
+        AND A.MARKET = B.PUMP_MARKET(+)
         <if test="searchTRADE_DATE != null and searchTRADE_DATE != ''">
             AND TRADE_DATE = REPLACE(#{searchTRADE_DATE}, '/', '')
         </if>
@@ -252,6 +272,28 @@
             FROM DUAL
         </foreach>
     </insert>
+
+    <!-- 상승률 1~5위 코인 리스트를 Header에 표기 -->
+    <select id="selectCoinDayRank" resultType="LinkedHashMap">
+        SELECT
+            ROWNUM AS RNUM
+            , T.*
+        FROM (
+            SELECT
+                MARKET
+                , FN_GET_KOR_NM(MARKET) AS KOR_NM
+                , ROUND((((HIGH_PRICE - OPENING_PRICE) / OPENING_PRICE) * 100), 2) AS RISE_PRICE    /* 시가 - 고가 상승률 */
+                , TO_CHAR(TO_DATE(TRADE_DATE, 'YYYYMMDD'), 'YYYY/MM/DD') AS TRADE_DATE_CHAR
+                , TRADE_DATE
+            FROM T_COIN_DAY_KRW
+            WHERE 1=1
+            ORDER BY RISE_PRICE DESC
+        )  T
+        WHERE 1=1
+        AND T.TRADE_DATE BETWEEN (SELECT MIN(TRADE_DATE) FROM T_COIN_DAY_KRW) AND (SELECT MAX(TRADE_DATE) FROM T_COIN_DAY_KRW)
+        AND ROWNUM BETWEEN 1 AND 5
+        ORDER BY RNUM ASC
+    </select>
 
     <!-- ****************************** Day 코인 End ****************************** -->
 

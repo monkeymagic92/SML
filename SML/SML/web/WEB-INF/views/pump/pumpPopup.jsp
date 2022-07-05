@@ -63,9 +63,10 @@
 <div class="pumpContainer">
 	<div class="pumpHeader">
 		<span>${title.KOR_NM}(${title.MARKET})</span><br>
-		<span>상승 : ${title.PUMP_CNT}회</span><br>
+		<span>상승 : <span style="color: red;">${title.PUMP_CNT}회</span></span><br>
 		<span>마지막 상승시간 : ${title.TRADE_DATE}</span>
 	</div>
+	<br>
 
 	<table class="pumpIndexContainer">
 		<colgroup>
@@ -93,7 +94,14 @@
 				<td id="market">${list.MARKET}</td>
 				<td id="kor_nm">${list.KOR_NM}</td>
 				<td id="pump_set_rise_price">${list.PUMP_SET_RISE_PRICE}</td>
-				<td id="rise_price">${list.RISE_PRICE}</td>
+				<c:choose>
+					<c:when test="${list.RISE_PRICE >= 10}">
+						<td id="rise_price" style="color: red;">${list.RISE_PRICE}%</td>
+					</c:when>
+					<c:otherwise>
+						<td id="rise_price">${list.RISE_PRICE}%</td>
+					</c:otherwise>
+				</c:choose>
 				<td id="upd_dt">${list.TRADE_DATE}</td>
 			</tr>
 		</c:forEach>
