@@ -121,8 +121,8 @@
 					<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 						<nav class="sb-sidenav-menu-nested nav">
 							<a class="nav-link" href="/quote/quote_race">Race (10:00am)</a>
-							<a class="nav-link" href="/quote/quote_day">Day (08:55am)</a>
 							<a class="nav-link" href="/pump/pumpRaceIndex">Pump (Race)</a>
+							<a class="nav-link" href="/quote/quote_day">Day (08:55am)</a>
 							<a class="nav-link" href="/pump/pumpDayIndex">Pump (Day)</a>
 						</nav>
 					</div>
