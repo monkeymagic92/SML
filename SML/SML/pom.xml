@@ -328,6 +328,13 @@
             <version>1.7.0</version>
         </dependency>
 
+        <!-- API HttpClientBuilder ( HttpUrlConnection 에서 좀더 간단하게 만든 버전 ) -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+        </dependency>
+
         <!-- Jsoup -->
         <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
         <dependency>

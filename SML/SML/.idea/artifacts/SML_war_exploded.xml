@@ -78,6 +78,10 @@
           <element id="library" level="project" name="oraclepki" />
           <element id="library" level="project" name="osdt_cert" />
           <element id="library" level="project" name="osdt_core" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.13" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.13" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.11" />
+          <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.14.3" />
         </element>
       </element>
     </root>

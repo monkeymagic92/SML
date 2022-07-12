@@ -17,6 +17,10 @@ import java.util.Map;
 @Repository
 public interface PumpMapper {
 
+
+	// (RACE) Pump 페이지 리스트
+	public List<?> selectCoinPumpRaceList(PumpVO vo);
+
 	// (RACE) Pump 헤더
 	public Map<String, Object> selectPumpRaceHeader(Map<String, Object> map) throws Exception;
 
@@ -26,6 +30,12 @@ public interface PumpMapper {
 	// (RACE) Pump 저장
 	public void insertPumpRace(List<Map<String, Object>> map) throws Exception;
 
+
+
+
+
+	// (DAY) Pump 페이지 리스트
+	public List<?> selectCoinPumpDayList(PumpVO vo);
 
 	// (DAY) Pump 헤더
 	public Map<String, Object> selectPumpDayHeader(Map<String, Object> map) throws Exception;

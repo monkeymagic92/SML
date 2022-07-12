@@ -57,8 +57,8 @@ public class QuoteController extends CommonController {
 
 
 	// **************************** (Day) 코인 Start ****************************
-	@RequestMapping(value = "/quote/quote_day", method = RequestMethod.GET)
 	// (Day) 코인 index 페이지
+	@RequestMapping(value = "/quote/quote_day", method = RequestMethod.GET)
 	public String coinDayIndex(Model model, HttpServletRequest request, HttpServletResponse response, QuoteVO vo) throws Exception {
 
 		// indexTemp.jsp에 들어갈 model

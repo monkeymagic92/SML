@@ -10,6 +10,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -33,6 +34,20 @@ import java.util.Map;
 
 @Service
 public class UpbitAPIService extends CommonService {
+
+	@Value("#{systemProp['upbit.ackey']}")
+	private String ackey;
+
+	@Value("#{systemProp['upbit.sekey']}")
+	private String sekey;
+
+	public String getAckey() {
+		return this.ackey;
+	}
+
+	public String getSeKey() {
+		return this.sekey;
+	}
 
 	@Autowired
 	private UpbitAPIMapper mapper;
@@ -259,6 +274,12 @@ public class UpbitAPIService extends CommonService {
 
 		return response;
 	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+	/*
+				 		SecreetTest.java 에서 테스트후 여기에 함수 붙여넣기
+	*/
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 	/**

@@ -30,7 +30,8 @@ public class AopAdvice extends CommonController {
         setResourcesFileName(request);
 
         // day코인 1~5위 상승률 랭크 ( 헤더에서 어느 Controller나 접근했을시 데이터를 표출하기위해 AOP에 설정 )
-        request.setAttribute("dayRankList", quoteService.selectCoinDayRank());
+        // PUMP 페이지를 만듬으로 인해 주석처리
+        // request.setAttribute("dayRankList", quoteService.selectCoinDayRank());
     }
 
     /**

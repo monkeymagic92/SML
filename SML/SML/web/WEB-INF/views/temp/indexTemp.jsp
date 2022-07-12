@@ -73,14 +73,14 @@
 	<div style="display: inline-block;">
 		<a href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AAAPL" target="_blank">TradingView</a>
 		<a href="https://upbit.com/exchange?code=CRIX.UPBIT.KRW-BTC" target="_blank" style="margin-left: 5%;">Upbit</a>
-		<!-- 문제점 현재 TempIndex 페이지에서만 이게나옴 전체 header에서 데이터 나오게 만들기 (Controller 만들어야됨)-->
-		<div style="color: red;">
-			<c:forEach var="list" items="${dayRankList}">
-				<div>${list.KOR_NM}</div>
-				<div>${list.RISE_PRICE}</div>
-				<div>${list.TRADE_DATE_CHAR}</div>
-			</c:forEach>
-		</div>
+		<%-- PUMP페이지를 만듬으로 인해 주석처리 --%>
+<%--		<div style="color: red;">--%>
+<%--			<c:forEach var="list" items="${dayRankList}">--%>
+<%--				<div>${list.KOR_NM}</div>--%>
+<%--				<div>${list.RISE_PRICE}</div>--%>
+<%--				<div>${list.TRADE_DATE_CHAR}</div>--%>
+<%--			</c:forEach>--%>
+<%--		</div>--%>
 	</div>
 	<!-- Navbar Search-->
 	<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
@@ -122,6 +122,8 @@
 						<nav class="sb-sidenav-menu-nested nav">
 							<a class="nav-link" href="/quote/quote_race">Race (10:00am)</a>
 							<a class="nav-link" href="/quote/quote_day">Day (08:55am)</a>
+							<a class="nav-link" href="/pump/pumpRaceIndex">Pump (Race)</a>
+							<a class="nav-link" href="/pump/pumpDayIndex">Pump (Day)</a>
 						</nav>
 					</div>
 					<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">

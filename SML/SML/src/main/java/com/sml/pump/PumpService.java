@@ -9,6 +9,7 @@ import com.sml.utils.util.StringUtil;
 import com.sml.utils.util.TimeMaximum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,12 @@ public class PumpService extends CommonController {
 	private PumpMapper mapper;
 
 	// -------------------------------- PUMP (RACE) START ------------------------------------
+	// Pump (Race) 페이지 리스트
+	public void selectCoinPumpRaceList(Model model, HttpServletRequest request, HttpServletResponse response, PumpVO vo) throws Exception {
+		List<?> list = mapper.selectCoinPumpRaceList(vo);
+		CommonUtil.jsonResponse(response, list);
+	}
+
 	// PUMP (Race) 헤더
 	public Map<String, Object> selectPumpRaceHeader(Map<String, Object> map) throws Exception {
 		return mapper.selectPumpRaceHeader(map);
@@ -42,7 +49,13 @@ public class PumpService extends CommonController {
 
 
 	// -------------------------------- PUMP (DAY) START ------------------------------------
-	// PUMP (Race) 헤더
+	// Pump (DAY) 페이지 리스트
+	public void selectCoinPumpDayList(Model model, HttpServletRequest request, HttpServletResponse response, PumpVO vo) throws Exception {
+		List<?> list = mapper.selectCoinPumpDayList(vo);
+		CommonUtil.jsonResponse(response, list);
+	}
+
+	// PUMP (Day) 헤더
 	public Map<String, Object> selectPumpDayHeader(Map<String, Object> map) throws Exception {
 		return mapper.selectPumpDayHeader(map);
 	}

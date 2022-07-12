@@ -27,6 +27,47 @@ public class PumpController extends CommonController {
 	@Autowired
 	private PumpService service;
 
+	// **************************** (Race) 코인 Start ****************************
+	// Pump Race 페이지
+	@RequestMapping(value = "/pump/pumpRaceIndex", method = RequestMethod.GET)
+	public String pumpRaceIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		model.addAttribute("title", "PumpRace");
+		model.addAttribute("view", "/pump/pumpRaceIndex");
+
+		return ViewRef.LAYOUT_TEMP;
+	}
+
+	// Pump Day 페이지 리스트
+	@RequestMapping(value = "/quote/selectPumpRace", method = RequestMethod.GET)
+	public void selectCoinRaceList(Model model, HttpServletRequest request, HttpServletResponse response, PumpVO vo) throws Exception {
+		service.selectCoinPumpRaceList(model, request, response, vo);
+	}
+	// **************************** (Race) 코인 End ****************************
+
+
+
+	// **************************** (Day) 코인 Start ****************************
+	// Pump Day 페이지
+	@RequestMapping(value = "/pump/pumpDayIndex", method = RequestMethod.GET)
+	public String pumpDayIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		model.addAttribute("title", "PumpDay");
+		model.addAttribute("view", "/pump/pumpDayIndex");
+
+		return ViewRef.LAYOUT_TEMP;
+	}
+
+	// Pump Day 페이지 리스트
+	@RequestMapping(value = "/quote/selectPumpDay", method = RequestMethod.GET)
+	public void selectCoinDayList(Model model, HttpServletRequest request, HttpServletResponse response, PumpVO vo) throws Exception {
+		service.selectCoinPumpDayList(model, request, response, vo);
+	}
+	// **************************** (Day) 코인 End ****************************
+
+
+
+	// Pump 상세 팝업창
 	@RequestMapping(value = "/pump/pumpPopup", method = RequestMethod.GET)
 	public String pumpModalIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
