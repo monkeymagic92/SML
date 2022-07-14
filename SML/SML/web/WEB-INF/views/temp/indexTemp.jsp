@@ -18,52 +18,7 @@
 
 </head>
 <body style="background-color: #212529;">
-<script type="text/javascript">
 
-	/**			Top 버튼 Start 		**/
-	let Top = document.querySelector('#TopBtn');
-
-	window.addEventListener('scroll', function(){
-		if(this.scrollY > 100){
-			Top.classList.add('on')
-		}else{
-			Top.classList.remove('on')
-		}
-	});
-	Top.addEventListener('click', function(el){
-		el.preventDefault()
-		window.scrollTo({
-			top: 0
-		})
-	});
-	/**			Top 버튼 End 		**/
-
-
-	/**         모달띄우기 Start      **/
-	const body = document.querySelector('body');
-	const modal = document.querySelector('.modal');
-	const btnOpenPopup = document.querySelector('#btn-open-popup');
-
-	btnOpenPopup.addEventListener('click', () => {
-		modal.classList.toggle('show');
-
-		if (modal.classList.contains('show')) {
-			body.style.overflow = 'hidden';
-		}
-	});
-
-	modal.addEventListener('click', (event) => {
-		if (event.target === modal) {
-			modal.classList.toggle('show');
-
-			if (!modal.classList.contains('show')) {
-				body.style.overflow = 'auto';
-			}
-		}
-	});
-	/**         모달띄우기 End      **/
-
-</script>
 
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="height: 80px;">
 	<!-- Navbar Brand-->
@@ -94,7 +49,8 @@
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 			<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-				<li><a id="btn-open-popup" class="dropdown-item" href="#!">AVG Carculater</a></li>
+				<li><a id="moveToMyPage" class="dropdown-item" href="#!">My Page</a></li>
+				<li><a id="btn-open-popup" class="dropdown-item">AVG Carculater</a></li>
 				<li><a class="dropdown-item" href="#!">Activity Log</a></li>
 				<li><hr class="dropdown-divider" /></li>
 				<li><a class="dropdown-item" href="/user/logout">Logout</a></li>
@@ -227,5 +183,52 @@
 		</footer>
 	</div>
 </div>
+
+<script type="text/javascript">
+
+	/**			Top 버튼 Start 		**/
+	let Top = document.querySelector('#TopBtn');
+
+	window.addEventListener('scroll', function(){
+		if(this.scrollY > 100){
+			Top.classList.add('on')
+		}else{
+			Top.classList.remove('on')
+		}
+	});
+	Top.addEventListener('click', function(el){
+		el.preventDefault()
+		window.scrollTo({
+			top: 0
+		})
+	});
+	/**			Top 버튼 End 		**/
+
+
+	/**         모달띄우기 Start      **/
+	const body = document.querySelector('body');
+	const modal = document.querySelector('.modal');
+	const btnOpenPopup = document.querySelector('#btn-open-popup');
+
+	btnOpenPopup.addEventListener('click', () => {
+		modal.classList.toggle('show');
+
+		if (modal.classList.contains('show')) {
+			body.style.overflow = 'hidden';
+		}
+	});
+
+	modal.addEventListener('click', (event) => {
+		if (event.target === modal) {
+			modal.classList.toggle('show');
+
+			if (!modal.classList.contains('show')) {
+				body.style.overflow = 'auto';
+			}
+		}
+	});
+	/**         모달띄우기 End      **/
+
+</script>
 </body>
 </html>
