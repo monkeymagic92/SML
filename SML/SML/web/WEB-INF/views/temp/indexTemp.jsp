@@ -80,6 +80,7 @@
 							<a class="nav-link" href="/pump/pumpRaceIndex">Pump (Race)</a>
 							<a class="nav-link" href="/quote/quote_day">Day (08:55am)</a>
 							<a class="nav-link" href="/pump/pumpDayIndex">Pump (Day)</a>
+							<a class="nav-link" href="/api/upbitMyListTest">CoinMyListTest---*</a>
 						</nav>
 					</div>
 					<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">

@@ -1,4 +1,4 @@
-package com.sml.api;
+package com.sml.test;
 
 import javax.lang.model.util.Elements;
 import javax.swing.text.Document;
@@ -8,7 +8,7 @@ import javax.swing.text.Document;
  * 날짜       : 2022-05-24 / 화요일 / 오후 11:36
  * 설명       :
  */
-public class Test {
+public class CrollingTest {
 
 	public static void main(String args[]) {
 		String url = "https://sigbtc.pro/derivatives";
