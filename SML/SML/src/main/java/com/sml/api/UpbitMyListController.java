@@ -46,7 +46,7 @@ public class UpbitMyListController extends CommonController {
 
 	@RequestMapping(value = "/api/insertCoinMyList")
 	public void insertCoinMyList(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		service.insertCoinMyList(model, request, response);
+		service.updateCoinMyList(model, request, response);
 
 	}
 

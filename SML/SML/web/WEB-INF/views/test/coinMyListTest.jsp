@@ -10,7 +10,6 @@
 <html>
 <head>
 	<title>Title</title>
-	<%@ include file="../../common/commonUtils.jsp" %>
 </head>
 <body>
 <!-- html 영역 -->

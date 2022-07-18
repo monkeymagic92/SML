@@ -16,6 +16,9 @@ public interface UpbitAPIMapper {
 	// KRW 코인 가격 update
 	public void updateCoinQuoteKRW(List<Map<String, Object>> map);
 
+	// 총 매수한 전체 코인 리스트
+	public void updateCoinMyList(List<Map<String, Object>> list) throws Exception;
+
 
 
 
