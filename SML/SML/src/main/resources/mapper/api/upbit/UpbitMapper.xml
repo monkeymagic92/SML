@@ -58,8 +58,8 @@
         </foreach>
     </update>
 
-    <!-- 매수한 코인 전체 리스트 -->
-    <update id="updateCoinMyList" parameterType="LinkedHashMap">
+    <!-- 매수한 코인 전체 리스트 업데이트 -->
+    <update id="updateDBCoinMyList" parameterType="LinkedHashMap">
         <foreach collection="list" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
         MERGE
             INTO T_COIN_MY_LIST A
@@ -71,13 +71,20 @@
                     , BALANCE_PRICE = #{item.BALANCE_PRICE}
                     , LOCKED = #{item.LOCKED}
                     , AVG_BUY_PRICE = #{item.AVG_BUY_PRICE}
-                    <!-- UPD_DT 값 추가하기 (UPDATE 문에만) -->
 
         WHEN NOT MATCHED THEN
             INSERT (MARKET, BALANCE, BALANCE_PRICE, LOCKED, AVG_BUY_PRICE, FR_TRADE_DATE)
             VALUES (#{item.MARKET}, #{item.BALANCE}, #{item.BALANCE_PRICE}, #{item.LOCKED}, #{item.AVG_BUY_PRICE}, #{item.FR_TRADE_DATE})
         </foreach>
     </update>
+
+<!--    <select id="selectDBCoinMyList" parameterType="LinkedHashMap" resultType="LinkedHashMap">-->
+<!--        SELECT-->
+<!--            *   &lt;!&ndash; 여기 관련된 쿼리 넣기 ( 서브쿼리로 rownum값도 뽑아내기  &ndash;&gt;-->
+<!--        FROM T_COIN_MY_LIST-->
+<!--        WHERE TRADE_USE_YN = 'Y'-->
+
+<!--    </select>-->
     <!-- ***************** KRW 관련 End ***************** -->
 
 

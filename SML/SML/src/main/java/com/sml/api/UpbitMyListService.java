@@ -9,6 +9,7 @@ import com.google.gson.JsonParser;
 import com.sml.quote.QuoteVO;
 import com.sml.utils.common.CommonController;
 import com.sml.utils.common.CommonService;
+import com.sml.utils.util.TimeMaximum;
 import com.sml.utils.util.ViewRef;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -20,6 +21,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -55,18 +57,68 @@ public class UpbitMyListService extends CommonService {
 		return sekey;
 	}
 
+
+
+	@Autowired
+	private UpbitAPIService upbitApiService;
+
 	@Autowired
 	private UpbitAPIMapper mapper;
 
+	// -n% 하락에 대응하는 물타기 매수  (스케줄러로 작업하기) 30 / 1시간 기준으로 스케줄링돌리기
+	public void insertBuyDownCoin(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-	public void updateCoinMyList(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		List<Map<String, Object>> list = selectCoinMyList();
-		mapper.updateCoinMyList(list);
+		// 여기에 -4% 이상 떨어지는 코인 매수 리스트 짜고 따로 스케줄러 함수 하나 더만들기 ( 파라미터 넘겨야됨 )
+		// 현재 해당함수 파라미터도 수정하기  ( 그냥 단순 KRW-MARKET, 하락률(%) 파라미터 이런것만 받기)
+
+
+		// 현재 업비트 코인시세 리스트
+		List<Map<String, Object>> quoteList = upbitApiService.selectQuoteCoinList();
+
+		// 내가 구매한 코인 리스트
+		List<Map<String, Object>> myList = selectUpbitCoinMyList();	// ★★ DB에서 값 뽑아오기 (WHERE TRADE_USE_YN = 'Y'
+		//List<Map<String, Object>> myList = mapper.selectDBCoinMyList();	// 위에 주석 지우고 해당 주석 해제후 DB에서 값 가져오기
+
+		System.out.println("--=jytest--");
+
+		// 코인전체시세 리스트
+		for(int i=0; i<quoteList.size(); i++) {
+
+			// 나의 매수한 전체코인 리스트
+			for(int k=0; k<myList.size(); k++) {
+
+			}
+			if(quoteList.get(i).get("MARKET").equals("KRW-BTC")) {
+				System.out.println(quoteList.get(i));
+			}
+		}
+		System.out.println("--=jytest--");
+
 	}
 
-	/* 매수한 코인 전체 리스트 */
-	public List<Map<String, Object>> selectCoinMyList() throws Exception {
+	/**
+	 * 업비트에서 매수한 코인 전체 리스트를 DB 저장  (7분마다 스케줄러 실행)
+	 * @throws Exception
+	 */
+	@Scheduled(cron = "0 7 0 * * *")
+	public void updateDBCoinMyList() throws Exception {
+
+		// 업비트에서 내가 매수한 코인 전체 리스트를 가져온다
+		List<Map<String, Object>> myList = selectUpbitCoinMyList();
+
+		// 매수한 전체 리스트를 DB에 MERGE INTO
+		mapper.updateDBCoinMyList(myList);
+	}
+
+
+	/* ****************************** 업비트 API에서 가져오는 함수 Start ****************************** */
+	/**
+	 * 업비트에서 매수한 코인 전체 리스트 가져오기
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Map<String, Object>> selectUpbitCoinMyList() throws Exception {
 		List<Map<String, Object>> listMap = new ArrayList<>();
 
 		String accessKey = getAckey();
@@ -91,6 +143,8 @@ public class UpbitMyListService extends CommonService {
 			HttpResponse response = client.execute(request);
 			HttpEntity entity = response.getEntity();
 			String result = EntityUtils.toString(entity, "UTF-8");	// HttpEntity (response값을 String으로 형변환)
+
+
 
 			// 현재 날짜 구하기
 			LocalDate now = LocalDate.now();
@@ -193,6 +247,6 @@ public class UpbitMyListService extends CommonService {
 			e.printStackTrace();
 		}
 	}
-
+	/* ****************************** 업비트 API에서 가져오는 함수 End ****************************** */
 
 }

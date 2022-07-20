@@ -53,6 +53,74 @@ public class UpbitAPIService extends CommonService {
 	private UpbitAPIMapper mapper;
 
 	/**
+	 * 현재 전체 코인 가격 리스트를 가져온다
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Map<String, Object>> selectQuoteCoinList() throws Exception {
+
+		// 현재시간 날짜 가져오기 ( YYYY-MM-DD HH24:MI:SS ) ( 오라클 클라우드 SYSDATE를 대신할 변수 (SYSDATE는 현재 내 시스템시간이랑 안맞기때문에 자바로 대체)
+		String upd_dt = TimeMaximum.nowDate();
+
+		// 1. coin리스트를 List<Map>에 담는다
+		List<Map<String, Object>> coinList = getUpbitCoinList("KRW");
+
+		// 리스트맵에서 market키값을 가져온다
+		String str = parsingJsonToString(coinList, "MARKET");
+
+		// 마지막 쉼표제거를 위해 replace
+		String strReplace = StringUtil.lastStringDelete(str);
+
+		// 코인가격이 배열로 JSON형태의 값을 가지고 온다  (strReplace = KRW-BTC 형태)
+		String coinQuoteList = getCoinQuoteList(strReplace);
+
+		// 코인시세(quote) 파싱작업
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(coinQuoteList);
+		JSONArray jsonArr = (JSONArray)obj;
+
+		List<Map<String, Object>> listMap = new ArrayList<>();
+
+		for(int i=0; i<jsonArr.size(); i++) {
+			JSONObject jsonObj = (JSONObject)jsonArr.get(i);
+
+			Map<String, Object> map = new HashMap<>();
+
+			map.put("MARKET", jsonObj.get("market"));
+			map.put("TRADE_DATE", jsonObj.get("trade_date"));
+			map.put("TRADE_TIME", jsonObj.get("trade_time"));
+			map.put("TRADE_DATE_KST", jsonObj.get("trade_date_kst"));
+			map.put("TRADE_TIME_KST", jsonObj.get("trade_time_kst"));
+			map.put("TRADE_TIMESTAMP", jsonObj.get("trade_timestamp"));
+			map.put("OPENING_PRICE", jsonObj.get("opening_price"));
+			map.put("HIGH_PRICE", jsonObj.get("high_price"));
+			map.put("LOW_PRICE", jsonObj.get("low_price"));
+			map.put("TRADE_PRICE", jsonObj.get("trade_price"));
+			map.put("PREV_CLOSING_PRICE", jsonObj.get("prev_closing_price"));
+			map.put("CHANGE", jsonObj.get("change"));
+			map.put("CHANGE_PRICE", jsonObj.get("change_price"));
+			map.put("CHANGE_RATE", jsonObj.get("change_rate"));
+			map.put("SIGNED_CHANGE_PRICE", jsonObj.get("signed_change_price"));
+			map.put("SIGNED_CHANGE_RATE", jsonObj.get("signed_change_rate"));
+			map.put("TRADE_VOLUME", jsonObj.get("trade_volume"));
+			map.put("ACC_TRADE_PRICE", jsonObj.get("acc_trade_price"));
+			map.put("ACC_TRADE_PRICE_24H", jsonObj.get("acc_trade_price_24h"));
+			map.put("ACC_TRADE_VOLUME", jsonObj.get("acc_trade_volume"));
+			map.put("ACC_TRADE_VOLUME_24H", jsonObj.get("acc_trade_volume_24h"));
+			map.put("HIGHEST_52_WEEK_PRICE", jsonObj.get("highest_52_week_price"));
+			map.put("HIGHEST_52_WEEK_DATE", jsonObj.get("highest_52_week_date"));
+			map.put("LOWEST_52_WEEK_PRICE", jsonObj.get("lowest_52_week_price"));
+			map.put("LOWEST_52_WEEK_DATE", jsonObj.get("lowest_52_week_date"));
+			map.put("TIMESTAMP", jsonObj.get("timestamp"));
+			map.put("UPD_DT", upd_dt);
+
+			listMap.add(map);
+		}
+
+		return listMap;
+	}
+
+	/**
 	 * 코인 전체리스트와 코인 시세정보를 가져온다
 	 * @throws Exception
 	 */

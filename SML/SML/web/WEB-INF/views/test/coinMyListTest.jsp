@@ -26,7 +26,7 @@
 	$(document).ready(function () {
 
 		$("#testBtn").click(function() {
-			fnAjaxSubmit('<c:url value="/api/insertCoinMyList" />', '#frm', null, null);
+			fnAjaxSubmit('<c:url value="/api/updateCoinMyList" />', '#frm', null, null);
 		})
 	});
 

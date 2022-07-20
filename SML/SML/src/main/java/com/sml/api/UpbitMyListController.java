@@ -44,9 +44,10 @@ public class UpbitMyListController extends CommonController {
 		return ViewRef.LAYOUT_TEMP;
 	}
 
-	@RequestMapping(value = "/api/insertCoinMyList")
-	public void insertCoinMyList(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		service.updateCoinMyList(model, request, response);
+	@RequestMapping(value = "/api/updateCoinMyList")
+	public void updateCoinMyList(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		service.updateDBCoinMyList();
+		service.insertBuyDownCoin(model, request, response);
 
 	}
 
