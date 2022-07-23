@@ -66,7 +66,7 @@ public class UpbitMyListService extends CommonService {
 	private UpbitAPIMapper mapper;
 
 	// -n% 하락에 대응하는 물타기 매수  (스케줄러로 작업하기) 30 / 1시간 기준으로 스케줄링돌리기
-	public void insertBuyDownCoin(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void insertCoinAutoBuySell(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 
 		// 여기에 -4% 이상 떨어지는 코인 매수 리스트 짜고 따로 스케줄러 함수 하나 더만들기 ( 파라미터 넘겨야됨 )
@@ -76,11 +76,8 @@ public class UpbitMyListService extends CommonService {
 		// 현재 업비트 코인시세 리스트
 		List<Map<String, Object>> quoteList = upbitApiService.selectQuoteCoinList();
 
-		// 내가 구매한 코인 리스트
-		List<Map<String, Object>> myList = selectUpbitCoinMyList();	// ★★ DB에서 값 뽑아오기 (WHERE TRADE_USE_YN = 'Y'
-		//List<Map<String, Object>> myList = mapper.selectDBCoinMyList();	// 위에 주석 지우고 해당 주석 해제후 DB에서 값 가져오기
-
-		System.out.println("--=jytest--");
+		// 내가 구매한 코인 리스트 ( 자동매수 = 'Y' 인 코인들만 )
+		List<Map<String, Object>> myList = mapper.selectDBCoinMyList();
 
 		// 코인전체시세 리스트
 		for(int i=0; i<quoteList.size(); i++) {
@@ -88,13 +85,54 @@ public class UpbitMyListService extends CommonService {
 			// 나의 매수한 전체코인 리스트
 			for(int k=0; k<myList.size(); k++) {
 
-			}
-			if(quoteList.get(i).get("MARKET").equals("KRW-BTC")) {
-				System.out.println(quoteList.get(i));
+				// 전체 코인리스트에서 내가 매수한 코인명과 같다면..
+				if(quoteList.get(i).get("MARKET").equals(myList.get(k).get("MARKET"))) {
+
+					Double quoteTRADE_PRICE = Double.parseDouble(quoteList.get(i).get("TRADE_PRICE").toString());	// 현재 코인시세
+					Double myAVG_BUY_PRICE = Double.parseDouble(myList.get(k).get("AVG_BUY_PRICE").toString());		// 내가 매수한 평단
+
+					System.out.println("quote : " + quoteList.get(i).get("MARKET"));
+					System.out.println("quote : " + quoteTRADE_PRICE);
+					System.out.println("My : " + myList.get(k).get("MARKET"));
+					System.out.println("My : " + myAVG_BUY_PRICE);
+
+					Double result = ((quoteTRADE_PRICE - myAVG_BUY_PRICE) / myAVG_BUY_PRICE) * 100;
+					System.out.println("result : " + result + "%");
+
+					Double absResult = Math.abs(result);
+
+					// 상승인 경우 (매도)
+					if(result > 0) {
+
+						System.out.println("--상승--");
+						System.out.println("MARKET : " + myList.get(k).get("MARKET"));
+						System.out.println("BALANCE_PRICE : " + myList.get(k).get("BALANCE_PRICE"));
+
+						System.out.println("상승 절대값 : " + absResult);
+
+						if(absResult >= 10) {
+							// 매도진행
+						}
+
+					// 하락인 경우 (매수)
+					} else {
+
+						System.out.println("--하락--");
+						System.out.println("MARKET : " + myList.get(k).get("MARKET"));
+						System.out.println("BALANCE_PRICE : " + myList.get(k).get("BALANCE_PRICE"));
+
+						System.out.println("하락 절대값 : " + absResult);
+
+						if(absResult >= 5) {
+							// 매수진행
+						}
+					}
+					System.out.println("------------------------------");
+				}
+
 			}
 		}
-		System.out.println("--=jytest--");
-
+		logger.info("T_COIN_MY_LIST.TRADE_USE_YN = 'Y'인 코인 개수 : " + myList.size());
 	}
 
 	/**
@@ -119,7 +157,18 @@ public class UpbitMyListService extends CommonService {
 	 * @throws Exception
 	 */
 	public List<Map<String, Object>> selectUpbitCoinMyList() throws Exception {
+
+		// API를 통해 코인 데이터를 가져올떄마다 API_MY_LIST 테이블을 초기화 한다 (API_MY_LIST 테이블은 TEMP 역활이라 보면됨)
+		mapper.deleteAPICoinMyList();
+
+		// API에서 날라온 값 그대로 저장할 리스트
+		List<Map<String, Object>> apiListMap = new ArrayList<>();
+
+		// 업비트 API에서 실제 내가 매수한 코인을 담기위한 리스트
 		List<Map<String, Object>> listMap = new ArrayList<>();
+
+		// DB에서 코인리스트API 새로 호출하기전까지 저장되어있는 코인 목록
+		List<Map<String, Object>> myList = mapper.selectDBCoinMyList();
 
 		String accessKey = getAckey();
 		String secretKey = getSekey();
@@ -145,7 +194,6 @@ public class UpbitMyListService extends CommonService {
 			String result = EntityUtils.toString(entity, "UTF-8");	// HttpEntity (response값을 String으로 형변환)
 
 
-
 			// 현재 날짜 구하기
 			LocalDate now = LocalDate.now();
 			// 포맷 정의
@@ -167,20 +215,35 @@ public class UpbitMyListService extends CommonService {
 				map.put("MARKET", "KRW-"+allCoin.get("currency").getAsString());
 				map.put("BALANCE", allCoin.get("balance").getAsString());
 				map.put("AVG_BUY_PRICE", allCoin.get("avg_buy_price").getAsString());
-
 				// 수량 * 코인평단가 = 원화(KRW) 매수금액
 				double balance = Double.parseDouble(allCoin.get("balance").getAsString());
 				double avgBuyPrice = Double.parseDouble(allCoin.get("avg_buy_price").getAsString());
 				double balancePrice = Math.round(balance * avgBuyPrice);
-				map.put("BALANCE_PRICE", balancePrice);
+				map.put("BALANCE_PRICE", balancePrice);	// 매수금액 (원화)
 
 				map.put("LOCKED", allCoin.get("locked").getAsString());
 				map.put("AVG_BUY_PRICE_MODIFIED", allCoin.get("avg_buy_price_modified").getAsString());
 				map.put("UNIT_CURRENCY", allCoin.get("unit_currency").getAsString());
 				map.put("FR_TRADE_DATE", formatedNow);
+				//map.put("UPD_DT", upd_dt);	// upd_dt 자바 포맷팅 활용하거나 DB 데이터 타입을 VARCHAR로 변경후 기입하기
 
-				listMap.add(map);
+
+				// 업비트 투자내역에서 쓰래기 데이터의 토큰(코인)들은 제외한다 ( 비토르토큰, 에이피이엔에프터 )
+				if(!map.get("MARKET").equals("KRW-VTHO") && !map.get("MARKET").equals("KRW-APENFT")) {
+					apiListMap.add(map);
+					listMap.add(map);
+				}
+
 			}
+
+			// 업비트 API 매수 리스트와 나의 DB 코인 매수 리스트 동기화 *************************
+			/*
+				API_MY_LIST 테이블에 현재 업비트에 있는 MARKET을 insert하고
+				현재 DB에 있는 MY_LIST 테이블에서 매도한 코인은 API 테이블과 비교하여 API테이블에 맞게 동기화 처리한다
+			*/
+			mapper.insertApiCoinList(apiListMap);
+			updateSyncApiDb();	// 나의 코인리스트 동기화 (Upbit <-> DB)
+			// ******************************************************************************
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -188,6 +251,8 @@ public class UpbitMyListService extends CommonService {
 
 		return listMap;
 	}
+
+
 
 	/* 코인 매수/매도 */
 	public void selectCoinBuySell() throws Exception {
@@ -200,10 +265,10 @@ public class UpbitMyListService extends CommonService {
 		params.put("market", "KRW-MVL");
 
 		// ---------------- 매수 ----------------
-//////		params.put("side", "bid");			// *매수
-//////		params.put("price", "5500");		// *매수시 (KRW)가격
-//////		params.put("ord_type", "price");	// *시장가 매수
-//////		params.put("ord_type", "limit");	// *지정가 매수
+//		params.put("side", "bid");			// *매수
+//		params.put("price", "5500");		// *매수시 (KRW)가격
+//		params.put("ord_type", "price");	// *시장가 매수
+//		params.put("ord_type", "limit");	// *지정가 매수
 
 		// ---------------- 매도 ----------------
 //		params.put("side", "ask");			// 매도
@@ -248,5 +313,20 @@ public class UpbitMyListService extends CommonService {
 		}
 	}
 	/* ****************************** 업비트 API에서 가져오는 함수 End ****************************** */
+
+	// 나의코인리스트 업비트 <-> DB 동기화
+	public void updateSyncApiDb() throws Exception{
+
+		// MY_LIST <-> API_MY_LIST 테이블 서로 동기화 (API 테이블에 없는코인 찾기)
+		List<Map<String, Object>> chkList = mapper.selectChkAPiDbMyList();
+
+		for (int i=0; i<chkList.size(); i++) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("MARKET", chkList.get(i).get("MARKET"));
+
+			// API테이블에 없는 코인이 있다면 MY_LIST테이블에 해당 코인을 삭제한다
+			mapper.deleteReloadMyList(map);
+		}
+	}
 
 }

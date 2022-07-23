@@ -46,8 +46,12 @@ public class UpbitMyListController extends CommonController {
 
 	@RequestMapping(value = "/api/updateCoinMyList")
 	public void updateCoinMyList(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		// 추후 스케줄러로 빼기  ( 총 보유코인 리스트 )
 		service.updateDBCoinMyList();
-		service.insertBuyDownCoin(model, request, response);
+
+		// 자동 매수/메도
+		service.insertCoinAutoBuySell(model, request, response);
 
 	}
 
