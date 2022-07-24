@@ -88,48 +88,37 @@ public class UpbitMyListService extends CommonService {
 				// 전체 코인리스트에서 내가 매수한 코인명과 같다면..
 				if(quoteList.get(i).get("MARKET").equals(myList.get(k).get("MARKET"))) {
 
+					String market = myList.get(k).get("MARKET").toString();
 					Double quoteTRADE_PRICE = Double.parseDouble(quoteList.get(i).get("TRADE_PRICE").toString());	// 현재 코인시세
 					Double myAVG_BUY_PRICE = Double.parseDouble(myList.get(k).get("AVG_BUY_PRICE").toString());		// 내가 매수한 평단
+					String balance = myList.get(k).get("BALANCE").toString();	// 내가 매수한 코인 수량
+					String balance_price = myList.get(k).get("BALANCE_PRICE").toString();			// 내가 매수한 원화금액(KRW)
 
-					System.out.println("quote : " + quoteList.get(i).get("MARKET"));
-					System.out.println("quote : " + quoteTRADE_PRICE);
-					System.out.println("My : " + myList.get(k).get("MARKET"));
-					System.out.println("My : " + myAVG_BUY_PRICE);
-
-					Double result = ((quoteTRADE_PRICE - myAVG_BUY_PRICE) / myAVG_BUY_PRICE) * 100;
-					System.out.println("result : " + result + "%");
-
-					Double absResult = Math.abs(result);
+					Double result = ((quoteTRADE_PRICE - myAVG_BUY_PRICE) / myAVG_BUY_PRICE) * 100;	// (상승/하락) 률(%)
+					Double absResult = Math.abs(result);	// 몇이상에 매수or매도를 진행할것인지
 
 					// 상승인 경우 (매도)
 					if(result > 0) {
 
-						System.out.println("--상승--");
-						System.out.println("MARKET : " + myList.get(k).get("MARKET"));
-						System.out.println("BALANCE_PRICE : " + myList.get(k).get("BALANCE_PRICE"));
-
-						System.out.println("상승 절대값 : " + absResult);
-
+						// 매도진행	( 숫자도 DB에서 가져온 값으로 대체하기 DB타입:FLOAT)
 						if(absResult >= 10) {
-							// 매도진행
+
+							//selectCoinBuySell(market, balance_price, balance, "SELL"); // 매도
+							// 매도를 했을시 MY_LIST 테이블에도 매도를 한다
+							Map<String, Object> delMap = new HashMap<>();
+							delMap.put("MARKET", market);
+							mapper.deleteReloadMyList(delMap);
 						}
 
 					// 하락인 경우 (매수)
 					} else {
 
-						System.out.println("--하락--");
-						System.out.println("MARKET : " + myList.get(k).get("MARKET"));
-						System.out.println("BALANCE_PRICE : " + myList.get(k).get("BALANCE_PRICE"));
-
-						System.out.println("하락 절대값 : " + absResult);
-
-						if(absResult >= 5) {
-							// 매수진행
+						// 매수진행	( 숫자도 DB에서 가져온 값으로 대체하기 DB타입:FLOAT)
+						if(absResult >= 2.5) {
+							// selectCoinBuySell(market, balance_price, "", "BUY"); //매수
 						}
 					}
-					System.out.println("------------------------------");
 				}
-
 			}
 		}
 		logger.info("T_COIN_MY_LIST.TRADE_USE_YN = 'Y'인 코인 개수 : " + myList.size());
@@ -239,7 +228,7 @@ public class UpbitMyListService extends CommonService {
 			// 업비트 API 매수 리스트와 나의 DB 코인 매수 리스트 동기화 *************************
 			/*
 				API_MY_LIST 테이블에 현재 업비트에 있는 MARKET을 insert하고
-				현재 DB에 있는 MY_LIST 테이블에서 매도한 코인은 API 테이블과 비교하여 API테이블에 맞게 동기화 처리한다
+				현재 DB에 있는 MY_LIST 테이블에서 (모바일) 매도한 코인은 API 테이블과 비교하여 API테이블에 맞게 동기화 처리
 			*/
 			mapper.insertApiCoinList(apiListMap);
 			updateSyncApiDb();	// 나의 코인리스트 동기화 (Upbit <-> DB)
@@ -255,25 +244,30 @@ public class UpbitMyListService extends CommonService {
 
 
 	/* 코인 매수/매도 */
-	public void selectCoinBuySell() throws Exception {
+	public void selectCoinBuySell(String market, String balance_price, String balance, String trade) throws Exception {
 		// 두 암호키는 프로퍼티값 가져와서 테스트하기 ( 현재 main에서는 테스트 안됨 )
 		String accessKey = getAckey();
 		String secretKey = getSekey();
 		String serverUrl = "https://api.upbit.com";
 
 		HashMap<String, String> params = new HashMap<>();
-		params.put("market", "KRW-MVL");
+
+		params.put("market", market);
 
 		// ---------------- 매수 ----------------
-//		params.put("side", "bid");			// *매수
-//		params.put("price", "5500");		// *매수시 (KRW)가격
-//		params.put("ord_type", "price");	// *시장가 매수
-//		params.put("ord_type", "limit");	// *지정가 매수
+		if(trade.equals("BUY")) {
+			params.put("side", "bid");			// *매수
+			params.put("price", balance_price);		// *매수시 (KRW)가격
+			params.put("ord_type", "price");	// *시장가 매수
+			//params.put("ord_type", "limit");	// *지정가 매수
 
 		// ---------------- 매도 ----------------
-//		params.put("side", "ask");			// 매도
-//		params.put("volume", "1565");		// 매도시 수량
-//		params.put("ord_type", "market");	// 시장가 매도
+		} else if(trade.equals("SELL")) {
+			params.put("side", "ask");			// 매도
+			params.put("volume", balance);		// 매도시 수량
+			params.put("ord_type", "market");	// 시장가 매도
+		}
+
 
 		ArrayList<String> queryElements = new ArrayList<>();
 		for(Map.Entry<String, String> entity : params.entrySet()) {
