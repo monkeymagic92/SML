@@ -118,7 +118,8 @@ public class UpbitMyListService extends CommonService {
 							mapper.deleteReloadMyList(delMap);
 
 							// T_COIN_TRADE_HIS 테이블에 insert하기
-							// profitMoney 값을 실제 수익금으로 넣기
+							// profitMoney 값을 TRADE_HIS 테이블에 실제 수익금으로 넣은후
+							// 해당수익금이 SUM() 해서 10만원 이상 될경우 출금
 
 
 						}
