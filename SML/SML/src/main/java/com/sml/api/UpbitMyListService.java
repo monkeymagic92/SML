@@ -96,6 +96,14 @@ public class UpbitMyListService extends CommonService {
 
 					Double result = ((quoteTRADE_PRICE - myAVG_BUY_PRICE) / myAVG_BUY_PRICE) * 100;	// (상승/하락) 률(%)
 					Double absResult = Math.abs(result);	// 몇이상에 매수or매도를 진행할것인지
+					long profitMoney = Math.round((Double.parseDouble(balance_price) * result) / 100);	// 실제 수익금액 / 손실금액
+
+					System.out.println("--jytest--");
+					System.out.println("market : " + market);
+					System.out.println("blanace_price : " + balance_price);
+					System.out.println("result : " + result);
+					System.out.println(profitMoney);
+					System.out.println("--jytest--");
 
 					// 상승인 경우 (매도)
 					if(result > 0) {
@@ -108,6 +116,11 @@ public class UpbitMyListService extends CommonService {
 							Map<String, Object> delMap = new HashMap<>();
 							delMap.put("MARKET", market);
 							mapper.deleteReloadMyList(delMap);
+
+							// T_COIN_TRADE_HIS 테이블에 insert하기
+							// profitMoney 값을 실제 수익금으로 넣기
+
+
 						}
 
 					// 하락인 경우 (매수)
@@ -115,7 +128,9 @@ public class UpbitMyListService extends CommonService {
 
 						// 매수진행	( 숫자도 DB에서 가져온 값으로 대체하기 DB타입:FLOAT)
 						if(absResult >= 2.5) {
+
 							// selectCoinBuySell(market, balance_price, "", "BUY"); //매수
+							// T_COIN_TRADE_HIS 테이블에 insert하기 (매수때 꼭 필요한가 한번 생각해보기 매수는 필요없을거 같음)
 						}
 					}
 				}
@@ -243,7 +258,14 @@ public class UpbitMyListService extends CommonService {
 
 
 
-	/* 코인 매수/매도 */
+	/**
+	 * 코인 매수/매도
+	 * @param market		- market명
+	 * @param balance_price - 금액 (원화KRW)
+	 * @param balance		- 물량 ( 매도시 사용하는 파라미터, 매수에는 사용안함)
+	 * @param trade			- BUY = 매수  /  SELL = 매도
+	 * @throws Exception
+	 */
 	public void selectCoinBuySell(String market, String balance_price, String balance, String trade) throws Exception {
 		// 두 암호키는 프로퍼티값 가져와서 테스트하기 ( 현재 main에서는 테스트 안됨 )
 		String accessKey = getAckey();
