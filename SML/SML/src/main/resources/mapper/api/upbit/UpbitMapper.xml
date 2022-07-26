@@ -71,6 +71,7 @@
                     , BALANCE_PRICE = #{item.BALANCE_PRICE}
                     , LOCKED = #{item.LOCKED}
                     , AVG_BUY_PRICE = #{item.AVG_BUY_PRICE}
+                    , UPD_DT = TO_CHAR(TO_DATE(#{item.UPD_DT}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
 
         WHEN NOT MATCHED THEN
             INSERT (MARKET, BALANCE, BALANCE_PRICE, LOCKED, AVG_BUY_PRICE, FR_TRADE_DATE)
@@ -123,6 +124,11 @@
         WHERE MARKET = #{MARKET}
     </delete>
     <!-- *********** 모바일로 매도시 DB 나의 코인 리스트에는 그대로 남아있으니 업비트와 동기화 End *********** -->
+
+
+
+
+
 
 
     <!-- ***************** KRW 관련 End ***************** -->

@@ -98,12 +98,12 @@ public class UpbitMyListService extends CommonService {
 					Double absResult = Math.abs(result);	// 몇이상에 매수or매도를 진행할것인지
 					long profitMoney = Math.round((Double.parseDouble(balance_price) * result) / 100);	// 실제 수익금액 / 손실금액
 
-					System.out.println("--jytest--");
+					System.out.println("-----------------------------------------------------------------");
 					System.out.println("market : " + market);
-					System.out.println("blanace_price : " + balance_price);
-					System.out.println("result : " + result);
-					System.out.println(profitMoney);
-					System.out.println("--jytest--");
+					System.out.println("blanace_price (총 매수금액) : " + balance_price);
+					System.out.println("result (상승/하락률) : " + result);
+					System.out.println("profitMoney (실제 수익/손실금) : " + profitMoney);
+					System.out.println("-----------------------------------------------------------------");
 
 					// 상승인 경우 (매도)
 					if(result > 0) {
@@ -111,7 +111,9 @@ public class UpbitMyListService extends CommonService {
 						// 매도진행	( 숫자도 DB에서 가져온 값으로 대체하기 DB타입:FLOAT)
 						if(absResult >= 10) {
 
-							//selectCoinBuySell(market, balance_price, balance, "SELL"); // 매도
+							// **코인 매도  parameter:(마켓, 원화(KRW), 수량, BUY/SELL)
+							// insertCoinBuySell(market, balance_price, balance, "SELL");
+
 							// 매도를 했을시 MY_LIST 테이블에도 매도를 한다
 							Map<String, Object> delMap = new HashMap<>();
 							delMap.put("MARKET", market);
@@ -119,7 +121,8 @@ public class UpbitMyListService extends CommonService {
 
 							// T_COIN_TRADE_HIS 테이블에 insert하기
 							// profitMoney 값을 TRADE_HIS 테이블에 실제 수익금으로 넣은후
-							// 해당수익금이 SUM() 해서 10만원 이상 될경우 출금
+							// 해당수익금이 SUM(PROFIT_MONEY) 해서 10만원 이상 될경우 출금  (WHERE WID_YN = 'N')  출금 N 인것들중 sum해서 10만원 이상 될경우
+							// 출금하면 다시 모든 wid_yn 값은 'y'로 변경 ( 어차피 매수하면 새로운 행이 insert되면서 그행은 wid_yn = 'n'으로 default값 박힘 )
 
 
 						}
@@ -130,8 +133,9 @@ public class UpbitMyListService extends CommonService {
 						// 매수진행	( 숫자도 DB에서 가져온 값으로 대체하기 DB타입:FLOAT)
 						if(absResult >= 2.5) {
 
-							// selectCoinBuySell(market, balance_price, "", "BUY"); //매수
-							// T_COIN_TRADE_HIS 테이블에 insert하기 (매수때 꼭 필요한가 한번 생각해보기 매수는 필요없을거 같음)
+							// **코인 매수  parameter:(마켓, 원화(KRW), 수량, BUY/SELL)
+							// insertCoinBuySell(market, balance_price, balance, "BUY");
+
 						}
 					}
 				}
@@ -172,9 +176,6 @@ public class UpbitMyListService extends CommonService {
 		// 업비트 API에서 실제 내가 매수한 코인을 담기위한 리스트
 		List<Map<String, Object>> listMap = new ArrayList<>();
 
-		// DB에서 코인리스트API 새로 호출하기전까지 저장되어있는 코인 목록
-		List<Map<String, Object>> myList = mapper.selectDBCoinMyList();
-
 		String accessKey = getAckey();
 		String secretKey = getSekey();
 		String serverUrl = "https://api.upbit.com";
@@ -203,8 +204,10 @@ public class UpbitMyListService extends CommonService {
 			LocalDate now = LocalDate.now();
 			// 포맷 정의
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
 			// 포맷 적용
 			String formatedNow = now.format(formatter);
+			String upd_dt = TimeMaximum.nowDate();
 
 			// ---------------- Json Array 파싱법 (배열key 값이 없는 일반 배열로 감싸져있는 json배열 파싱) ----------------
 			JsonParser parser = new JsonParser();
@@ -230,7 +233,7 @@ public class UpbitMyListService extends CommonService {
 				map.put("AVG_BUY_PRICE_MODIFIED", allCoin.get("avg_buy_price_modified").getAsString());
 				map.put("UNIT_CURRENCY", allCoin.get("unit_currency").getAsString());
 				map.put("FR_TRADE_DATE", formatedNow);
-				//map.put("UPD_DT", upd_dt);	// upd_dt 자바 포맷팅 활용하거나 DB 데이터 타입을 VARCHAR로 변경후 기입하기
+				map.put("UPD_DT", upd_dt);	// upd_dt 자바 포맷팅 활용하거나 DB 데이터 타입을 VARCHAR로 변경후 기입하기
 
 
 				// 업비트 투자내역에서 쓰래기 데이터의 토큰(코인)들은 제외한다 ( 비토르토큰, 에이피이엔에프터 )
@@ -263,11 +266,11 @@ public class UpbitMyListService extends CommonService {
 	 * 코인 매수/매도
 	 * @param market		- market명
 	 * @param balance_price - 금액 (원화KRW)
-	 * @param balance		- 물량 ( 매도시 사용하는 파라미터, 매수에는 사용안함)
+	 * @param balance		- 물량 ( '매도'시 사용하는 파라미터, '매수'에는 사용안함)
 	 * @param trade			- BUY = 매수  /  SELL = 매도
 	 * @throws Exception
 	 */
-	public void selectCoinBuySell(String market, String balance_price, String balance, String trade) throws Exception {
+	public void insertCoinBuySell(String market, String balance_price, String balance, String trade) throws Exception {
 		// 두 암호키는 프로퍼티값 가져와서 테스트하기 ( 현재 main에서는 테스트 안됨 )
 		String accessKey = getAckey();
 		String secretKey = getSekey();
@@ -280,7 +283,7 @@ public class UpbitMyListService extends CommonService {
 		// ---------------- 매수 ----------------
 		if(trade.equals("BUY")) {
 			params.put("side", "bid");			// *매수
-			params.put("price", balance_price);		// *매수시 (KRW)가격
+			params.put("price", balance_price);	// *매수시 (KRW)가격
 			params.put("ord_type", "price");	// *시장가 매수
 			//params.put("ord_type", "limit");	// *지정가 매수
 
