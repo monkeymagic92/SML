@@ -28,6 +28,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -72,6 +73,9 @@ public class UpbitMyListService extends CommonService {
 		// 여기에 -4% 이상 떨어지는 코인 매수 리스트 짜고 따로 스케줄러 함수 하나 더만들기 ( 파라미터 넘겨야됨 )
 		// 현재 해당함수 파라미터도 수정하기  ( 그냥 단순 KRW-MARKET, 하락률(%) 파라미터 이런것만 받기)
 
+		// 현재시간 포맷 ( yyyy/MM/dd HH:mm:ss )
+		String sell_dt = TimeMaximum.nowDate();
+
 
 		// 현재 업비트 코인시세 리스트
 		List<Map<String, Object>> quoteList = upbitApiService.selectQuoteCoinList();
@@ -98,6 +102,13 @@ public class UpbitMyListService extends CommonService {
 					Double absResult = Math.abs(result);	// 몇이상에 매수or매도를 진행할것인지
 					long profitMoney = Math.round((Double.parseDouble(balance_price) * result) / 100);	// 실제 수익금액 / 손실금액
 
+					// T_COIN_TRADE_HIS 테이블에 저장하기위한 map
+					Map<String, Object> tradeHisMap = new HashMap<>();
+					tradeHisMap.put("MARKET", myList.get(k).get("MARKET").toString());
+					tradeHisMap.put("BALANCE_PRICE", myList.get(k).get("BALANCE_PRICE").toString());
+					tradeHisMap.put("PROFIT_MONEY", profitMoney);
+					tradeHisMap.put("SELL_DT", sell_dt);
+
 					System.out.println("-----------------------------------------------------------------");
 					System.out.println("market : " + market);
 					System.out.println("blanace_price (총 매수금액) : " + balance_price);
@@ -105,13 +116,14 @@ public class UpbitMyListService extends CommonService {
 					System.out.println("profitMoney (실제 수익/손실금) : " + profitMoney);
 					System.out.println("-----------------------------------------------------------------");
 
+
 					// 상승인 경우 (매도)
 					if(result > 0) {
 
-						// 매도진행	( 숫자도 DB에서 가져온 값으로 대체하기 DB타입:FLOAT)
+						// 매도진행	( 숫자도 DB에서 가져온 값으로 대체하기 DB타입:FLOAT )
 						if(absResult >= 10) {
 
-							// **코인 매도  parameter:(마켓, 원화(KRW), 수량, BUY/SELL)
+							// **코인 매도  parameter:(마켓, 원화(KRW , 수량, BUY/SELL)
 							// insertCoinBuySell(market, balance_price, balance, "SELL");
 
 							// 매도를 했을시 MY_LIST 테이블에도 매도를 한다
@@ -119,16 +131,21 @@ public class UpbitMyListService extends CommonService {
 							delMap.put("MARKET", market);
 							mapper.deleteReloadMyList(delMap);
 
+							//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 							// T_COIN_TRADE_HIS 테이블에 insert하기
 							// profitMoney 값을 TRADE_HIS 테이블에 실제 수익금으로 넣은후
 							// 해당수익금이 SUM(PROFIT_MONEY) 해서 10만원 이상 될경우 출금  (WHERE WID_YN = 'N')  출금 N 인것들중 sum해서 10만원 이상 될경우
 							// 출금하면 다시 모든 wid_yn 값은 'y'로 변경 ( 어차피 매수하면 새로운 행이 insert되면서 그행은 wid_yn = 'n'으로 default값 박힘 )
 
+							// 매도시 거래기록 테이블에 insert
+							mapper.insertTradeHis(tradeHisMap);
+							//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 						}
 
 					// 하락인 경우 (매수)
 					} else {
+
 
 						// 매수진행	( 숫자도 DB에서 가져온 값으로 대체하기 DB타입:FLOAT)
 						if(absResult >= 2.5) {
@@ -136,6 +153,12 @@ public class UpbitMyListService extends CommonService {
 							// **코인 매수  parameter:(마켓, 원화(KRW), 수량, BUY/SELL)
 							// insertCoinBuySell(market, balance_price, balance, "BUY");
 
+							// == 매수후 다시 MY_LIST를 최신버전으로 업데이트 하는 작업 ==
+							// 업비트에서 내가 매수한 코인 전체 리스트를 가져온다
+							// List<Map<String, Object>> buyUpdateList = selectUpbitCoinMyList();
+
+							// 매수한 전체 리스트를 DB에 MERGE INTO
+							// mapper.updateDBCoinMyList(buyUpdateList);
 						}
 					}
 				}

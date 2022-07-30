@@ -35,6 +35,9 @@ public interface UpbitAPIMapper {
 
 	// 나의 코인 리스트에서 업비트 API 리스트와 동기화
 	public void deleteReloadMyList(Map<String, Object> map) throws Exception;
+
+	// 매도시 거래기록 테이블에 insert
+	public void insertTradeHis(Map<String, Object> map) throws Exception;
 	// *****************************************************************************************
 
 

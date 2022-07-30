@@ -82,7 +82,7 @@ public class QuoteService extends CommonService {
 		List<Map<String, Object>> listMap = new ArrayList<>();
 		listMap = upbitAPI.insertCoinList("KRW");	// 코인 가격 저장하는 QUOTE 테이블
 		insertCoinRace(listMap);					// 당일 오전10시에 코인가격 insert
-		pumpService.insertPump(listMap, 20, "RACE");
+		pumpService.insertPump(listMap, 15, "RACE");
 	}
 	// **************************** (Race) 코인 End ****************************
 
@@ -123,7 +123,7 @@ public class QuoteService extends CommonService {
 		List<Map<String, Object>> listMap = new ArrayList<>();
 		listMap = upbitAPI.insertCoinList("KRW");
 		insertCoinDay(listMap);
-		pumpService.insertPump(listMap, 20, "DAY");
+		pumpService.insertPump(listMap, 15, "DAY");
 	}
 
 	/**

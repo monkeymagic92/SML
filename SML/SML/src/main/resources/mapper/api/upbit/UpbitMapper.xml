@@ -125,7 +125,17 @@
     </delete>
     <!-- *********** 모바일로 매도시 DB 나의 코인 리스트에는 그대로 남아있으니 업비트와 동기화 End *********** -->
 
+    <!-- 매도시 거래기록 테이블에 insert -->
+    <insert id="insertTradeHis" parameterType="LinkedHashMap">
+        <selectKey keyProperty="tradeNo" resultType="String" order="BEFORE">
+            SELECT TRADE_NO.NEXTVAL FROM DUAL
+        </selectKey>
 
+        INSERT INTO T_COIN_TRADE_HIS
+        (TRADE_NO, MARKET, BALANCE_PRICE, PROFIT_MONEY, SELL_DT)
+        VALUES
+        (#{tradeNo}, #{MARKET}, #{BALANCE_PRICE}, #{PROFIT_MONEY}, #{SELL_DT})
+    </insert>
 
 
 
